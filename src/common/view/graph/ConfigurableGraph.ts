@@ -227,12 +227,10 @@ export default class ConfigurableGraph extends Node {
     // Create trail node for showing recent points
     this.trailNode = new Node();
 
-    // Wrap line plot and trail in a clipped container to prevent overflow
-    // Add margin to prevent clipping of line strokes (lineWidth=2) and trail circles (radius up to 5px)
-    const clipMargin = 8;
+    // Wrap line plot and trail in a clipped container to prevent overflow beyond the grid
     this.clippedDataContainer = new Node({
       children: [this.linePlot, this.trailNode],
-      clipArea: Shape.rect(-clipMargin, -clipMargin, width + 2 * clipMargin, height + 2 * clipMargin),
+      clipArea: Shape.rect(0, 0, width, height),
     });
     this.graphContentNode.addChild(this.clippedDataContainer);
 
@@ -493,9 +491,7 @@ export default class ConfigurableGraph extends Node {
     GraphControlsPanel.updateHeaderBarWidth(this.headerBar, newWidth);
 
     // Update clipping area BEFORE updating chart transform to prevent temporary clipping during resize
-    // Add margin to prevent clipping of line strokes (lineWidth=2) and trail circles (radius up to 5px)
-    const clipMargin = 8;
-    this.clippedDataContainer.clipArea = Shape.rect(-clipMargin, -clipMargin, newWidth + 2 * clipMargin, newHeight + 2 * clipMargin);
+    this.clippedDataContainer.clipArea = Shape.rect(0, 0, newWidth, newHeight);
 
     // Update chart transform
     this.chartTransform.setViewWidth(newWidth);
