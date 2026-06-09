@@ -38,6 +38,15 @@ export default class GraphControlsPanel {
   }
 
   /**
+   * Sanitize a name for use as a tandem name (keep only alphanumeric characters)
+   */
+  private sanitizeTandemName(name: string | TReadOnlyProperty<string>): string {
+    const nameValue = this.getNameValue(name);
+    // Keep only alphanumeric characters (remove spaces, punctuation, etc.)
+    return nameValue.replace(/[^a-zA-Z0-9]/g, "");
+  }
+
+  /**
    * Create title panel with "(Y vs X)" format where Y and X are combo boxes
    */
   public createTitlePanel(listParent: Node): Node {
@@ -48,7 +57,7 @@ export default class GraphControlsPanel {
           font: new PhetFont({size: 12}),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
-      tandemName: this.getNameValue(prop.name).replace(/\s/g, "") + "Item",
+      tandemName: this.sanitizeTandemName(prop.name) + "Item",
     }));
 
     const xComboBox = new ComboBox(this.xPropertyProperty, xItems, listParent, {
@@ -69,7 +78,7 @@ export default class GraphControlsPanel {
           font: new PhetFont({size: 12}),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
-      tandemName: this.getNameValue(prop.name).replace(/\s/g, "") + "Item",
+      tandemName: this.sanitizeTandemName(prop.name) + "Item",
     }));
 
     const yComboBox = new ComboBox(this.yPropertyProperty, yItems, listParent, {
