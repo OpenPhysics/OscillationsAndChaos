@@ -1,17 +1,9 @@
 {
-  "name": "classicalMechanicsSimulations",
+  "name": "OscillationAndChaos",
   "private": true,
   "version": "0.0.0",
-  "description": "Interactive classical mechanics simulations using SceneryStack.",
+  "description": "Interactive Classical Mechanics Simulations using SceneryStack.",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/veillette/classicalMechanicsSimulations.git"
-  },
-  "bugs": {
-    "url": "https://github.com/veillette/classicalMechanicsSimulations/issues"
-  },
-  "homepage": "https://github.com/veillette/classicalMechanicsSimulations#readme",
   "type": "module",
   "keywords": [
     "classical mechanics",
