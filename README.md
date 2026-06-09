@@ -1,4 +1,4 @@
-# Classical Mechanics Simulations
+# Oscillations And Chaos Simulations
 
 Interactive simulations of classical mechanics systems, built with [SceneryStack](https://github.com/sceneryStack). This collection allows users to explore fundamental concepts in mechanics through real-time, physics-based simulations.
 
@@ -48,39 +48,6 @@ Experience chaotic dynamics with:
 - Customizable preferences for solver methods and visualization
 - Single HTML file build for easy distribution
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v18 or higher)
-- npm
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/veillette/classicalMechanicsSimulations.git
-cd classicalMechanicsSimulations
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Start the development server:
-
-```bash
-npm start
-```
-
-4. Build for production:
-
-```bash
-npm run build
-```
 
 ### Development Scripts
 
