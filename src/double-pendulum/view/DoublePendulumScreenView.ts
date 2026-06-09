@@ -3,46 +3,34 @@
  * Displays two connected pendulums that exhibit chaotic motion.
  */
 
-import { type ScreenViewOptions } from "scenerystack/sim";
-import { DoublePendulumModel } from "../model/DoublePendulumModel.js";
-import {
-  Circle,
-  Line,
-  VBox,
-  Node,
-  Text,
-  Path,
-  KeyboardListener,
-  RichText,
-} from "scenerystack/scenery";
-import { PhetFont, FormulaNode } from "scenerystack/scenery-phet";
 import { StringUtils } from "scenerystack";
-import { Range, Vector2 } from "scenerystack/dot";
-import { DragListener } from "scenerystack/scenery";
-import { Shape } from "scenerystack/kite";
-import { StringManager } from "../../i18n/StringManager.js";
-import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { BooleanProperty, Property } from "scenerystack/axon";
+import { Range, Vector2 } from "scenerystack/dot";
+import { Shape } from "scenerystack/kite";
+import { ModelViewTransform2 } from "scenerystack/phetcommon";
+import { Circle, DragListener, KeyboardListener, Line, Node, Path, RichText, Text, VBox } from "scenerystack/scenery";
+import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
+import type { ScreenViewOptions } from "scenerystack/sim";
 import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import type { PlottableProperty } from "../../common/view/graph/PlottableProperty.js";
-import { BaseScreenView } from "../../common/view/BaseScreenView.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
-import { DoublePendulumPresets } from "../model/DoublePendulumPresets.js";
-import { Preset } from "../../common/model/Preset.js";
-import { VectorNode } from "../../common/view/VectorNode.js";
-import { PendulumLabProtractorNode } from "../../common/view/PendulumLabProtractorNode.js";
-import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
-import { ParameterControlPanel } from "../../common/view/ParameterControlPanel.js";
-import { type PresetOption } from "../../common/view/PresetSelectorFactory.js";
+import { BaseScreenView } from "../../common/view/BaseScreenView.js";
 import {
   FONT_SIZE_BODY_TEXT,
-  FONT_SIZE_SECONDARY_LABEL,
   FONT_SIZE_SCREEN_TITLE,
+  FONT_SIZE_SECONDARY_LABEL,
 } from "../../common/view/FontSizeConstants.js";
-import {
-  SPACING_LARGE,
-} from "../../common/view/UILayoutConstants.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import type { PlottableProperty } from "../../common/view/graph/PlottableProperty.js";
+import { ParameterControlPanel } from "../../common/view/ParameterControlPanel.js";
+import { PendulumLabProtractorNode } from "../../common/view/PendulumLabProtractorNode.js";
+import type { PresetOption } from "../../common/view/PresetSelectorFactory.js";
+import { SPACING_LARGE } from "../../common/view/UILayoutConstants.js";
+import type { VectorNode } from "../../common/view/VectorNode.js";
+import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
+import { StringManager } from "../../i18n/StringManager.js";
+import type { DoublePendulumModel } from "../model/DoublePendulumModel.js";
+import { DoublePendulumPresets } from "../model/DoublePendulumPresets.js";
 
 export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel> {
   private readonly bob1Node: Circle;
@@ -74,7 +62,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
   private readonly acceleration2VectorNode: VectorNode;
 
   // Accessibility strings
-  private readonly a11yStrings: ReturnType<StringManager['getAccessibilityStrings']>;
+  private readonly a11yStrings: ReturnType<StringManager["getAccessibilityStrings"]>;
   private readonly stringManager: StringManager;
 
   public constructor(model: DoublePendulumModel, options?: ScreenViewOptions) {
@@ -91,10 +79,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     this.presetProperty = new Property<PresetOption>(this.presets[0]);
 
     // Pivot point (top center)
-    this.pivotPoint = new Vector2(
-      this.layoutBounds.centerX,
-      this.layoutBounds.minY + 100,
-    );
+    this.pivotPoint = new Vector2(this.layoutBounds.centerX, this.layoutBounds.minY + 100);
 
     // Create modelViewTransform: maps model coordinates (meters) to view coordinates (pixels)
     // Maps model origin (0, 0) to the pivot point, with 100 pixels per meter
@@ -127,7 +112,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
         color: ClassicalMechanicsColors.mass1FillColorProperty.value.toCSS(),
         lengthProperty: this.model.length1Property,
       },
-      this.modelViewTransform
+      this.modelViewTransform,
     );
     this.protractorNode = pendulumLabProtractor;
     this.addChild(pendulumLabProtractor);
@@ -248,9 +233,9 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
         },
         end: () => {
           this.isDraggingProperty.value = false;
-          const angleDegrees = StringUtils.toFixedNumberLTR(this.model.angle1Property.value * 180 / Math.PI, 1);
+          const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angle1Property.value * 180) / Math.PI, 1);
           const template = this.a11yStrings.upperBobReleasedAtStringProperty.value;
-          const announcement = template.replace('{{angle}}', angleDegrees);
+          const announcement = template.replace("{{angle}}", angleDegrees);
           SimulationAnnouncer.announceDragInteraction(announcement);
         },
       }),
@@ -272,8 +257,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
           const bob1ModelX = length1 * Math.sin(angle1);
           const bob1ModelY = length1 * Math.cos(angle1);
           const bob1ModelPos = new Vector2(bob1ModelX, bob1ModelY);
-          const bob1ViewPos =
-            this.modelViewTransform!.modelToViewPosition(bob1ModelPos);
+          const bob1ViewPos = this.modelViewTransform!.modelToViewPosition(bob1ModelPos);
 
           // Calculate angle for bob 2 relative to bob 1
           const delta = parentPoint.minus(bob1ViewPos);
@@ -284,9 +268,9 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
         },
         end: () => {
           this.isDraggingProperty.value = false;
-          const angleDegrees = StringUtils.toFixedNumberLTR(this.model.angle2Property.value * 180 / Math.PI, 1);
+          const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angle2Property.value * 180) / Math.PI, 1);
           const template = this.a11yStrings.lowerBobReleasedAtStringProperty.value;
-          const announcement = template.replace('{{angle}}', angleDegrees);
+          const announcement = template.replace("{{angle}}", angleDegrees);
           SimulationAnnouncer.announceDragInteraction(announcement);
         },
       }),
@@ -371,32 +355,32 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Add accessibility announcements for parameter changes
     this.model.length1Property.lazyLink((length) => {
       const template = this.a11yStrings.lengthChangedStringProperty.value;
-      const announcement = 'Upper pendulum: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(length, 1));
+      const announcement = "Upper pendulum: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(length, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.length2Property.lazyLink((length) => {
       const template = this.a11yStrings.lengthChangedStringProperty.value;
-      const announcement = 'Lower pendulum: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(length, 1));
+      const announcement = "Lower pendulum: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(length, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.mass1Property.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = 'Upper bob: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = "Upper bob: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.mass2Property.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = 'Lower bob: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = "Lower bob: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.gravityProperty.lazyLink((gravity) => {
       const template = this.a11yStrings.gravityChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(gravity, 1));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(gravity, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.dampingProperty.lazyLink((damping) => {
       const template = this.a11yStrings.dampingChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(damping, 2));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 2));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
 
@@ -628,26 +612,26 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
       {
         maxWidth: 750,
         scale: 1.0,
-      }
+      },
     );
     const equation2 = new FormulaNode(
       "m_2 l_2^2 \\ddot{\\theta}_2 + m_2 l_1 l_2 \\ddot{\\theta}_1 \\cos(\\theta_1-\\theta_2) - m_2 l_1 l_2 \\dot{\\theta}_1^2 \\sin(\\theta_1-\\theta_2) + m_2 g l_2 \\sin(\\theta_2) - b\\dot{\\theta}_2 = 0",
       {
         maxWidth: 750,
         scale: 1.0,
-      }
+      },
     );
     const variablesList = new FormulaNode(
       "\\begin{array}{l}" +
-      "\\bullet\\; m_1, m_2 = \\text{masses (kg)}\\\\" +
-      "\\bullet\\; l_1, l_2 = \\text{lengths (m)}\\\\" +
-      "\\bullet\\; g = \\text{gravitational acceleration (m/s}^2\\text{)}\\\\" +
-      "\\bullet\\; \\theta_1, \\theta_2 = \\text{angles from vertical (rad)}\\\\" +
-      "\\bullet\\; b = \\text{damping coefficient (N}\\cdot\\text{m}\\cdot\\text{s)}" +
-      "\\end{array}",
+        "\\bullet\\; m_1, m_2 = \\text{masses (kg)}\\\\" +
+        "\\bullet\\; l_1, l_2 = \\text{lengths (m)}\\\\" +
+        "\\bullet\\; g = \\text{gravitational acceleration (m/s}^2\\text{)}\\\\" +
+        "\\bullet\\; \\theta_1, \\theta_2 = \\text{angles from vertical (rad)}\\\\" +
+        "\\bullet\\; b = \\text{damping coefficient (N}\\cdot\\text{m}\\cdot\\text{s)}" +
+        "\\end{array}",
       {
         maxWidth: 750,
-      }
+      },
     );
 
     // Link text color property to formula nodes
@@ -663,19 +647,19 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
       align: "left",
       children: [
         new Text("Double Pendulum", {
-          font: new PhetFont({size: FONT_SIZE_SCREEN_TITLE, weight: "bold"}),
+          font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         new RichText(
           "This simulation models a double pendulum system, which exhibits rich dynamics including periodic motion and deterministic chaos depending on initial conditions and energy.",
           {
-            font: new PhetFont({size: FONT_SIZE_SECONDARY_LABEL}),
+            font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
             fill: ClassicalMechanicsColors.textColorProperty,
             maxWidth: 700,
-          }
+          },
         ),
         new Text("Equations of Motion:", {
-          font: new PhetFont({size: FONT_SIZE_SECONDARY_LABEL, weight: "bold"}),
+          font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         new VBox({
@@ -684,7 +668,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
           children: [equation1, equation2],
         }),
         new Text("Where:", {
-          font: new PhetFont({size: FONT_SIZE_BODY_TEXT}),
+          font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         variablesList,
@@ -704,8 +688,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     const bob1ModelPos = new Vector2(bob1ModelX, bob1ModelY);
 
     // Convert bob 1 to view coordinates
-    const bob1ViewPos =
-      this.modelViewTransform!.modelToViewPosition(bob1ModelPos);
+    const bob1ViewPos = this.modelViewTransform!.modelToViewPosition(bob1ModelPos);
 
     // Calculate bob 2 position in model coordinates (relative to bob 1)
     const bob2ModelX = bob1ModelX + length2 * Math.sin(angle2);
@@ -713,8 +696,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     const bob2ModelPos = new Vector2(bob2ModelX, bob2ModelY);
 
     // Convert bob 2 to view coordinates
-    const bob2ViewPos =
-      this.modelViewTransform!.modelToViewPosition(bob2ModelPos);
+    const bob2ViewPos = this.modelViewTransform!.modelToViewPosition(bob2ModelPos);
 
     // Update bob positions
     this.bob1Node.center = bob1ViewPos;
@@ -725,19 +707,9 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     this.bob2ReferenceDot.center = bob2ViewPos;
 
     // Update rods
-    this.rod1Node.setLine(
-      this.pivotPoint.x,
-      this.pivotPoint.y,
-      bob1ViewPos.x,
-      bob1ViewPos.y,
-    );
+    this.rod1Node.setLine(this.pivotPoint.x, this.pivotPoint.y, bob1ViewPos.x, bob1ViewPos.y);
 
-    this.rod2Node.setLine(
-      bob1ViewPos.x,
-      bob1ViewPos.y,
-      bob2ViewPos.x,
-      bob2ViewPos.y,
-    );
+    this.rod2Node.setLine(bob1ViewPos.x, bob1ViewPos.y, bob2ViewPos.x, bob2ViewPos.y);
 
     // Update trail (track second bob for chaotic motion visualization)
     this.addTrailPoint(bob2ViewPos);
@@ -773,9 +745,11 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
    */
   private updateBob1Size(mass: number): void {
     // Map mass [0.1, 5.0] kg to radius [10, 30] pixels
-    const minMass = 0.1, maxMass = 5.0;
-    const minRadius = 10, maxRadius = 30;
-    const radius = minRadius + (mass - minMass) * (maxRadius - minRadius) / (maxMass - minMass);
+    const minMass = 0.1,
+      maxMass = 5.0;
+    const minRadius = 10,
+      maxRadius = 30;
+    const radius = minRadius + ((mass - minMass) * (maxRadius - minRadius)) / (maxMass - minMass);
 
     // Update circle radius
     this.bob1Node.radius = radius;
@@ -790,9 +764,11 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
    */
   private updateBob2Size(mass: number): void {
     // Map mass [0.1, 5.0] kg to radius [10, 30] pixels
-    const minMass = 0.1, maxMass = 5.0;
-    const minRadius = 10, maxRadius = 30;
-    const radius = minRadius + (mass - minMass) * (maxRadius - minRadius) / (maxMass - minMass);
+    const minMass = 0.1,
+      maxMass = 5.0;
+    const minRadius = 10,
+      maxRadius = 30;
+    const radius = minRadius + ((mass - minMass) * (maxRadius - minRadius)) / (maxMass - minMass);
 
     // Update circle radius
     this.bob2Node.radius = radius;
@@ -851,10 +827,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Tangential velocity for bob 1: v1 = L1 * ω1
     const v1Magnitude = L1 * Math.abs(omega1);
     const v1Sign = omega1 >= 0 ? 1 : -1;
-    const velocity1Vector = new Vector2(
-      tangent1X * v1Magnitude * v1Sign,
-      tangent1Y * v1Magnitude * v1Sign
-    );
+    const velocity1Vector = new Vector2(tangent1X * v1Magnitude * v1Sign, tangent1Y * v1Magnitude * v1Sign);
 
     // Calculate tangential direction for bob 2 (perpendicular to rod 2)
     const tangent2X = Math.cos(angle2);
@@ -863,7 +836,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Simplified: use tangential component relative to pivot
     const velocity2Vector = new Vector2(
       tangent1X * L1 * omega1 + tangent2X * L2 * omega2,
-      tangent1Y * L1 * omega1 + tangent2Y * L2 * omega2
+      tangent1Y * L1 * omega1 + tangent2Y * L2 * omega2,
     );
 
     // For simplicity, we'll show approximate forces proportional to accelerations
@@ -878,18 +851,18 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     const accel1Sign = alpha1Approx >= 0 ? 1 : -1;
     const acceleration1Vector = new Vector2(
       tangent1X * accel1Magnitude * accel1Sign,
-      tangent1Y * accel1Magnitude * accel1Sign
+      tangent1Y * accel1Magnitude * accel1Sign,
     );
 
     const accel2Magnitude = L2 * Math.abs(alpha2Approx);
     const accel2Sign = alpha2Approx >= 0 ? 1 : -1;
     const acceleration2Vector = new Vector2(
       tangent2X * accel2Magnitude * accel2Sign,
-      tangent2Y * accel2Magnitude * accel2Sign
+      tangent2Y * accel2Magnitude * accel2Sign,
     );
 
     // Forces: F = m * a
-    const force1Vector = acceleration1Vector.times(m1 + m2);  // Bob 1 carries both masses
+    const force1Vector = acceleration1Vector.times(m1 + m2); // Bob 1 carries both masses
     const force2Vector = acceleration2Vector.times(m2);
 
     // Update vectors for bob 1
@@ -964,7 +937,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Announce preset change
     const template = this.a11yStrings.presetAppliedStringProperty.value;
-    const announcement = template.replace('{{preset}}', preset.nameProperty.value);
+    const announcement = template.replace("{{preset}}", preset.nameProperty.value);
     SimulationAnnouncer.announceDragInteraction(announcement);
 
     this.isApplyingPreset = false;
@@ -972,4 +945,4 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('DoublePendulumScreenView', DoublePendulumScreenView);
+classicalMechanics.register("DoublePendulumScreenView", DoublePendulumScreenView);

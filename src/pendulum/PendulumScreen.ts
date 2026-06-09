@@ -3,9 +3,9 @@
  */
 
 import { Screen, type ScreenOptions } from "scenerystack/sim";
+import classicalMechanics from "../ClassicalMechanicsNamespace.js";
 import { PendulumModel } from "./model/PendulumModel.js";
 import { PendulumScreenView } from "./view/PendulumScreenView.js";
-import classicalMechanics from '../ClassicalMechanicsNamespace.js';
 
 export class PendulumScreen extends Screen<PendulumModel, PendulumScreenView> {
   public constructor(options: ScreenOptions) {
@@ -18,4 +18,4 @@ export class PendulumScreen extends Screen<PendulumModel, PendulumScreenView> {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('PendulumScreen', PendulumScreen);
+classicalMechanics.register("PendulumScreen", PendulumScreen);

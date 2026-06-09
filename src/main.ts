@@ -16,28 +16,28 @@ declare global {
 
 window.katex = katex;
 
-import { onReadyToLaunch, Sim, PreferencesModel } from "scenerystack/sim";
-import { Tandem } from "scenerystack/tandem";
-import { VBox, Text, HStrut, HBox, Node } from "scenerystack/scenery";
-import { Checkbox, VerticalAquaRadioButtonGroup, ComboBox } from "scenerystack/sun";
+import { HBox, HStrut, Node, Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
-import { SingleSpringScreen } from "./single-spring/SingleSpringScreen.js";
-import { DoubleSpringScreen } from "./double-spring/DoubleSpringScreen.js";
-import { PendulumScreen } from "./pendulum/PendulumScreen.js";
-import { DoublePendulumScreen } from "./double-pendulum/DoublePendulumScreen.js";
-import { SingleSpringScreenIcon } from "./single-spring/SingleSpringScreenIcon.js";
-import { DoubleSpringScreenIcon } from "./double-spring/DoubleSpringScreenIcon.js";
-import { PendulumScreenIcon } from "./pendulum/PendulumScreenIcon.js";
-import { DoublePendulumScreenIcon } from "./double-pendulum/DoublePendulumScreenIcon.js";
-import { StringManager } from "./i18n/StringManager.js";
+import { onReadyToLaunch, PreferencesModel, Sim } from "scenerystack/sim";
+import { Checkbox, ComboBox, VerticalAquaRadioButtonGroup } from "scenerystack/sun";
+import { Tandem } from "scenerystack/tandem";
 import ClassicalMechanicsColors from "./ClassicalMechanicsColors.js";
 import ClassicalMechanicsPreferences from "./ClassicalMechanicsPreferences.js";
-import SolverType from "./common/model/SolverType.js";
-import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
 import NominalTimeStep from "./common/model/NominalTimeStep.js";
+import SolverType from "./common/model/SolverType.js";
+import SimulationAnnouncer from "./common/util/SimulationAnnouncer.js";
 import ClassicalMechanicsAudioPreferencesNode from "./common/view/ClassicalMechanicsAudioPreferencesNode.js";
 import { KeyboardShortcutsNode } from "./common/view/KeyboardShortcutsNode.js";
-import SimulationAnnouncer from "./common/util/SimulationAnnouncer.js";
+import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
+import { DoublePendulumScreen } from "./double-pendulum/DoublePendulumScreen.js";
+import { DoublePendulumScreenIcon } from "./double-pendulum/DoublePendulumScreenIcon.js";
+import { DoubleSpringScreen } from "./double-spring/DoubleSpringScreen.js";
+import { DoubleSpringScreenIcon } from "./double-spring/DoubleSpringScreenIcon.js";
+import { StringManager } from "./i18n/StringManager.js";
+import { PendulumScreen } from "./pendulum/PendulumScreen.js";
+import { PendulumScreenIcon } from "./pendulum/PendulumScreenIcon.js";
+import { SingleSpringScreen } from "./single-spring/SingleSpringScreen.js";
+import { SingleSpringScreenIcon } from "./single-spring/SingleSpringScreenIcon.js";
 
 onReadyToLaunch(() => {
   // Get the string manager instance
@@ -103,37 +103,42 @@ onReadyToLaunch(() => {
               const timeStepComboBoxItems = [
                 {
                   value: NominalTimeStep.FINEST,
-                  createNode: () => new Text(timeStepNames.finestStringProperty, {
-                    font: new PhetFont(14),
-                  }),
+                  createNode: () =>
+                    new Text(timeStepNames.finestStringProperty, {
+                      font: new PhetFont(14),
+                    }),
                   tandemName: "finestTimeStepItem",
                 },
                 {
                   value: NominalTimeStep.VERY_SMALL,
-                  createNode: () => new Text(timeStepNames.verySmallStringProperty, {
-                    font: new PhetFont(14),
-                  }),
+                  createNode: () =>
+                    new Text(timeStepNames.verySmallStringProperty, {
+                      font: new PhetFont(14),
+                    }),
                   tandemName: "verySmallTimeStepItem",
                 },
                 {
                   value: NominalTimeStep.SMALL,
-                  createNode: () => new Text(timeStepNames.smallStringProperty, {
-                    font: new PhetFont(14),
-                  }),
+                  createNode: () =>
+                    new Text(timeStepNames.smallStringProperty, {
+                      font: new PhetFont(14),
+                    }),
                   tandemName: "smallTimeStepItem",
                 },
                 {
                   value: NominalTimeStep.DEFAULT,
-                  createNode: () => new Text(timeStepNames.defaultStringProperty, {
-                    font: new PhetFont(14),
-                  }),
+                  createNode: () =>
+                    new Text(timeStepNames.defaultStringProperty, {
+                      font: new PhetFont(14),
+                    }),
                   tandemName: "defaultTimeStepItem",
                 },
                 {
                   value: NominalTimeStep.MEDIUM,
-                  createNode: () => new Text(timeStepNames.mediumStringProperty, {
-                    font: new PhetFont(14),
-                  }),
+                  createNode: () =>
+                    new Text(timeStepNames.mediumStringProperty, {
+                      font: new PhetFont(14),
+                    }),
                   tandemName: "mediumTimeStepItem",
                 },
               ];
@@ -146,7 +151,7 @@ onReadyToLaunch(() => {
                   cornerRadius: 5,
                   xMargin: 8,
                   yMargin: 4,
-                }
+                },
               );
 
               // Time step section (right column)
@@ -179,74 +184,78 @@ onReadyToLaunch(() => {
                     [
                       {
                         value: SolverType.RK4,
-                        createNode: () => new VBox({
-                          align: "left",
-                          spacing: 4,
-                          children: [
-                            new Text(solverNames.rk4StringProperty, {
-                              font: new PhetFont(14),
-                            }),
-                            new Text(solverDescriptions.rk4StringProperty, {
-                              font: new PhetFont(11),
-                              fill: "rgb(80,80,80)",
-                              maxWidth: 280,
-                            }),
-                          ],
-                        }),
+                        createNode: () =>
+                          new VBox({
+                            align: "left",
+                            spacing: 4,
+                            children: [
+                              new Text(solverNames.rk4StringProperty, {
+                                font: new PhetFont(14),
+                              }),
+                              new Text(solverDescriptions.rk4StringProperty, {
+                                font: new PhetFont(11),
+                                fill: "rgb(80,80,80)",
+                                maxWidth: 280,
+                              }),
+                            ],
+                          }),
                         tandemName: "rk4RadioButton",
                       },
                       {
                         value: SolverType.ADAPTIVE_RK45,
-                        createNode: () => new VBox({
-                          align: "left",
-                          spacing: 4,
-                          children: [
-                            new Text(solverNames.adaptiveRK45StringProperty, {
-                              font: new PhetFont(14),
-                            }),
-                            new Text(solverDescriptions.adaptiveRK45StringProperty, {
-                              font: new PhetFont(11),
-                              fill: "rgb(80,80,80)",
-                              maxWidth: 280,
-                            }),
-                          ],
-                        }),
+                        createNode: () =>
+                          new VBox({
+                            align: "left",
+                            spacing: 4,
+                            children: [
+                              new Text(solverNames.adaptiveRK45StringProperty, {
+                                font: new PhetFont(14),
+                              }),
+                              new Text(solverDescriptions.adaptiveRK45StringProperty, {
+                                font: new PhetFont(11),
+                                fill: "rgb(80,80,80)",
+                                maxWidth: 280,
+                              }),
+                            ],
+                          }),
                         tandemName: "adaptiveRK45RadioButton",
                       },
                       {
                         value: SolverType.FOREST_RUTH_PEFRL,
-                        createNode: () => new VBox({
-                          align: "left",
-                          spacing: 4,
-                          children: [
-                            new Text(solverNames.forestRuthPEFRLStringProperty, {
-                              font: new PhetFont(14),
-                            }),
-                            new Text(solverDescriptions.forestRuthPEFRLStringProperty, {
-                              font: new PhetFont(11),
-                              fill: "rgb(80,80,80)",
-                              maxWidth: 280,
-                            }),
-                          ],
-                        }),
+                        createNode: () =>
+                          new VBox({
+                            align: "left",
+                            spacing: 4,
+                            children: [
+                              new Text(solverNames.forestRuthPEFRLStringProperty, {
+                                font: new PhetFont(14),
+                              }),
+                              new Text(solverDescriptions.forestRuthPEFRLStringProperty, {
+                                font: new PhetFont(11),
+                                fill: "rgb(80,80,80)",
+                                maxWidth: 280,
+                              }),
+                            ],
+                          }),
                         tandemName: "forestRuthPEFRLRadioButton",
                       },
                       {
                         value: SolverType.DORMAND_PRINCE_87,
-                        createNode: () => new VBox({
-                          align: "left",
-                          spacing: 4,
-                          children: [
-                            new Text(solverNames.dormandPrince87StringProperty, {
-                              font: new PhetFont(14),
-                            }),
-                            new Text(solverDescriptions.dormandPrince87StringProperty, {
-                              font: new PhetFont(11),
-                              fill: "rgb(80,80,80)",
-                              maxWidth: 280,
-                            }),
-                          ],
-                        }),
+                        createNode: () =>
+                          new VBox({
+                            align: "left",
+                            spacing: 4,
+                            children: [
+                              new Text(solverNames.dormandPrince87StringProperty, {
+                                font: new PhetFont(14),
+                              }),
+                              new Text(solverDescriptions.dormandPrince87StringProperty, {
+                                font: new PhetFont(11),
+                                fill: "rgb(80,80,80)",
+                                maxWidth: 280,
+                              }),
+                            ],
+                          }),
                         tandemName: "dormandPrince87RadioButton",
                       },
                     ],
@@ -272,10 +281,7 @@ onReadyToLaunch(() => {
                   new HBox({
                     align: "top",
                     spacing: 30,
-                    children: [
-                      solverMethodColumn,
-                      timeStepSection,
-                    ],
+                    children: [solverMethodColumn, timeStepSection],
                   }),
                   comboBoxListParent, // Add the combo box list parent to the scene graph
                 ],
@@ -287,38 +293,40 @@ onReadyToLaunch(() => {
                 [
                   {
                     value: SpringVisualizationType.CLASSIC,
-                    createNode: () => new VBox({
-                      align: "left",
-                      spacing: 4,
-                      children: [
-                        new Text(springTypeNames.classicStringProperty, {
-                          font: new PhetFont(14),
-                        }),
-                        new Text(springTypeDescriptions.classicStringProperty, {
-                          font: new PhetFont(11),
-                          fill: "rgb(80,80,80)",
-                          maxWidth: 550,
-                        }),
-                      ],
-                    }),
+                    createNode: () =>
+                      new VBox({
+                        align: "left",
+                        spacing: 4,
+                        children: [
+                          new Text(springTypeNames.classicStringProperty, {
+                            font: new PhetFont(14),
+                          }),
+                          new Text(springTypeDescriptions.classicStringProperty, {
+                            font: new PhetFont(11),
+                            fill: "rgb(80,80,80)",
+                            maxWidth: 550,
+                          }),
+                        ],
+                      }),
                     tandemName: "classicSpringRadioButton",
                   },
                   {
                     value: SpringVisualizationType.PARAMETRIC,
-                    createNode: () => new VBox({
-                      align: "left",
-                      spacing: 4,
-                      children: [
-                        new Text(springTypeNames.parametricStringProperty, {
-                          font: new PhetFont(14),
-                        }),
-                        new Text(springTypeDescriptions.parametricStringProperty, {
-                          font: new PhetFont(11),
-                          fill: "rgb(80,80,80)",
-                          maxWidth: 550,
-                        }),
-                      ],
-                    }),
+                    createNode: () =>
+                      new VBox({
+                        align: "left",
+                        spacing: 4,
+                        children: [
+                          new Text(springTypeNames.parametricStringProperty, {
+                            font: new PhetFont(14),
+                          }),
+                          new Text(springTypeDescriptions.parametricStringProperty, {
+                            font: new PhetFont(11),
+                            fill: "rgb(80,80,80)",
+                            maxWidth: 550,
+                          }),
+                        ],
+                      }),
                     tandemName: "parametricSpringRadioButton",
                   },
                 ],
@@ -383,18 +391,19 @@ onReadyToLaunch(() => {
           break;
       }
       const template = a11yStrings.solverChangedStringProperty.value;
-      const announcement = template.replace('{{solver}}', solverName);
+      const announcement = template.replace("{{solver}}", solverName);
       SimulationAnnouncer.announceSimulationState(announcement);
     }
   });
 
   ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
     if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
-      const springTypeName = springType === SpringVisualizationType.CLASSIC
-        ? springTypeNames.classicStringProperty.value
-        : springTypeNames.parametricStringProperty.value;
+      const springTypeName =
+        springType === SpringVisualizationType.CLASSIC
+          ? springTypeNames.classicStringProperty.value
+          : springTypeNames.parametricStringProperty.value;
       const template = a11yStrings.springVisualizationChangedStringProperty.value;
-      const announcement = template.replace('{{type}}', springTypeName);
+      const announcement = template.replace("{{type}}", springTypeName);
       SimulationAnnouncer.announceSimulationState(announcement);
     }
   });
@@ -440,10 +449,6 @@ onReadyToLaunch(() => {
     }),
   ];
 
-  const sim = new Sim(
-    stringManager.getTitleStringProperty(),
-    screens,
-    simOptions,
-  );
+  const sim = new Sim(stringManager.getTitleStringProperty(), screens, simOptions);
   sim.start();
 });

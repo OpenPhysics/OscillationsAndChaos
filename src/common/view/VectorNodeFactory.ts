@@ -2,18 +2,18 @@
  * Factory for creating standard vector nodes.
  */
 
-import { VectorNode } from "./VectorNode.js";
+import type { BooleanProperty } from "scenerystack/axon";
 import { PhetColorScheme } from "scenerystack/scenery-phet";
-import { BooleanProperty } from "scenerystack/axon";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import { VectorNode } from "./VectorNode.js";
 import {
-  VELOCITY_VECTOR_SCALE,
-  FORCE_VECTOR_SCALE,
-  ACCELERATION_VECTOR_SCALE,
-  VELOCITY_MIN_MAGNITUDE,
-  FORCE_MIN_MAGNITUDE,
   ACCELERATION_MIN_MAGNITUDE,
+  ACCELERATION_VECTOR_SCALE,
+  FORCE_MIN_MAGNITUDE,
+  FORCE_VECTOR_SCALE,
+  VELOCITY_MIN_MAGNITUDE,
+  VELOCITY_VECTOR_SCALE,
 } from "./VectorScaleConstants.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
 
 /**
  * Set of vector nodes for a single mass/bob
@@ -27,12 +27,12 @@ export interface VectorNodes {
 /**
  * Factory class for creating standard vector node sets
  */
-export class VectorNodeFactory {
+export const VectorNodeFactory = {
   /**
    * Create a set of vector nodes for a single mass/bob with standard parameters.
    * @param labelSuffix - Optional suffix to add to labels (e.g., "₁" or "₂" for multiple masses)
    */
-  public static createVectorNodes(labelSuffix: string = ""): VectorNodes {
+  createVectorNodes(labelSuffix: string = ""): VectorNodes {
     return {
       velocity: new VectorNode({
         color: PhetColorScheme.VELOCITY,
@@ -53,27 +53,23 @@ export class VectorNodeFactory {
         minMagnitude: ACCELERATION_MIN_MAGNITUDE,
       }),
     };
-  }
+  },
 
   /**
    * Link vector visibility to properties.
    * Sets up listeners that show/hide vectors based on property values.
    */
-  public static linkVectorVisibility(
+  linkVectorVisibility(
     vectorNodes: VectorNodes,
     showVelocityProperty: BooleanProperty,
     showForceProperty: BooleanProperty,
-    showAccelerationProperty: BooleanProperty
+    showAccelerationProperty: BooleanProperty,
   ): void {
-    showVelocityProperty.link((show) =>
-      vectorNodes.velocity.setVectorVisible(show)
-    );
+    showVelocityProperty.link((show) => vectorNodes.velocity.setVectorVisible(show));
     showForceProperty.link((show) => vectorNodes.force.setVectorVisible(show));
-    showAccelerationProperty.link((show) =>
-      vectorNodes.acceleration.setVectorVisible(show)
-    );
-  }
-}
+    showAccelerationProperty.link((show) => vectorNodes.acceleration.setVectorVisible(show));
+  },
+};
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('VectorNodeFactory', VectorNodeFactory);
+classicalMechanics.register("VectorNodeFactory", VectorNodeFactory);

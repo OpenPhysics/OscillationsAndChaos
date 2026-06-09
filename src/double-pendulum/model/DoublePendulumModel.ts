@@ -14,15 +14,11 @@
  * of the relative angle (θ2 - θ1).
  */
 
-import {
-  NumberProperty,
-  DerivedProperty,
-  type TReadOnlyProperty,
-} from "scenerystack/axon";
+import { DerivedProperty, NumberProperty, type TReadOnlyProperty } from "scenerystack/axon";
 import { Range } from "scenerystack/dot";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import { BaseModel } from "../../common/model/BaseModel.js";
 import { StatePropertyMapper } from "../../common/model/StatePropertyMapper.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
 
 export class DoublePendulumModel extends BaseModel {
   // State variables
@@ -54,40 +50,40 @@ export class DoublePendulumModel extends BaseModel {
 
     // Initialize state (both start at 90 degrees)
     this.angle1Property = new NumberProperty(Math.PI / 2, {
-      range: new Range(-Math.PI, Math.PI)
+      range: new Range(-Math.PI, Math.PI),
     });
 
     this.angularVelocity1Property = new NumberProperty(0.0);
 
     this.angle2Property = new NumberProperty(Math.PI / 2, {
-      range: new Range(-Math.PI, Math.PI)
+      range: new Range(-Math.PI, Math.PI),
     });
 
     this.angularVelocity2Property = new NumberProperty(0.0);
 
     // Initialize parameters
     this.length1Property = new NumberProperty(1.5, {
-      range: new Range(0.5, 5.0)
+      range: new Range(0.5, 5.0),
     });
 
     this.length2Property = new NumberProperty(1.5, {
-      range: new Range(0.5, 5.0)
+      range: new Range(0.5, 5.0),
     });
 
     this.mass1Property = new NumberProperty(1.0, {
-      range: new Range(0.1, 5.0)
+      range: new Range(0.1, 5.0),
     });
 
     this.mass2Property = new NumberProperty(1.0, {
-      range: new Range(0.1, 5.0)
+      range: new Range(0.1, 5.0),
     });
 
     this.gravityProperty = new NumberProperty(9.8, {
-      range: new Range(0.0, 20.0)
+      range: new Range(0.0, 20.0),
     });
 
     this.dampingProperty = new NumberProperty(0.0, {
-      range: new Range(0.0, 2.0)
+      range: new Range(0.0, 2.0),
     });
 
     // Computed angular accelerations (derived from Lagrangian mechanics)
@@ -116,7 +112,7 @@ export class DoublePendulumModel extends BaseModel {
           (m1 + m2) * g * Math.sin(theta1) -
           b * omega1;
         return num1 / denom1;
-      }
+      },
     );
 
     this.angularAcceleration2Property = new DerivedProperty(
@@ -145,7 +141,7 @@ export class DoublePendulumModel extends BaseModel {
           (m1 + m2) * g * Math.sin(theta2) -
           b * omega2;
         return num2 / denom2;
-      }
+      },
     );
 
     // Compute kinetic energy (complex due to coupling between pendulums)
@@ -164,10 +160,9 @@ export class DoublePendulumModel extends BaseModel {
       (theta1, theta2, omega1, omega2, m1, m2, L1, L2) => {
         const ke1 = 0.5 * (m1 + m2) * L1 * L1 * omega1 * omega1;
         const ke2 = 0.5 * m2 * L2 * L2 * omega2 * omega2;
-        const ke_coupling =
-          m2 * L1 * L2 * omega1 * omega2 * Math.cos(theta1 - theta2);
-        return ke1 + ke2 + ke_coupling;
-      }
+        const keCoupling = m2 * L1 * L2 * omega1 * omega2 * Math.cos(theta1 - theta2);
+        return ke1 + ke2 + keCoupling;
+      },
     );
 
     // Compute potential energy
@@ -187,13 +182,13 @@ export class DoublePendulumModel extends BaseModel {
         const y1 = -L1 * Math.cos(theta1);
         const y2 = y1 - L2 * Math.cos(theta2);
         return (m1 + m2) * g * y1 + m2 * g * y2;
-      }
+      },
     );
 
     // Total energy = KE + PE
     this.totalEnergyProperty = new DerivedProperty(
       [this.kineticEnergyProperty, this.potentialEnergyProperty],
-      (ke, pe) => ke + pe
+      (ke, pe) => ke + pe,
     );
 
     // Initialize state mapper with properties in state order
@@ -225,11 +220,7 @@ export class DoublePendulumModel extends BaseModel {
    * Compute derivatives for the double pendulum system.
    * These are the coupled nonlinear equations derived from Lagrangian mechanics.
    */
-  protected getDerivatives(
-    state: number[],
-    derivatives: number[],
-    _: number,
-  ): void {
+  protected getDerivatives(state: number[], derivatives: number[], _: number): void {
     const theta1 = state[0];
     const omega1 = state[1];
     const theta2 = state[2];
@@ -296,4 +287,4 @@ export class DoublePendulumModel extends BaseModel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('DoublePendulumModel', DoublePendulumModel);
+classicalMechanics.register("DoublePendulumModel", DoublePendulumModel);

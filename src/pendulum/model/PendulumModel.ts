@@ -20,15 +20,11 @@
  * @author Martin Veillette (PhET Interactive Simulations)
  */
 
-import {
-  NumberProperty,
-  DerivedProperty,
-  type TReadOnlyProperty,
-} from "scenerystack/axon";
+import { DerivedProperty, NumberProperty, type TReadOnlyProperty } from "scenerystack/axon";
 import { Range } from "scenerystack/dot";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import { BaseModel } from "../../common/model/BaseModel.js";
 import { StatePropertyMapper } from "../../common/model/StatePropertyMapper.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 
 export class PendulumModel extends BaseModel {
   // State variables
@@ -55,67 +51,66 @@ export class PendulumModel extends BaseModel {
 
     // Initialize state (start at 45 degrees)
     this.angleProperty = new NumberProperty(Math.PI / 4, {
-      range: new Range(-Math.PI, Math.PI)
+      range: new Range(-Math.PI, Math.PI),
     });
 
     this.angularVelocityProperty = new NumberProperty(0.0);
 
     // Initialize parameters
     this.lengthProperty = new NumberProperty(2.0, {
-      range: new Range(0.5, 5.0)
+      range: new Range(0.5, 5.0),
     });
 
     this.massProperty = new NumberProperty(1.0, {
-      range: new Range(0.1, 5.0)
+      range: new Range(0.1, 5.0),
     });
 
     this.gravityProperty = new NumberProperty(9.8, {
-      range: new Range(0.0, 20.0)
+      range: new Range(0.0, 20.0),
     });
 
     this.dampingProperty = new NumberProperty(0.1, {
-      range: new Range(0.0, 2.0)
+      range: new Range(0.0, 2.0),
     });
 
     // Computed angular acceleration
     // α = -(g/L)*sin(θ) - (b/mL²)*ω
     this.angularAccelerationProperty = new DerivedProperty(
-      [this.angleProperty, this.angularVelocityProperty, this.massProperty, this.lengthProperty, this.gravityProperty, this.dampingProperty],
+      [
+        this.angleProperty,
+        this.angularVelocityProperty,
+        this.massProperty,
+        this.lengthProperty,
+        this.gravityProperty,
+        this.dampingProperty,
+      ],
       (theta, omega, m, L, g, b) => {
         const I = m * L * L; // rotational inertia
         return -(g / L) * Math.sin(theta) - (b / I) * omega;
-      }
+      },
     );
 
     // Computed energies
     // KE = (1/2) * I * ω² = (1/2) * m * L² * ω²
     this.kineticEnergyProperty = new DerivedProperty(
       [this.angularVelocityProperty, this.massProperty, this.lengthProperty],
-      (omega, m, L) => 0.5 * m * L * L * omega * omega
+      (omega, m, L) => 0.5 * m * L * L * omega * omega,
     );
 
     // PE = m * g * h, where h = L * (1 - cos(θ))
     // Taking PE = 0 at the bottom (θ = 0)
     this.potentialEnergyProperty = new DerivedProperty(
-      [
-        this.angleProperty,
-        this.massProperty,
-        this.gravityProperty,
-        this.lengthProperty,
-      ],
-      (theta, m, g, L) => m * g * L * (1 - Math.cos(theta))
+      [this.angleProperty, this.massProperty, this.gravityProperty, this.lengthProperty],
+      (theta, m, g, L) => m * g * L * (1 - Math.cos(theta)),
     );
 
     this.totalEnergyProperty = new DerivedProperty(
       [this.kineticEnergyProperty, this.potentialEnergyProperty],
-      (ke, pe) => ke + pe
+      (ke, pe) => ke + pe,
     );
 
     // Initialize state mapper with properties in state order
-    this.stateMapper = new StatePropertyMapper([
-      this.angleProperty,
-      this.angularVelocityProperty,
-    ]);
+    this.stateMapper = new StatePropertyMapper([this.angleProperty, this.angularVelocityProperty]);
   }
 
   /**
@@ -139,11 +134,7 @@ export class PendulumModel extends BaseModel {
    * θ' = ω
    * ω' = -(g/L)*sin(θ) - (b/mL²)*ω
    */
-  protected getDerivatives(
-    state: number[],
-    derivatives: number[],
-    _: number,
-  ): void {
+  protected getDerivatives(state: number[], derivatives: number[], _: number): void {
     const theta = state[0];
     const omega = state[1];
 
@@ -175,4 +166,4 @@ export class PendulumModel extends BaseModel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('PendulumModel', PendulumModel);
+classicalMechanics.register("PendulumModel", PendulumModel);

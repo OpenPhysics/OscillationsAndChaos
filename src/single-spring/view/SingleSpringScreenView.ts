@@ -3,47 +3,43 @@
  * Displays a mass attached to a spring that can be dragged and oscillates.
  */
 
-import { type ScreenViewOptions, ScreenSummaryContent } from "scenerystack/sim";
-import { SingleSpringModel } from "../model/SingleSpringModel.js";
-import { Rectangle, Line, VBox, Node, Text, RichText } from "scenerystack/scenery";
-import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
 import { StringUtils } from "scenerystack";
-import { Range } from "scenerystack/dot";
-import { SpringNode } from "../../common/view/SpringNode.js";
-import { ParametricSpringNode } from "../../common/view/ParametricSpringNode.js";
-import SpringVisualizationType from "../../common/view/SpringVisualizationType.js";
-import { VectorNode } from "../../common/view/VectorNode.js";
-import { Vector2 } from "scenerystack/dot";
-import { DragListener } from "scenerystack/scenery";
-import { StringManager } from "../../i18n/StringManager.js";
+import { DerivedProperty, Property } from "scenerystack/axon";
+import { Range, Vector2 } from "scenerystack/dot";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
+import { DragListener, Line, Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
+import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
+import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
 import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
-import { BaseScreenView } from "../../common/view/BaseScreenView.js";
+import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
-import type { PlottableProperty } from "../../common/view/graph/PlottableProperty.js";
-import { SingleSpringPresets } from "../model/SingleSpringPresets.js";
-import { Preset } from "../../common/model/Preset.js";
-import { Property, DerivedProperty } from "scenerystack/axon";
-import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
-import { ParameterControlPanel } from "../../common/view/ParameterControlPanel.js";
-import { type PresetOption } from "../../common/view/PresetSelectorFactory.js";
-import {
-  SINGLE_SPRING_LOOPS,
-  SPRING_RADIUS,
-  SPRING_LINE_WIDTH,
-  SPRING_LEFT_END_LENGTH,
-  SPRING_RIGHT_END_LENGTH,
-} from "../../common/view/SpringVisualizationConstants.js";
+import { BaseScreenView } from "../../common/view/BaseScreenView.js";
 import {
   FONT_SIZE_BODY_TEXT,
-  FONT_SIZE_SECONDARY_LABEL,
   FONT_SIZE_SCREEN_TITLE,
+  FONT_SIZE_SECONDARY_LABEL,
 } from "../../common/view/FontSizeConstants.js";
+import type { PlottableProperty } from "../../common/view/graph/PlottableProperty.js";
+import { ParameterControlPanel } from "../../common/view/ParameterControlPanel.js";
+import { ParametricSpringNode } from "../../common/view/ParametricSpringNode.js";
+import type { PresetOption } from "../../common/view/PresetSelectorFactory.js";
+import { SpringNode } from "../../common/view/SpringNode.js";
 import {
-  SPACING_LARGE,
-} from "../../common/view/UILayoutConstants.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+  SINGLE_SPRING_LOOPS,
+  SPRING_LEFT_END_LENGTH,
+  SPRING_LINE_WIDTH,
+  SPRING_RADIUS,
+  SPRING_RIGHT_END_LENGTH,
+} from "../../common/view/SpringVisualizationConstants.js";
+import SpringVisualizationType from "../../common/view/SpringVisualizationType.js";
+import { SPACING_LARGE } from "../../common/view/UILayoutConstants.js";
+import type { VectorNode } from "../../common/view/VectorNode.js";
+import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
+import { StringManager } from "../../i18n/StringManager.js";
+import type { SingleSpringModel } from "../model/SingleSpringModel.js";
+import { SingleSpringPresets } from "../model/SingleSpringPresets.js";
 
 export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
   private readonly massNode: Rectangle;
@@ -74,23 +70,31 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Create dynamic details content that updates with model state
     const detailsStringProperty = new DerivedProperty(
-      [voicingStrings.detailsStringProperty, model.positionProperty, model.velocityProperty, model.springConstantProperty, model.totalEnergyProperty],
+      [
+        voicingStrings.detailsStringProperty,
+        model.positionProperty,
+        model.velocityProperty,
+        model.springConstantProperty,
+        model.totalEnergyProperty,
+      ],
       (template, position, velocity, springConstant, energy) => {
         const force = -springConstant * position; // Spring force F = -kx
         return template
-          .replace('{{position}}', StringUtils.toFixedNumberLTR(position, 2))
-          .replace('{{velocity}}', StringUtils.toFixedNumberLTR(velocity, 2))
-          .replace('{{force}}', StringUtils.toFixedNumberLTR(force, 2))
-          .replace('{{energy}}', StringUtils.toFixedNumberLTR(energy, 2));
-      }
+          .replace("{{position}}", StringUtils.toFixedNumberLTR(position, 2))
+          .replace("{{velocity}}", StringUtils.toFixedNumberLTR(velocity, 2))
+          .replace("{{force}}", StringUtils.toFixedNumberLTR(force, 2))
+          .replace("{{energy}}", StringUtils.toFixedNumberLTR(energy, 2));
+      },
     );
 
-    this.setScreenSummaryContent(new ScreenSummaryContent({
-      playAreaContent: voicingStrings.playAreaStringProperty,
-      controlAreaContent: voicingStrings.controlAreaStringProperty,
-      currentDetailsContent: detailsStringProperty,
-      interactionHintContent: voicingStrings.hintStringProperty,
-    }));
+    this.setScreenSummaryContent(
+      new ScreenSummaryContent({
+        playAreaContent: voicingStrings.playAreaStringProperty,
+        controlAreaContent: voicingStrings.controlAreaStringProperty,
+        currentDetailsContent: detailsStringProperty,
+        interactionHintContent: voicingStrings.hintStringProperty,
+      }),
+    );
 
     // Get available presets
     this.presets = SingleSpringPresets.getPresets();
@@ -119,16 +123,10 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     this.setupMeasurementTools(this.modelViewTransform, undefined, false);
 
     // Wall visualization (horizontal bar at top)
-    const wall = new Line(
-      this.layoutBounds.centerX-20,
-      wallY,
-      this.layoutBounds.centerX+20,
-      wallY,
-      {
-        stroke: ClassicalMechanicsColors.rodStrokeColorProperty,
-        lineWidth: 4,
-      },
-    );
+    const wall = new Line(this.layoutBounds.centerX - 20, wallY, this.layoutBounds.centerX + 20, wallY, {
+      stroke: ClassicalMechanicsColors.rodStrokeColorProperty,
+      lineWidth: 4,
+    });
     this.addChild(wall);
 
     // Create both spring node types (only one will be visible at a time)
@@ -150,8 +148,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Set initial spring node based on preference
     this.currentSpringNode =
-      ClassicalMechanicsPreferences.springVisualizationTypeProperty.value ===
-      SpringVisualizationType.PARAMETRIC
+      ClassicalMechanicsPreferences.springVisualizationTypeProperty.value === SpringVisualizationType.PARAMETRIC
         ? this.parametricSpringNode
         : this.classicSpringNode;
 
@@ -217,7 +214,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
         end: () => {
           const position = StringUtils.toFixedNumberLTR(this.model.positionProperty.value, 2);
           const template = a11yStrings.massReleasedAtStringProperty.value;
-          const announcement = template.replace('{{position}}', position);
+          const announcement = template.replace("{{position}}", position);
           SimulationAnnouncer.announceDragInteraction(announcement);
         },
       }),
@@ -229,11 +226,9 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Listen to spring visualization preference changes
     // Using lazyLink to avoid triggering during initialization
-    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink(
-      (springType) => {
-        this.switchSpringVisualization(springType);
-      }
-    );
+    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
+      this.switchSpringVisualization(springType);
+    });
 
     // Create vector nodes using factory
     const vectors = VectorNodeFactory.createVectorNodes();
@@ -250,7 +245,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       vectors,
       this.showVelocityProperty,
       this.showForceProperty,
-      this.showAccelerationProperty
+      this.showAccelerationProperty,
     );
 
     // Control panel
@@ -278,22 +273,22 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     // Add accessibility announcements for parameter changes
     this.model.massProperty.lazyLink((mass) => {
       const template = a11yStrings.massChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.springConstantProperty.lazyLink((springConstant) => {
       const template = a11yStrings.springConstantChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(springConstant, 0));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(springConstant, 0));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.dampingProperty.lazyLink((damping) => {
       const template = a11yStrings.dampingChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(damping, 1));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.gravityProperty.lazyLink((gravity) => {
       const template = a11yStrings.gravityChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(gravity, 1));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(gravity, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
 
@@ -438,17 +433,13 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
   /**
    * Switch between classic and parametric spring visualization.
    */
-  private switchSpringVisualization(
-    springType: SpringVisualizationType,
-  ): void {
+  private switchSpringVisualization(springType: SpringVisualizationType): void {
     // Remove current spring node
     this.removeChild(this.currentSpringNode);
 
     // Switch to new spring node
     this.currentSpringNode =
-      springType === SpringVisualizationType.PARAMETRIC
-        ? this.parametricSpringNode
-        : this.classicSpringNode;
+      springType === SpringVisualizationType.PARAMETRIC ? this.parametricSpringNode : this.classicSpringNode;
 
     // Add new spring node (insert before mass node to maintain z-order)
     const massIndex = this.indexOfChild(this.massNode);
@@ -499,15 +490,15 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     });
     const variablesList = new FormulaNode(
       "\\begin{array}{l}" +
-      "\\bullet\\; m = \\text{mass (kg)}\\\\" +
-      "\\bullet\\; k = \\text{spring constant (N/m)}\\\\" +
-      "\\bullet\\; b = \\text{damping coefficient (N}\\cdot\\text{s/m)}\\\\" +
-      "\\bullet\\; x = \\text{displacement from equilibrium (m)}\\\\" +
-      "\\bullet\\; g = \\text{gravitational acceleration (m/s}^2\\text{)}" +
-      "\\end{array}",
+        "\\bullet\\; m = \\text{mass (kg)}\\\\" +
+        "\\bullet\\; k = \\text{spring constant (N/m)}\\\\" +
+        "\\bullet\\; b = \\text{damping coefficient (N}\\cdot\\text{s/m)}\\\\" +
+        "\\bullet\\; x = \\text{displacement from equilibrium (m)}\\\\" +
+        "\\bullet\\; g = \\text{gravitational acceleration (m/s}^2\\text{)}" +
+        "\\end{array}",
       {
         maxWidth: 700,
-      }
+      },
     );
 
     // Link text color property to formula nodes
@@ -522,24 +513,24 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       align: "left",
       children: [
         new Text("Single Spring System", {
-          font: new PhetFont({size: FONT_SIZE_SCREEN_TITLE, weight: "bold"}),
+          font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         new RichText(
           "This simulation models a mass attached to a spring, demonstrating simple harmonic motion with optional damping.",
           {
-            font: new PhetFont({size: FONT_SIZE_SECONDARY_LABEL}),
+            font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
             fill: ClassicalMechanicsColors.textColorProperty,
             maxWidth: 700,
-          }
+          },
         ),
         new Text("Equation of Motion:", {
-          font: new PhetFont({size: FONT_SIZE_SECONDARY_LABEL, weight: "bold"}),
+          font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         equation,
         new Text("Where:", {
-          font: new PhetFont({size: FONT_SIZE_BODY_TEXT}),
+          font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         variablesList,
@@ -557,8 +548,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     const naturalLength = this.model.naturalLengthProperty.value;
     const totalLength = naturalLength + position;
     const modelPosition = new Vector2(0, totalLength);
-    const viewPosition =
-      this.modelViewTransform!.modelToViewPosition(modelPosition);
+    const viewPosition = this.modelViewTransform!.modelToViewPosition(modelPosition);
 
     // Update mass position
     this.massNode.center = viewPosition;
@@ -569,7 +559,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       viewPosition.x - massHalfWidth,
       viewPosition.y,
       viewPosition.x + massHalfWidth,
-      viewPosition.y
+      viewPosition.y,
     );
 
     // Update spring endpoints (vertical spring from fixed point to top of mass)
@@ -587,9 +577,11 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
    */
   private updateSpringAppearance(springConstant: number): void {
     // Map spring constant [1, 50] to lineWidth [1, 2.5]
-    const minK = 1, maxK = 50;
-    const minLineWidth = 1, maxLineWidth = 2.5;
-    const lineWidth = minLineWidth + (springConstant - minK) * (maxLineWidth - minLineWidth) / (maxK - minK);
+    const minK = 1,
+      maxK = 50;
+    const minLineWidth = 1,
+      maxLineWidth = 2.5;
+    const lineWidth = minLineWidth + ((springConstant - minK) * (maxLineWidth - minLineWidth)) / (maxK - minK);
 
     this.currentSpringNode.setLineWidth(lineWidth);
   }
@@ -600,9 +592,11 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
    */
   private updateMassSize(mass: number): void {
     // Map mass [0.1, 5.0] kg to size [30, 70] pixels
-    const minMass = 0.1, maxMass = 5.0;
-    const minSize = 30, maxSize = 70;
-    const size = minSize + (mass - minMass) * (maxSize - minSize) / (maxMass - minMass);
+    const minMass = 0.1,
+      maxMass = 5.0;
+    const minSize = 30,
+      maxSize = 70;
+    const size = minSize + ((mass - minMass) * (maxSize - minSize)) / (maxMass - minMass);
 
     // Update rectangle dimensions (keeping it centered)
     this.massNode.setRect(-size / 2, -size / 2, size, size);
@@ -703,7 +697,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     // Announce preset change
     const a11yStrings = this.getA11yStrings();
     const template = a11yStrings.presetAppliedStringProperty.value;
-    const announcement = template.replace('{{preset}}', preset.nameProperty.value);
+    const announcement = template.replace("{{preset}}", preset.nameProperty.value);
     SimulationAnnouncer.announceParameterChange(announcement);
 
     this.isApplyingPreset = false;
@@ -711,4 +705,4 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('SingleSpringScreenView', SingleSpringScreenView);
+classicalMechanics.register("SingleSpringScreenView", SingleSpringScreenView);

@@ -8,14 +8,14 @@
  * are added to the right column of the Audio tab alongside the standard voicing controls.
  */
 
-import { VBox, Text } from "scenerystack/scenery";
-import { Checkbox } from "scenerystack/sun";
-import { PhetFont } from "scenerystack/scenery-phet";
-import { Tandem } from "scenerystack/tandem";
 import type { TReadOnlyProperty } from "scenerystack/axon";
+import { Text, VBox } from "scenerystack/scenery";
+import { PhetFont } from "scenerystack/scenery-phet";
+import { Checkbox } from "scenerystack/sun";
+import type { Tandem } from "scenerystack/tandem";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
 import { StringManager } from "../../i18n/StringManager.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
 
 export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
   public constructor(tandem: Tandem) {
@@ -45,7 +45,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
       {
         boxWidth: 16,
         tandem: tandem.createTandem("parameterAnnouncementsCheckbox"),
-      }
+      },
     );
 
     // Description for parameter announcements
@@ -55,7 +55,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
         font: new PhetFont(12),
         fill: "rgb(80,80,80)",
         maxWidth: 350,
-      }
+      },
     );
 
     // State change announcements checkbox
@@ -68,7 +68,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
       {
         boxWidth: 16,
         tandem: tandem.createTandem("stateAnnouncementsCheckbox"),
-      }
+      },
     );
 
     // Description for state announcements
@@ -78,7 +78,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
         font: new PhetFont(12),
         fill: "rgb(80,80,80)",
         maxWidth: 350,
-      }
+      },
     );
 
     // Drag interaction announcements checkbox
@@ -91,7 +91,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
       {
         boxWidth: 16,
         tandem: tandem.createTandem("dragAnnouncementsCheckbox"),
-      }
+      },
     );
 
     // Description for drag announcements
@@ -101,7 +101,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
         font: new PhetFont(12),
         fill: "rgb(80,80,80)",
         maxWidth: 350,
-      }
+      },
     );
 
     // Add all children to the VBox
@@ -118,4 +118,4 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('ClassicalMechanicsAudioPreferencesNode', ClassicalMechanicsAudioPreferencesNode);
+classicalMechanics.register("ClassicalMechanicsAudioPreferencesNode", ClassicalMechanicsAudioPreferencesNode);

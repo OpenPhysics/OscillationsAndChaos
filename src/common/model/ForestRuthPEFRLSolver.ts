@@ -44,8 +44,8 @@
  */
 
 import { assert } from "scenerystack";
-import { ODESolver, DerivativeFunction } from "./ODESolver.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import type { DerivativeFunction, ODESolver } from "./ODESolver.js";
 
 export class ForestRuthPEFRLSolver implements ODESolver {
   // PEFRL coefficients optimized for minimal energy error
@@ -65,7 +65,7 @@ export class ForestRuthPEFRLSolver implements ODESolver {
    * @param dt - Fixed timestep in seconds (must be positive and finite)
    */
   public setFixedTimeStep(dt: number): void {
-    assert && assert(isFinite(dt) && dt > 0, 'dt must be finite and positive');
+    assert && assert(isFinite(dt) && dt > 0, "dt must be finite and positive");
     this.fixedTimeStep = dt;
   }
 
@@ -89,18 +89,17 @@ export class ForestRuthPEFRLSolver implements ODESolver {
    * @param time - Current time
    * @param dt - Time step
    */
-  private stepOnce(
-    state: number[],
-    derivativeFn: DerivativeFunction,
-    time: number,
-    dt: number,
-  ): void {
+  private stepOnce(state: number[], derivativeFn: DerivativeFunction, time: number, dt: number): void {
     // Validate inputs
-    assert && assert(Array.isArray(state) && state.length > 0, 'state must be a non-empty array');
-    assert && assert(state.length % 2 === 0, 'state length must be even for symplectic integration');
-    assert && assert(state.every(v => isFinite(v)), 'all state values must be finite');
-    assert && assert(isFinite(time), 'time must be finite');
-    assert && assert(isFinite(dt) && dt !== 0, 'dt must be finite and non-zero');
+    assert && assert(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
+    assert && assert(state.length % 2 === 0, "state length must be even for symplectic integration");
+    assert &&
+      assert(
+        state.every((v) => isFinite(v)),
+        "all state values must be finite",
+      );
+    assert && assert(isFinite(time), "time must be finite");
+    assert && assert(isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
 
     const n = state.length;
     const halfN = Math.floor(n / 2);
@@ -192,18 +191,17 @@ export class ForestRuthPEFRLSolver implements ODESolver {
    * @param dt - Requested time step (can be larger than fixedTimeStep)
    * @returns The new time after integration
    */
-  public step(
-    state: number[],
-    derivativeFn: DerivativeFunction,
-    time: number,
-    dt: number,
-  ): number {
+  public step(state: number[], derivativeFn: DerivativeFunction, time: number, dt: number): number {
     // Validate inputs
-    assert && assert(Array.isArray(state) && state.length > 0, 'state must be a non-empty array');
-    assert && assert(state.length % 2 === 0, 'state length must be even for symplectic integration');
-    assert && assert(state.every(v => isFinite(v)), 'all state values must be finite');
-    assert && assert(isFinite(time), 'time must be finite');
-    assert && assert(isFinite(dt) && dt !== 0, 'dt must be finite and non-zero');
+    assert && assert(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
+    assert && assert(state.length % 2 === 0, "state length must be even for symplectic integration");
+    assert &&
+      assert(
+        state.every((v) => isFinite(v)),
+        "all state values must be finite",
+      );
+    assert && assert(isFinite(time), "time must be finite");
+    assert && assert(isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
 
     // Handle the case where dt is smaller than or equal to fixedTimeStep
     if (dt <= this.fixedTimeStep) {
@@ -227,4 +225,4 @@ export class ForestRuthPEFRLSolver implements ODESolver {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('ForestRuthPEFRLSolver', ForestRuthPEFRLSolver);
+classicalMechanics.register("ForestRuthPEFRLSolver", ForestRuthPEFRLSolver);

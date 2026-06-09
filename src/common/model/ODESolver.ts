@@ -3,11 +3,7 @@
  * All solvers must implement this interface to be used by the models.
  */
 
-export type DerivativeFunction = (
-  state: number[],
-  derivatives: number[],
-  time: number,
-) => void;
+export type DerivativeFunction = (state: number[], derivatives: number[], time: number) => void;
 
 export type ODESolver = {
   /**
@@ -19,12 +15,7 @@ export type ODESolver = {
    * @param dt - Time step
    * @returns The new time after integration
    */
-  step(
-    state: number[],
-    derivativeFn: DerivativeFunction,
-    time: number,
-    dt: number,
-  ): number;
+  step(state: number[], derivativeFn: DerivativeFunction, time: number, dt: number): number;
 
   /**
    * Set the fixed timestep for integration (if applicable).
@@ -38,4 +29,4 @@ export type ODESolver = {
    * Get the current fixed timestep.
    */
   getFixedTimeStep(): number;
-}
+};

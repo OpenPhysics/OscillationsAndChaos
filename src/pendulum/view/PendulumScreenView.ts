@@ -3,36 +3,33 @@
  * Displays a pendulum that can be dragged and swings.
  */
 
-import { type ScreenViewOptions } from "scenerystack/sim";
-import { PendulumModel } from "../model/PendulumModel.js";
-import { Circle, Line, VBox, Node, Text, RichText } from "scenerystack/scenery";
-import { FormulaNode } from "scenerystack/scenery-phet";
-import { Range, Vector2 } from "scenerystack/dot";
-import { DragListener } from "scenerystack/scenery";
-import { StringManager } from "../../i18n/StringManager.js";
-import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import type { PlottableProperty } from "../../common/view/graph/PlottableProperty.js";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import { BaseScreenView } from "../../common/view/BaseScreenView.js";
-import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
-import { PendulumPresets } from "../model/PendulumPresets.js";
-import { Preset } from "../../common/model/Preset.js";
-import { Property, BooleanProperty } from "scenerystack/axon";
-import { VectorNode } from "../../common/view/VectorNode.js";
-import { PendulumLabProtractorNode } from "../../common/view/PendulumLabProtractorNode.js";
 import { PhetFont, StringUtils } from "scenerystack";
-import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
-import { ParameterControlPanel } from "../../common/view/ParameterControlPanel.js";
-import { type PresetOption } from "../../common/view/PresetSelectorFactory.js";
+import { BooleanProperty, Property } from "scenerystack/axon";
+import { Range, Vector2 } from "scenerystack/dot";
+import { ModelViewTransform2 } from "scenerystack/phetcommon";
+import { Circle, DragListener, Line, Node, RichText, Text, VBox } from "scenerystack/scenery";
+import { FormulaNode } from "scenerystack/scenery-phet";
+import type { ScreenViewOptions } from "scenerystack/sim";
+import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import type { Preset } from "../../common/model/Preset.js";
+import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
+import { BaseScreenView } from "../../common/view/BaseScreenView.js";
 import {
   FONT_SIZE_BODY_TEXT,
-  FONT_SIZE_SECONDARY_LABEL,
   FONT_SIZE_SCREEN_TITLE,
+  FONT_SIZE_SECONDARY_LABEL,
 } from "../../common/view/FontSizeConstants.js";
-import {
-  SPACING_LARGE,
-} from "../../common/view/UILayoutConstants.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import type { PlottableProperty } from "../../common/view/graph/PlottableProperty.js";
+import { ParameterControlPanel } from "../../common/view/ParameterControlPanel.js";
+import { PendulumLabProtractorNode } from "../../common/view/PendulumLabProtractorNode.js";
+import type { PresetOption } from "../../common/view/PresetSelectorFactory.js";
+import { SPACING_LARGE } from "../../common/view/UILayoutConstants.js";
+import type { VectorNode } from "../../common/view/VectorNode.js";
+import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
+import { StringManager } from "../../i18n/StringManager.js";
+import type { PendulumModel } from "../model/PendulumModel.js";
+import { PendulumPresets } from "../model/PendulumPresets.js";
 
 export class PendulumScreenView extends BaseScreenView<PendulumModel> {
   private readonly bobNode: Circle;
@@ -53,7 +50,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
   private readonly isDraggingProperty: BooleanProperty;
 
   // Accessibility strings
-  private readonly a11yStrings: ReturnType<StringManager['getAccessibilityStrings']>;
+  private readonly a11yStrings: ReturnType<StringManager["getAccessibilityStrings"]>;
   private readonly stringManager: StringManager;
 
   public constructor(model: PendulumModel, options?: ScreenViewOptions) {
@@ -70,10 +67,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     this.presetProperty = new Property<PresetOption>(this.presets[0]);
 
     // Pivot point (top center of screen)
-    this.pivotPoint = new Vector2(
-      this.layoutBounds.centerX,
-      this.layoutBounds.minY + 100,
-    );
+    this.pivotPoint = new Vector2(this.layoutBounds.centerX, this.layoutBounds.minY + 100);
 
     // Create modelViewTransform: maps model coordinates (meters) to view coordinates (pixels)
     // Maps model origin (0, 0) to the pivot point, with 100 pixels per meter
@@ -106,7 +100,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
         color: ClassicalMechanicsColors.mass1FillColorProperty.value.toCSS(),
         lengthProperty: this.model.lengthProperty,
       },
-      this.modelViewTransform
+      this.modelViewTransform,
     );
     this.protractorNode = pendulumLabProtractor;
     this.addChild(pendulumLabProtractor);
@@ -178,9 +172,9 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
         },
         end: () => {
           this.isDraggingProperty.value = false;
-          const angleDegrees = StringUtils.toFixedNumberLTR(this.model.angleProperty.value * 180 / Math.PI, 1);
+          const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angleProperty.value * 180) / Math.PI, 1);
           const template = this.a11yStrings.bobReleasedAtStringProperty.value;
-          const announcement = template.replace('{{angle}}', angleDegrees);
+          const announcement = template.replace("{{angle}}", angleDegrees);
           SimulationAnnouncer.announceDragInteraction(announcement);
         },
       }),
@@ -210,7 +204,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
       vectors,
       this.showVelocityProperty,
       this.showForceProperty,
-      this.showAccelerationProperty
+      this.showAccelerationProperty,
     );
 
     // Control panel
@@ -238,22 +232,22 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     // Add accessibility announcements for parameter changes
     this.model.lengthProperty.lazyLink((length) => {
       const template = this.a11yStrings.lengthChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(length, 1));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(length, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.massProperty.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.gravityProperty.lazyLink((gravity) => {
       const template = this.a11yStrings.gravityChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(gravity, 1));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(gravity, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.dampingProperty.lazyLink((damping) => {
       const template = this.a11yStrings.dampingChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(damping, 2));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 2));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
 
@@ -391,16 +385,16 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     });
     const variablesList = new FormulaNode(
       "\\begin{array}{l}" +
-      "\\bullet\\; I = ml^2 = \\text{moment of inertia (kg}\\cdot\\text{m}^2\\text{)}\\\\" +
-      "\\bullet\\; m = \\text{mass (kg)}\\\\" +
-      "\\bullet\\; l = \\text{length (m)}\\\\" +
-      "\\bullet\\; g = \\text{gravitational acceleration (m/s}^2\\text{)}\\\\" +
-      "\\bullet\\; b = \\text{damping coefficient (N}\\cdot\\text{m}\\cdot\\text{s)}\\\\" +
-      "\\bullet\\; \\theta = \\text{angle from vertical (rad)}" +
-      "\\end{array}",
+        "\\bullet\\; I = ml^2 = \\text{moment of inertia (kg}\\cdot\\text{m}^2\\text{)}\\\\" +
+        "\\bullet\\; m = \\text{mass (kg)}\\\\" +
+        "\\bullet\\; l = \\text{length (m)}\\\\" +
+        "\\bullet\\; g = \\text{gravitational acceleration (m/s}^2\\text{)}\\\\" +
+        "\\bullet\\; b = \\text{damping coefficient (N}\\cdot\\text{m}\\cdot\\text{s)}\\\\" +
+        "\\bullet\\; \\theta = \\text{angle from vertical (rad)}" +
+        "\\end{array}",
       {
         maxWidth: 700,
-      }
+      },
     );
 
     // Link text color property to formula nodes
@@ -415,24 +409,24 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
       align: "left",
       children: [
         new Text("Simple Pendulum", {
-          font: new PhetFont({size: FONT_SIZE_SCREEN_TITLE, weight: "bold"}),
+          font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         new RichText(
           "This simulation models a simple pendulum, demonstrating periodic motion and energy conservation. At small angles, the motion approximates simple harmonic motion.",
           {
-            font: new PhetFont({size: FONT_SIZE_SECONDARY_LABEL}),
+            font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
             fill: ClassicalMechanicsColors.textColorProperty,
             maxWidth: 700,
-          }
+          },
         ),
         new Text("Equation of Motion:", {
-          font: new PhetFont({size: FONT_SIZE_SECONDARY_LABEL, weight: "bold"}),
+          font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         equation,
         new Text("Where:", {
-          font: new PhetFont({size: FONT_SIZE_BODY_TEXT}),
+          font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         variablesList,
@@ -480,8 +474,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     const modelBobPosition = new Vector2(modelBobX, modelBobY);
 
     // Convert to view coordinates
-    const viewBobPosition =
-      this.modelViewTransform!.modelToViewPosition(modelBobPosition);
+    const viewBobPosition = this.modelViewTransform!.modelToViewPosition(modelBobPosition);
 
     // Update bob position
     this.bobNode.center = viewBobPosition;
@@ -490,12 +483,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     this.bobReferenceDot.center = viewBobPosition;
 
     // Update rod
-    this.rodNode.setLine(
-      this.pivotPoint.x,
-      this.pivotPoint.y,
-      viewBobPosition.x,
-      viewBobPosition.y,
-    );
+    this.rodNode.setLine(this.pivotPoint.x, this.pivotPoint.y, viewBobPosition.x, viewBobPosition.y);
   }
 
   /**
@@ -504,9 +492,11 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
    */
   private updateBobSize(mass: number): void {
     // Map mass [0.1, 5.0] kg to radius [12, 35] pixels
-    const minMass = 0.1, maxMass = 5.0;
-    const minRadius = 12, maxRadius = 35;
-    const radius = minRadius + (mass - minMass) * (maxRadius - minRadius) / (maxMass - minMass);
+    const minMass = 0.1,
+      maxMass = 5.0;
+    const minRadius = 12,
+      maxRadius = 35;
+    const radius = minRadius + ((mass - minMass) * (maxRadius - minRadius)) / (maxMass - minMass);
 
     // Update circle radius
     this.bobNode.radius = radius;
@@ -548,16 +538,13 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     const viewBobPosition = this.modelViewTransform!.modelToViewPosition(modelBobPosition);
 
     // Calculate tangential direction (perpendicular to rod)
-    const tangentX = Math.cos(angle);  // perpendicular to rod direction
+    const tangentX = Math.cos(angle); // perpendicular to rod direction
     const tangentY = Math.sin(angle);
 
     // Tangential velocity: v = L * ω (in tangential direction)
     const vMagnitude = L * Math.abs(omega);
     const velocitySign = omega >= 0 ? 1 : -1;
-    const velocityVector = new Vector2(
-      tangentX * vMagnitude * velocitySign,
-      tangentY * vMagnitude * velocitySign
-    );
+    const velocityVector = new Vector2(tangentX * vMagnitude * velocitySign, tangentY * vMagnitude * velocitySign);
 
     // Angular acceleration: α = -(g/L)*sin(θ) - (b/mL²)*ω
     const I = m * L * L;
@@ -566,10 +553,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     // Tangential acceleration: a = L * α
     const aMagnitude = L * Math.abs(alpha);
     const accelSign = alpha >= 0 ? 1 : -1;
-    const accelerationVector = new Vector2(
-      tangentX * aMagnitude * accelSign,
-      tangentY * aMagnitude * accelSign
-    );
+    const accelerationVector = new Vector2(tangentX * aMagnitude * accelSign, tangentY * aMagnitude * accelSign);
 
     // Net tangential force: F = m * a
     const forceVector = accelerationVector.times(m);
@@ -622,9 +606,12 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     }
 
     // Announce preset change
-    const angleDegrees = StringUtils.toFixedNumberLTR((config.angle || 0) * 180 / Math.PI, 1);
+    const angleDegrees = StringUtils.toFixedNumberLTR(((config.angle || 0) * 180) / Math.PI, 1);
     const template = this.a11yStrings.presetAppliedStringProperty.value;
-    const announcement = template.replace('{{preset}}', `${preset.nameProperty.value}. Pendulum set to ${angleDegrees} degrees`);
+    const announcement = template.replace(
+      "{{preset}}",
+      `${preset.nameProperty.value}. Pendulum set to ${angleDegrees} degrees`,
+    );
     SimulationAnnouncer.announceParameterChange(announcement);
 
     this.isApplyingPreset = false;
@@ -632,4 +619,4 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('PendulumScreenView', PendulumScreenView);
+classicalMechanics.register("PendulumScreenView", PendulumScreenView);

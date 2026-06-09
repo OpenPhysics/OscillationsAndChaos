@@ -4,6 +4,14 @@
   "version": "0.0.0",
   "description": "Interactive Classical Mechanics Simulations using SceneryStack.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenPhysics/OscillationsAndChaos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenPhysics/OscillationsAndChaos/issues"
+  },
+  "homepage": "https://github.com/OpenPhysics/OscillationsAndChaos#readme",
   "type": "module",
   "keywords": [
     "classical mechanics",
@@ -15,37 +23,31 @@
     "double pendulum"
   ],
   "scripts": {
-    "start": "npx vite",
-    "build": "npx tsgo && npx vite build",
-    "preview": "npx vite preview",
-    "lint": "npx eslint .",
-    "format": "npx prettier --write .",
-    "fix": "npx eslint --fix . && npx prettier --write .",
+    "start": "vite",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "fix": "biome check --write .",
     "release": "npm version patch && git push && git push --tags",
-    "check": "npx tsgo --noEmit",
-    "check:tsc": "npx tsc --noEmit",
+    "check": "tsc --noEmit",
     "serve": "npx serve -s dist",
-    "watch": "npx tsgo --watch",
-    "watch:tsc": "npx tsc --watch",
+    "watch": "tsc --watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@typescript/native-preview": "^7.0.0-dev.20251105.1",
     "katex": "^0.16.25",
     "scenerystack": "^3.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "eslint": "^9.17.0",
-    "globals": "^15.15.0",
-    "prettier": "^3.4.2",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.46.4",
+    "@biomejs/biome": "^2.4.16",
+    "typescript": "^6.0.3",
     "vite": "^8.0.16",
     "vite-plugin-singlefile": "^2.3.3"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "phet-io": {
     "validation": false,

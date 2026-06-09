@@ -7,10 +7,10 @@ import type { ReadOnlyProperty } from "scenerystack";
 
 export type PresetConfiguration = {
   [key: string]: number;
-}
+};
 
 export type Preset = {
   nameProperty: ReadOnlyProperty<string>;
   descriptionProperty: ReadOnlyProperty<string>;
   configuration: PresetConfiguration;
-}
+};

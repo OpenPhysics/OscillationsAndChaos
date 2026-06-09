@@ -18,57 +18,45 @@
  * @author Martin Veillette (PhET Interactive Simulations)
  */
 
-import { ScreenView, type ScreenViewOptions, ScreenSummaryContent } from "scenerystack/sim";
 import {
-  TimeControlNode,
+  BooleanProperty,
+  DerivedProperty,
+  type EnumerationProperty,
+  Property,
+  type TReadOnlyProperty,
+} from "scenerystack/axon";
+import { Bounds2, type Range, Vector2 } from "scenerystack/dot";
+import type { ModelViewTransform2 } from "scenerystack/phetcommon";
+import { HBox, KeyboardListener, type Node, Text, VBox } from "scenerystack/scenery";
+import {
+  InfoButton,
+  MeasuringTapeNode,
+  NumberControl,
+  PhetFont,
+  ProtractorNode,
   ResetAllButton,
   Stopwatch,
   StopwatchNode,
-  ProtractorNode,
-  MeasuringTapeNode,
-  InfoButton,
-  NumberControl,
-  PhetFont,
+  TimeControlNode,
+  type TimeSpeed,
 } from "scenerystack/scenery-phet";
-import { KeyboardListener, Node, HBox, VBox, Text } from "scenerystack/scenery";
-import {
-  BooleanProperty,
-  EnumerationProperty,
-  DerivedProperty,
-  Property,
-  TReadOnlyProperty,
-} from "scenerystack/axon";
-import { TimeSpeed } from "scenerystack/scenery-phet";
-import { Bounds2, Vector2, Range } from "scenerystack/dot";
-import { Dialog } from "scenerystack/sim";
 import type { DialogOptions } from "scenerystack/sim";
-import { Panel, ComboBox } from "scenerystack/sun";
+import { Dialog, ScreenSummaryContent, ScreenView, type ScreenViewOptions } from "scenerystack/sim";
+import { ComboBox, Panel } from "scenerystack/sun";
 import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.ts";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import type { Preset } from "../model/Preset.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
-import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { SceneGridNode } from "./SceneGridNode.js";
+import { GRAPH_LEFT_MARGIN, GRAPH_TO_VECTOR_PANEL_SPACING } from "./DialogAndPanelConstants.js";
+import { FONT_SIZE_BODY_TEXT, FONT_SIZE_SECONDARY_LABEL } from "./FontSizeConstants.js";
 import ConfigurableGraph from "./graph/ConfigurableGraph.ts";
 import type { PlottableProperty } from "./graph/PlottableProperty.ts";
-import { Preset } from "../model/Preset.js";
-import { VectorControlPanel } from "./VectorControlPanel.js";
+import { SceneGridNode } from "./SceneGridNode.js";
 import { ToolsControlPanel, type ToolsControlPanelOptions } from "./ToolsControlPanel.js";
-import {
-  FONT_SIZE_BODY_TEXT,
-  FONT_SIZE_SECONDARY_LABEL,
-} from "./FontSizeConstants.js";
-import {
-  SPACING_SMALL,
-  SPACING_MEDIUM,
-  PANEL_MARGIN_X,
-  PANEL_MARGIN_Y,
-} from "./UILayoutConstants.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import {
-  GRAPH_LEFT_MARGIN,
-  GRAPH_TO_VECTOR_PANEL_SPACING,
-} from "./DialogAndPanelConstants.js";
+import { PANEL_MARGIN_X, PANEL_MARGIN_Y, SPACING_MEDIUM, SPACING_SMALL } from "./UILayoutConstants.js";
+import { VectorControlPanel } from "./VectorControlPanel.js";
 
 /**
  * Interface that all models must implement to work with BaseScreenView
@@ -78,7 +66,7 @@ export type TimeControllableModel = {
   timeSpeedProperty: EnumerationProperty<TimeSpeed>;
   reset(): void;
   step(dt: number, forceStep?: boolean): void;
-}
+};
 
 /**
  * Self options for BaseScreenView - options specific to this class.
@@ -113,9 +101,7 @@ export type ControlPanelParameter = {
   thumbFill?: TReadOnlyProperty<import("scenerystack/scenery").Color>;
 };
 
-export abstract class BaseScreenView<
-  T extends TimeControllableModel,
-> extends ScreenView {
+export abstract class BaseScreenView<T extends TimeControllableModel> extends ScreenView {
   protected readonly model: T;
 
   // Store the playing state before auto-pause so we can restore it
@@ -126,12 +112,8 @@ export abstract class BaseScreenView<
   protected sceneGridNode: SceneGridNode | null = null;
 
   // Measurement tools (available to all screens)
-  protected showDistanceToolProperty: BooleanProperty = new BooleanProperty(
-    false,
-  );
-  protected showProtractorProperty: BooleanProperty = new BooleanProperty(
-    false,
-  );
+  protected showDistanceToolProperty: BooleanProperty = new BooleanProperty(false);
+  protected showProtractorProperty: BooleanProperty = new BooleanProperty(false);
   protected showStopwatchProperty: BooleanProperty = new BooleanProperty(false);
   protected measuringTapeNode: MeasuringTapeNode | null = null;
   protected protractorNode: Node | null = null;
@@ -201,19 +183,17 @@ export abstract class BaseScreenView<
     this.showProtractorProperty = new BooleanProperty(false);
     this.showStopwatchProperty = new BooleanProperty(false);
 
-
-
     // Position measuring tape near the toolbox at bottom left
-    const baseLocation = new Vector2(this.layoutBounds.minX + 300, this.layoutBounds.maxY -20);
-    const basePositionProperty = new Property( modelViewTransform.viewToModelPosition( baseLocation));
-    const tipPositionProperty = new Property( basePositionProperty.value.plus(new Vector2(1,0)));
+    const baseLocation = new Vector2(this.layoutBounds.minX + 300, this.layoutBounds.maxY - 20);
+    const basePositionProperty = new Property(modelViewTransform.viewToModelPosition(baseLocation));
+    const tipPositionProperty = new Property(basePositionProperty.value.plus(new Vector2(1, 0)));
 
     // Convert drag bounds from view to model coordinates
     const modelDragBounds = new Bounds2(
       modelViewTransform.viewToModelX(this.layoutBounds.minX),
       modelViewTransform.viewToModelY(this.layoutBounds.minY),
       modelViewTransform.viewToModelX(this.layoutBounds.maxX),
-      modelViewTransform.viewToModelY(this.layoutBounds.maxY)
+      modelViewTransform.viewToModelY(this.layoutBounds.maxY),
     );
 
     this.measuringTapeNode = new MeasuringTapeNode(unitsProperty, {
@@ -233,7 +213,7 @@ export abstract class BaseScreenView<
       this.protractorNode = new ProtractorNode({
         rotatable: true,
         angle: 0,
-        visibleProperty: this.showProtractorProperty
+        visibleProperty: this.showProtractorProperty,
       });
 
       // Position the protractor
@@ -246,16 +226,12 @@ export abstract class BaseScreenView<
       }
 
       this.addChild(this.protractorNode);
-
     }
 
     // Stopwatch tool (SceneryStack component)
     // Position near the toolbox at bottom left
     this.stopwatch = new Stopwatch({
-      position: new Vector2(
-        this.layoutBounds.minX + 160,
-        this.layoutBounds.maxY - 80,
-      ),
+      position: new Vector2(this.layoutBounds.minX + 160, this.layoutBounds.maxY - 80),
       isVisible: this.showStopwatchProperty.value,
     });
 
@@ -282,32 +258,19 @@ export abstract class BaseScreenView<
    * @param modelViewTransform - Transform between model and view coordinates
    * @param viewBounds - Optional bounds for the grid area (defaults to layoutBounds)
    */
-  protected setupGrid(
-    gridSpacing: number,
-    modelViewTransform: ModelViewTransform2,
-    viewBounds?: Bounds2,
-  ): void {
+  protected setupGrid(gridSpacing: number, modelViewTransform: ModelViewTransform2, viewBounds?: Bounds2): void {
     const bounds = viewBounds ?? this.layoutBounds;
-    const visualizationLabels =
-      StringManager.getInstance().getVisualizationLabels();
+    const visualizationLabels = StringManager.getInstance().getVisualizationLabels();
 
     this.showGridProperty = new BooleanProperty(false);
 
     // Create scale label property for grid
     const gridScaleLabel = new Property(
-      visualizationLabels.gridScaleLabelStringProperty.value.replace(
-        "{{value}}",
-        gridSpacing.toString(),
-      ),
+      visualizationLabels.gridScaleLabelStringProperty.value.replace("{{value}}", gridSpacing.toString()),
     );
-    visualizationLabels.gridScaleLabelStringProperty.link(
-      (template: string) => {
-        gridScaleLabel.value = template.replace(
-          "{{value}}",
-          gridSpacing.toString(),
-        );
-      },
-    );
+    visualizationLabels.gridScaleLabelStringProperty.link((template: string) => {
+      gridScaleLabel.value = template.replace("{{value}}", gridSpacing.toString());
+    });
 
     this.sceneGridNode = new SceneGridNode(modelViewTransform, bounds, {
       gridSpacing: gridSpacing,
@@ -328,18 +291,13 @@ export abstract class BaseScreenView<
     availableProperties: PlottableProperty[],
     defaultYAxisIndex: number,
   ): ConfigurableGraph {
-    // Constants for graph layout
-    const GRAPH_LEFT_MARGIN = 10;
+    // Constants for graph layout (GRAPH_LEFT_MARGIN is imported from DialogAndPanelConstants)
     const GRAPH_RIGHT_MARGIN = 100;
     const GRAPH_HEIGHT = 300;
     const MAX_DATA_POINTS = 2000;
 
     // Calculate graph width to not extend beyond the center line
-    const graphWidth =
-      this.layoutBounds.centerX -
-      this.layoutBounds.minX -
-      GRAPH_LEFT_MARGIN -
-      GRAPH_RIGHT_MARGIN;
+    const graphWidth = this.layoutBounds.centerX - this.layoutBounds.minX - GRAPH_LEFT_MARGIN - GRAPH_RIGHT_MARGIN;
 
     // Time property is always the last item in availableProperties
     const timePropertyIndex = availableProperties.length - 1;
@@ -351,8 +309,8 @@ export abstract class BaseScreenView<
       availableProperties[defaultYAxisIndex], // Default property for y-axis
       graphWidth,
       GRAPH_HEIGHT,
-      MAX_DATA_POINTS,
       this, // list parent for combo boxes
+      MAX_DATA_POINTS,
     );
 
     return this.configurableGraph;
@@ -366,8 +324,7 @@ export abstract class BaseScreenView<
   protected positionConfigurableGraph(vectorPanel: Node): void {
     if (this.configurableGraph) {
       this.configurableGraph.left = this.layoutBounds.minX + GRAPH_LEFT_MARGIN;
-      this.configurableGraph.top =
-        vectorPanel.bottom + GRAPH_TO_VECTOR_PANEL_SPACING;
+      this.configurableGraph.top = vectorPanel.bottom + GRAPH_TO_VECTOR_PANEL_SPACING;
     }
   }
 
@@ -422,10 +379,7 @@ export abstract class BaseScreenView<
     const manualStepSize = 0.016; // ~1 frame at 60 FPS
 
     // Create derived property: stepper buttons enabled only when paused
-    const stepperEnabledProperty = new DerivedProperty(
-      [this.model.isPlayingProperty],
-      (isPlaying) => !isPlaying,
-    );
+    const stepperEnabledProperty = new DerivedProperty([this.model.isPlayingProperty], (isPlaying) => !isPlaying);
 
     // Time controls (play/pause and speed)
     const timeControlNode = new TimeControlNode(this.model.isPlayingProperty, {
@@ -520,37 +474,24 @@ export abstract class BaseScreenView<
           // Reset simulation with R key
           this.model.reset();
           this.reset();
-          SimulationAnnouncer.announceSimulationReset(
-            a11yStrings.simulationResetStringProperty.value,
-          );
+          SimulationAnnouncer.announceSimulationReset(a11yStrings.simulationResetStringProperty.value);
         } else if (keysPressed === "space") {
           // Toggle play/pause with Space key
-          this.model.isPlayingProperty.value =
-            !this.model.isPlayingProperty.value;
+          this.model.isPlayingProperty.value = !this.model.isPlayingProperty.value;
           const announcement = this.model.isPlayingProperty.value
             ? a11yStrings.simulationPlayingStringProperty.value
             : a11yStrings.simulationPausedStringProperty.value;
           SimulationAnnouncer.announceSimulationState(announcement);
-        } else if (
-          keysPressed === "arrowLeft" &&
-          !this.model.isPlayingProperty.value
-        ) {
+        } else if (keysPressed === "arrowLeft" && !this.model.isPlayingProperty.value) {
           // Step backward with Left Arrow (only when paused)
           this.model.step(-manualStepSize, true);
           this.step(-manualStepSize);
-          SimulationAnnouncer.announceSimulationState(
-            a11yStrings.steppedBackwardStringProperty.value,
-          );
-        } else if (
-          keysPressed === "arrowRight" &&
-          !this.model.isPlayingProperty.value
-        ) {
+          SimulationAnnouncer.announceSimulationState(a11yStrings.steppedBackwardStringProperty.value);
+        } else if (keysPressed === "arrowRight" && !this.model.isPlayingProperty.value) {
           // Step forward with Right Arrow (only when paused)
           this.model.step(manualStepSize, true);
           this.step(manualStepSize);
-          SimulationAnnouncer.announceSimulationState(
-            a11yStrings.steppedForwardStringProperty.value,
-          );
+          SimulationAnnouncer.announceSimulationState(a11yStrings.steppedForwardStringProperty.value);
         }
       },
     });
@@ -564,10 +505,7 @@ export abstract class BaseScreenView<
     const handleVisibilityChange = () => {
       if (document.hidden) {
         // Tab became hidden
-        if (
-          ClassicalMechanicsPreferences.autoPauseWhenTabHiddenProperty.value &&
-          this.model.isPlayingProperty.value
-        ) {
+        if (ClassicalMechanicsPreferences.autoPauseWhenTabHiddenProperty.value && this.model.isPlayingProperty.value) {
           // Store that we were playing before hiding
           this.wasPlayingBeforeHidden = true;
           // Pause the simulation
@@ -575,10 +513,7 @@ export abstract class BaseScreenView<
         }
       } else {
         // Tab became visible
-        if (
-          ClassicalMechanicsPreferences.autoPauseWhenTabHiddenProperty.value &&
-          this.wasPlayingBeforeHidden
-        ) {
+        if (ClassicalMechanicsPreferences.autoPauseWhenTabHiddenProperty.value && this.wasPlayingBeforeHidden) {
           // Restore playing state
           this.model.isPlayingProperty.value = true;
           this.wasPlayingBeforeHidden = false;
@@ -667,10 +602,7 @@ export abstract class BaseScreenView<
    * @param presets - Array of available presets
    * @returns HBox containing the preset selector
    */
-  protected createPresetSelector(
-    presetProperty: Property<Preset | "Custom">,
-    presets: Preset[],
-  ): Node {
+  protected createPresetSelector(presetProperty: Property<Preset | "Custom">, presets: Preset[]): Node {
     const stringManager = StringManager.getInstance();
     const presetLabels = stringManager.getPresetLabels();
 
@@ -730,26 +662,21 @@ export abstract class BaseScreenView<
    * @returns NumberControl instance
    */
   protected createNumberControl(parameter: ControlPanelParameter): NumberControl {
-    return new NumberControl(
-      parameter.labelProperty,
-      parameter.property,
-      parameter.range,
-      {
-        delta: parameter.delta,
-        numberDisplayOptions: {
-          decimalPlaces: parameter.decimalPlaces,
-          valuePattern: `{{value}} ${parameter.units}`,
-        },
-        titleNodeOptions: {
-          fill: ClassicalMechanicsColors.textColorProperty,
-        },
-        sliderOptions: parameter.thumbFill
-          ? {
-              thumbFill: parameter.thumbFill,
-            }
-          : undefined,
+    return new NumberControl(parameter.labelProperty, parameter.property, parameter.range, {
+      delta: parameter.delta,
+      numberDisplayOptions: {
+        decimalPlaces: parameter.decimalPlaces,
+        valuePattern: `{{value}} ${parameter.units}`,
       },
-    );
+      titleNodeOptions: {
+        fill: ClassicalMechanicsColors.textColorProperty,
+      },
+      sliderOptions: parameter.thumbFill
+        ? {
+            thumbFill: parameter.thumbFill,
+          }
+        : undefined,
+    });
   }
 
   /**
@@ -910,20 +837,21 @@ export abstract class BaseScreenView<
    * @param simulationElements - Array of simulation-specific elements (pendulum, spring, etc.)
    * @param vectorElements - Array of vector visualization nodes
    */
-  protected manageZOrder(
-    simulationElements: Node[],
-    vectorElements: Node[],
-  ): void {
+  protected manageZOrder(simulationElements: Node[], vectorElements: Node[]): void {
     // Move grid to back if it exists
     if (this.sceneGridNode) {
       this.sceneGridNode.moveToBack();
     }
 
     // Move simulation elements to front (above panels)
-    simulationElements.forEach((element) => element.moveToFront());
+    simulationElements.forEach((element) => {
+      element.moveToFront();
+    });
 
     // Move vector nodes to front (above simulation elements)
-    vectorElements.forEach((element) => element.moveToFront());
+    vectorElements.forEach((element) => {
+      element.moveToFront();
+    });
 
     // Move configurable graph to front (below measurement tools)
     if (this.configurableGraph) {
@@ -944,4 +872,4 @@ export abstract class BaseScreenView<
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('BaseScreenView', BaseScreenView);
+classicalMechanics.register("BaseScreenView", BaseScreenView);

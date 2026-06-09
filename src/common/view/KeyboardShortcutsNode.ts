@@ -3,10 +3,14 @@
  * Displays available keyboard shortcuts in a two-column layout.
  */
 
-import { TwoColumnKeyboardHelpContent, KeyboardHelpSection, KeyboardHelpSectionRow } from "scenerystack/scenery-phet";
-import { TextKeyNode } from "scenerystack/scenery-phet";
+import {
+  KeyboardHelpSection,
+  KeyboardHelpSectionRow,
+  TextKeyNode,
+  TwoColumnKeyboardHelpContent,
+} from "scenerystack/scenery-phet";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import { StringManager } from "../../i18n/StringManager.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
 
 export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
   public constructor() {
@@ -19,41 +23,35 @@ export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
       [
         KeyboardHelpSectionRow.labelWithIcon(
           keyboardShortcutsStrings.playPauseSimulationStringProperty,
-          TextKeyNode.space()
+          TextKeyNode.space(),
         ),
         KeyboardHelpSectionRow.labelWithIcon(
           keyboardShortcutsStrings.resetSimulationStringProperty,
-          new TextKeyNode("R")
+          new TextKeyNode("R"),
         ),
         KeyboardHelpSectionRow.labelWithIcon(
           keyboardShortcutsStrings.stepBackwardStringProperty,
-          new TextKeyNode("\u2190") // Left arrow
+          new TextKeyNode("\u2190"), // Left arrow
         ),
         KeyboardHelpSectionRow.labelWithIcon(
           keyboardShortcutsStrings.stepForwardStringProperty,
-          new TextKeyNode("\u2192") // Right arrow
+          new TextKeyNode("\u2192"), // Right arrow
         ),
-      ]
+      ],
     );
 
     // Create sections for graph interactions
-    const graphInteractionsSection = new KeyboardHelpSection(
-      keyboardShortcutsStrings.graphInteractionsStringProperty,
-      [
-        KeyboardHelpSectionRow.labelWithIcon(
-          keyboardShortcutsStrings.resetZoomStringProperty,
-          new TextKeyNode("Double-click")
-        ),
-        KeyboardHelpSectionRow.labelWithIcon(
-          keyboardShortcutsStrings.zoomInOutStringProperty,
-          new TextKeyNode("Mouse wheel")
-        ),
-        KeyboardHelpSectionRow.labelWithIcon(
-          keyboardShortcutsStrings.panViewStringProperty,
-          new TextKeyNode("Drag")
-        ),
-      ]
-    );
+    const graphInteractionsSection = new KeyboardHelpSection(keyboardShortcutsStrings.graphInteractionsStringProperty, [
+      KeyboardHelpSectionRow.labelWithIcon(
+        keyboardShortcutsStrings.resetZoomStringProperty,
+        new TextKeyNode("Double-click"),
+      ),
+      KeyboardHelpSectionRow.labelWithIcon(
+        keyboardShortcutsStrings.zoomInOutStringProperty,
+        new TextKeyNode("Mouse wheel"),
+      ),
+      KeyboardHelpSectionRow.labelWithIcon(keyboardShortcutsStrings.panViewStringProperty, new TextKeyNode("Drag")),
+    ]);
 
     // Left column has simulation controls, right column has graph interactions
     super([simulationControlsSection], [graphInteractionsSection], {
@@ -64,4 +62,4 @@ export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('KeyboardShortcutsNode', KeyboardShortcutsNode);
+classicalMechanics.register("KeyboardShortcutsNode", KeyboardShortcutsNode);

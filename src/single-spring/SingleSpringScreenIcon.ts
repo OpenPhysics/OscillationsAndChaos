@@ -3,10 +3,10 @@
  * Shows a simple spring with a mass attached.
  */
 
-import { ScreenIcon } from "scenerystack/sim";
-import { Node, Rectangle, Path } from "scenerystack/scenery";
 import { Shape } from "scenerystack/kite";
-import classicalMechanics from '../ClassicalMechanicsNamespace.js';
+import { Node, Path, Rectangle } from "scenerystack/scenery";
+import { ScreenIcon } from "scenerystack/sim";
+import classicalMechanics from "../ClassicalMechanicsNamespace.js";
 
 export class SingleSpringScreenIcon extends ScreenIcon {
   public constructor() {
@@ -90,4 +90,4 @@ export class SingleSpringScreenIcon extends ScreenIcon {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('SingleSpringScreenIcon', SingleSpringScreenIcon);
+classicalMechanics.register("SingleSpringScreenIcon", SingleSpringScreenIcon);

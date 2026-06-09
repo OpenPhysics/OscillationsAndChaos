@@ -3,12 +3,11 @@
  * Handles auto-scaling, tick spacing calculations, and trail point rendering.
  */
 
-import { Vector2 } from "scenerystack/dot";
-import { Range } from "scenerystack/dot";
-import { Node, Circle } from "scenerystack/scenery";
-import type { ChartTransform, LinePlot, GridLineSet, TickMarkSet, TickLabelSet } from "scenerystack/bamboo";
+import type { ChartTransform, GridLineSet, LinePlot, TickLabelSet, TickMarkSet } from "scenerystack/bamboo";
+import { Range, Vector2 } from "scenerystack/dot";
+import { Circle, type Node } from "scenerystack/scenery";
 import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
-import classicalMechanics from '../../../ClassicalMechanicsNamespace.js';
+import classicalMechanics from "../../../ClassicalMechanicsNamespace.js";
 
 /**
  * Configuration for grid lines, tick marks, and tick labels
@@ -44,7 +43,7 @@ export default class GraphDataManager {
     linePlot: LinePlot,
     trailNode: Node,
     maxDataPoints: number,
-    gridConfig: GridVisualizationConfig
+    gridConfig: GridVisualizationConfig,
   ) {
     this.chartTransform = chartTransform;
     this.linePlot = linePlot;
@@ -63,7 +62,7 @@ export default class GraphDataManager {
    */
   public addDataPoint(xValue: number, yValue: number): void {
     // Skip invalid values
-    if (!isFinite(xValue) || !isFinite(yValue)) {
+    if (!(isFinite(xValue) && isFinite(yValue))) {
       return;
     }
 
@@ -183,7 +182,7 @@ export default class GraphDataManager {
     }
 
     // Round to a nice number (1, 2, 5, 10, 20, 50, etc.)
-    const magnitude = Math.pow(10, Math.floor(Math.log10(roughSpacing)));
+    const magnitude = 10 ** Math.floor(Math.log10(roughSpacing));
     const residual = roughSpacing / magnitude;
 
     let spacing: number;
@@ -272,4 +271,4 @@ export default class GraphDataManager {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('GraphDataManager', GraphDataManager);
+classicalMechanics.register("GraphDataManager", GraphDataManager);

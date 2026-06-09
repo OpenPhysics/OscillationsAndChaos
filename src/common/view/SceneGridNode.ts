@@ -8,15 +8,16 @@
  * - Scale indicator with double-sided arrow showing grid spacing
  */
 
-import { Node, Path, Text, type NodeOptions } from "scenerystack/scenery";
-import { Shape } from "scenerystack/kite";
-import {  Bounds2 } from "scenerystack/dot";
-import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { type TReadOnlyProperty } from "scenerystack/axon";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import { ArrowNode } from "scenerystack/scenery-phet";
 import { PhetFont } from "scenerystack";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import type { TReadOnlyProperty } from "scenerystack/axon";
+import type { Bounds2 } from "scenerystack/dot";
+import { Shape } from "scenerystack/kite";
+import type { ModelViewTransform2 } from "scenerystack/phetcommon";
+import { Node, type NodeOptions, Path, Text } from "scenerystack/scenery";
+import { ArrowNode } from "scenerystack/scenery-phet";
+import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+
 type SceneGridNodeOptions = NodeOptions & {
   gridSpacing?: number; // spacing in model coordinates (meters)
   scaleLabelProperty: TReadOnlyProperty<string>; // label for the scale indicator
@@ -35,11 +36,7 @@ export class SceneGridNode extends Node {
    * @param viewBounds - Bounds of the visible area in view coordinates
    * @param options - Configuration options
    */
-  public constructor(
-    modelViewTransform: ModelViewTransform2,
-    viewBounds: Bounds2,
-    options: SceneGridNodeOptions
-  ) {
+  public constructor(modelViewTransform: ModelViewTransform2, viewBounds: Bounds2, options: SceneGridNodeOptions) {
     super();
 
     this.modelViewTransform = modelViewTransform;
@@ -82,7 +79,7 @@ export class SceneGridNode extends Node {
 
     // Position in model coordinates, aligned to gridlines
     // Find the first gridline in from the right edge (subtract six grid spacing for padding)
-    const modelStartX = Math.ceil(modelMaxX / this.gridSpacing) * this.gridSpacing - 6* this.gridSpacing;
+    const modelStartX = Math.ceil(modelMaxX / this.gridSpacing) * this.gridSpacing - 6 * this.gridSpacing;
     // Find the first gridline up from the bottom (subtract one grid spacing for padding)
     const modelStartY = Math.floor(modelMaxY / this.gridSpacing) * this.gridSpacing - this.gridSpacing;
 
@@ -92,25 +89,19 @@ export class SceneGridNode extends Node {
     const viewEndX = this.modelViewTransform.modelToViewX(modelStartX + this.gridSpacing);
 
     // Create double-sided arrow (horizontal, aligned with gridlines)
-    const arrow = new ArrowNode(
-      viewStartX,
-      viewStartY,
-      viewEndX,
-      viewStartY,
-      {
-        doubleHead: true,
-        headHeight: 8,
-        headWidth: 8,
-        tailWidth: 2,
-        fill: ClassicalMechanicsColors.textColorProperty,
-        stroke: ClassicalMechanicsColors.textColorProperty,
-      }
-    );
+    const arrow = new ArrowNode(viewStartX, viewStartY, viewEndX, viewStartY, {
+      doubleHead: true,
+      headHeight: 8,
+      headWidth: 8,
+      tailWidth: 2,
+      fill: ClassicalMechanicsColors.textColorProperty,
+      stroke: ClassicalMechanicsColors.textColorProperty,
+    });
     indicatorNode.addChild(arrow);
 
     // Label below the arrow
     const label = new Text(scaleLabelProperty, {
-      font: new PhetFont({size: 14}),
+      font: new PhetFont({ size: 14 }),
       fill: ClassicalMechanicsColors.textColorProperty,
       centerX: (viewStartX + viewEndX) / 2,
       top: viewStartY + 5,
@@ -177,4 +168,4 @@ export class SceneGridNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('SceneGridNode', SceneGridNode);
+classicalMechanics.register("SceneGridNode", SceneGridNode);

@@ -8,9 +8,9 @@
 import { BooleanProperty, EnumerationProperty } from "scenerystack/axon";
 import { Tandem } from "scenerystack/tandem";
 import classicalMechanics from "./ClassicalMechanicsNamespace.js";
+import NominalTimeStep from "./common/model/NominalTimeStep.js";
 import SolverType from "./common/model/SolverType.js";
 import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
-import NominalTimeStep from "./common/model/NominalTimeStep.js";
 
 /**
  * Preferences for the Classical Mechanics Simulations
@@ -24,7 +24,7 @@ const ClassicalMechanicsPreferences = {
   autoPauseWhenTabHiddenProperty: new BooleanProperty(true, {
     tandem: Tandem.PREFERENCES.createTandem("simulationPreferences").createTandem("autoPauseWhenTabHiddenProperty"),
     phetioDocumentation: "Controls whether the simulation automatically pauses when the browser tab becomes hidden",
-    phetioFeatured: true
+    phetioFeatured: true,
   }),
 
   /**
@@ -34,7 +34,7 @@ const ClassicalMechanicsPreferences = {
   solverTypeProperty: new EnumerationProperty(SolverType.RK4, {
     tandem: Tandem.PREFERENCES.createTandem("simulationPreferences").createTandem("solverTypeProperty"),
     phetioDocumentation: "Selects the numerical integration method used for solving differential equations",
-    phetioFeatured: true
+    phetioFeatured: true,
   }),
 
   /**
@@ -46,21 +46,18 @@ const ClassicalMechanicsPreferences = {
   nominalTimeStepProperty: new EnumerationProperty(NominalTimeStep.DEFAULT, {
     tandem: Tandem.PREFERENCES.createTandem("simulationPreferences").createTandem("nominalTimeStepProperty"),
     phetioDocumentation: "Sets the target time step for numerical integration in seconds",
-    phetioFeatured: true
+    phetioFeatured: true,
   }),
 
   /**
    * The spring visualization type to use for rendering springs.
    * Options: Classic (simple coil pattern), Parametric (realistic 3D appearance)
    */
-  springVisualizationTypeProperty: new EnumerationProperty(
-    SpringVisualizationType.CLASSIC,
-    {
-      tandem: Tandem.PREFERENCES.createTandem("simulationPreferences").createTandem("springVisualizationTypeProperty"),
-      phetioDocumentation: "Selects the visual style for rendering springs (Classic or Parametric)",
-      phetioFeatured: true
-    }
-  ),
+  springVisualizationTypeProperty: new EnumerationProperty(SpringVisualizationType.CLASSIC, {
+    tandem: Tandem.PREFERENCES.createTandem("simulationPreferences").createTandem("springVisualizationTypeProperty"),
+    phetioDocumentation: "Selects the visual style for rendering springs (Classic or Parametric)",
+    phetioFeatured: true,
+  }),
 
   /**
    * Whether to respect the user's prefers-reduced-motion setting.
@@ -69,14 +66,12 @@ const ClassicalMechanicsPreferences = {
    * This is checked automatically from the browser's media query.
    */
   reducedMotionProperty: new BooleanProperty(
-    typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     {
       tandem: Tandem.PREFERENCES.createTandem("visualPreferences").createTandem("reducedMotionProperty"),
       phetioDocumentation: "Respects the user's operating system preference for reduced motion",
-      phetioFeatured: false
-    }
+      phetioFeatured: false,
+    },
   ),
 
   /**
@@ -86,7 +81,7 @@ const ClassicalMechanicsPreferences = {
   highContrastModeProperty: new BooleanProperty(false, {
     tandem: Tandem.PREFERENCES.createTandem("visualPreferences").createTandem("highContrastModeProperty"),
     phetioDocumentation: "Enables high contrast mode with enhanced color contrast and focus indicators",
-    phetioFeatured: false
+    phetioFeatured: false,
   }),
 
   /**
@@ -98,8 +93,9 @@ const ClassicalMechanicsPreferences = {
    */
   announceParameterChangesProperty: new BooleanProperty(true, {
     tandem: Tandem.PREFERENCES.createTandem("audioPreferences").createTandem("announceParameterChangesProperty"),
-    phetioDocumentation: "Controls voicing announcements for parameter changes such as mass, spring constant, and damping",
-    phetioFeatured: true
+    phetioDocumentation:
+      "Controls voicing announcements for parameter changes such as mass, spring constant, and damping",
+    phetioFeatured: true,
   }),
 
   /**
@@ -108,7 +104,7 @@ const ClassicalMechanicsPreferences = {
   announceStateChangesProperty: new BooleanProperty(true, {
     tandem: Tandem.PREFERENCES.createTandem("audioPreferences").createTandem("announceStateChangesProperty"),
     phetioDocumentation: "Controls voicing announcements for simulation state changes like play, pause, and reset",
-    phetioFeatured: true
+    phetioFeatured: true,
   }),
 
   /**
@@ -117,14 +113,11 @@ const ClassicalMechanicsPreferences = {
   announceDragInteractionsProperty: new BooleanProperty(true, {
     tandem: Tandem.PREFERENCES.createTandem("audioPreferences").createTandem("announceDragInteractionsProperty"),
     phetioDocumentation: "Controls voicing announcements for drag interactions with simulation objects",
-    phetioFeatured: true
+    phetioFeatured: true,
   }),
 };
 
 // Register the namespace
-classicalMechanics.register(
-  "ClassicalMechanicsPreferences",
-  ClassicalMechanicsPreferences,
-);
+classicalMechanics.register("ClassicalMechanicsPreferences", ClassicalMechanicsPreferences);
 
 export default ClassicalMechanicsPreferences;

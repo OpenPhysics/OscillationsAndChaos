@@ -3,14 +3,11 @@
  */
 
 import { Screen, type ScreenOptions } from "scenerystack/sim";
+import classicalMechanics from "../ClassicalMechanicsNamespace.js";
 import { DoublePendulumModel } from "./model/DoublePendulumModel.js";
 import { DoublePendulumScreenView } from "./view/DoublePendulumScreenView.js";
-import classicalMechanics from '../ClassicalMechanicsNamespace.js';
 
-export class DoublePendulumScreen extends Screen<
-  DoublePendulumModel,
-  DoublePendulumScreenView
-> {
+export class DoublePendulumScreen extends Screen<DoublePendulumModel, DoublePendulumScreenView> {
   public constructor(options: ScreenOptions) {
     super(
       () => new DoublePendulumModel(),
@@ -21,4 +18,4 @@ export class DoublePendulumScreen extends Screen<
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('DoublePendulumScreen', DoublePendulumScreen);
+classicalMechanics.register("DoublePendulumScreen", DoublePendulumScreen);
