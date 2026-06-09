@@ -4,13 +4,13 @@
  * - Header bar
  */
 
-import { Node, HBox, Text, Rectangle } from "scenerystack/scenery";
-import { ComboBox } from "scenerystack/sun";
-import { Property, DerivedProperty, type TReadOnlyProperty } from "scenerystack/axon";
-import type { PlottableProperty } from "./PlottableProperty.js";
-import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
+import { DerivedProperty, type Property, type TReadOnlyProperty } from "scenerystack/axon";
+import { HBox, type Node, Rectangle, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
-import classicalMechanics from '../../../ClassicalMechanicsNamespace.js';
+import { ComboBox } from "scenerystack/sun";
+import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../../ClassicalMechanicsNamespace.js";
+import type { PlottableProperty } from "./PlottableProperty.js";
 
 export default class GraphControlsPanel {
   private readonly availableProperties: PlottableProperty[];
@@ -22,7 +22,7 @@ export default class GraphControlsPanel {
     availableProperties: PlottableProperty[],
     xPropertyProperty: Property<PlottableProperty>,
     yPropertyProperty: Property<PlottableProperty>,
-    graphWidth: number
+    graphWidth: number,
   ) {
     this.availableProperties = availableProperties;
     this.xPropertyProperty = xPropertyProperty;
@@ -54,7 +54,7 @@ export default class GraphControlsPanel {
       value: prop,
       createNode: () =>
         new Text(prop.name, {
-          font: new PhetFont({size: 12}),
+          font: new PhetFont({ size: 12 }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
       tandemName: this.sanitizeTandemName(prop.name) + "Item",
@@ -75,7 +75,7 @@ export default class GraphControlsPanel {
       value: prop,
       createNode: () =>
         new Text(prop.name, {
-          font: new PhetFont({size: 12}),
+          font: new PhetFont({ size: 12 }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
       tandemName: this.sanitizeTandemName(prop.name) + "Item",
@@ -94,17 +94,17 @@ export default class GraphControlsPanel {
 
     // Create title in format "(Y vs X)"
     const leftParen = new Text("(", {
-      font: new PhetFont({size: 14}),
+      font: new PhetFont({ size: 14 }),
       fill: ClassicalMechanicsColors.textColorProperty,
     });
 
     const vsText = new Text(" vs ", {
-      font: new PhetFont({size: 14})  ,
+      font: new PhetFont({ size: 14 }),
       fill: ClassicalMechanicsColors.textColorProperty,
     });
 
     const rightParen = new Text(")", {
-      font: new PhetFont({size: 14}),
+      font: new PhetFont({ size: 14 }),
       fill: ClassicalMechanicsColors.textColorProperty,
     });
 
@@ -124,13 +124,13 @@ export default class GraphControlsPanel {
     const headerHeight = 30;
     const headerFillProperty = new DerivedProperty(
       [ClassicalMechanicsColors.controlPanelBackgroundColorProperty],
-      (backgroundColor) => backgroundColor.colorUtilsDarker(0.1)
+      (backgroundColor) => backgroundColor.colorUtilsDarker(0.1),
     );
     const headerBar = new Rectangle(0, -headerHeight, this.graphWidth, headerHeight, 5, 5, {
       fill: headerFillProperty,
       stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
       lineWidth: 2,
-      cursor: 'grab',
+      cursor: "grab",
     });
 
     return headerBar;
@@ -145,4 +145,4 @@ export default class GraphControlsPanel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('GraphControlsPanel', GraphControlsPanel);
+classicalMechanics.register("GraphControlsPanel", GraphControlsPanel);

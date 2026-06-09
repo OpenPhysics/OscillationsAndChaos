@@ -17,8 +17,8 @@
  */
 
 import { assert } from "scenerystack";
-import { ODESolver, DerivativeFunction } from "./ODESolver.js";
 import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import type { DerivativeFunction, ODESolver } from "./ODESolver.js";
 
 export class RungeKuttaSolver implements ODESolver {
   // Temporary arrays to avoid reallocation
@@ -57,17 +57,16 @@ export class RungeKuttaSolver implements ODESolver {
    * @param time - Current time
    * @param dt - Time step
    */
-  private stepOnce(
-    state: number[],
-    derivativeFn: DerivativeFunction,
-    time: number,
-    dt: number,
-  ): void {
+  private stepOnce(state: number[], derivativeFn: DerivativeFunction, time: number, dt: number): void {
     // Validate inputs
-    assert && assert(Array.isArray(state) && state.length > 0, 'state must be a non-empty array');
-    assert && assert(state.every(v => isFinite(v)), 'all state values must be finite');
-    assert && assert(isFinite(time), 'time must be finite');
-    assert && assert(isFinite(dt) && dt !== 0, 'dt must be finite and non-zero');
+    assert && assert(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
+    assert &&
+      assert(
+        state.every((v) => isFinite(v)),
+        "all state values must be finite",
+      );
+    assert && assert(isFinite(time), "time must be finite");
+    assert && assert(isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
 
     const n = state.length;
 
@@ -103,8 +102,7 @@ export class RungeKuttaSolver implements ODESolver {
 
     // y_new = y + (k1 + 2*k2 + 2*k3 + k4) * dt/6
     for (let i = 0; i < n; i++) {
-      state[i] +=
-        ((this.k1[i] + 2 * this.k2[i] + 2 * this.k3[i] + this.k4[i]) * dt) / 6;
+      state[i] += ((this.k1[i] + 2 * this.k2[i] + 2 * this.k3[i] + this.k4[i]) * dt) / 6;
     }
   }
 
@@ -120,12 +118,7 @@ export class RungeKuttaSolver implements ODESolver {
    * @param dt - Requested time step (can be larger or smaller than fixedTimeStep)
    * @returns The new time after integration
    */
-  public step(
-    state: number[],
-    derivativeFn: DerivativeFunction,
-    time: number,
-    dt: number,
-  ): number {
+  public step(state: number[], derivativeFn: DerivativeFunction, time: number, dt: number): number {
     // Handle the case where dt is smaller than or equal to fixedTimeStep
     if (dt <= this.fixedTimeStep) {
       this.stepOnce(state, derivativeFn, time, dt);
@@ -145,8 +138,7 @@ export class RungeKuttaSolver implements ODESolver {
 
     return currentTime;
   }
-
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('RungeKuttaSolver', RungeKuttaSolver);
+classicalMechanics.register("RungeKuttaSolver", RungeKuttaSolver);

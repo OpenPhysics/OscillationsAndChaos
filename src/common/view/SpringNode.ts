@@ -6,12 +6,12 @@
  * that align with ParametricSpringNode, making the two implementations easily swappable.
  */
 
-import { Node, Path, type NodeOptions } from "scenerystack/scenery";
-import { Color, ReadOnlyProperty } from "scenerystack";
-import { Shape } from "scenerystack/kite";
+import type { Color, ReadOnlyProperty } from "scenerystack";
 import { Vector2 } from "scenerystack/dot";
+import { Shape } from "scenerystack/kite";
+import { Node, type NodeOptions, Path } from "scenerystack/scenery";
 import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 
 type SpringNodeOptions = NodeOptions & {
   frontColorProperty?: ReadOnlyProperty<Color>;
@@ -48,12 +48,8 @@ export class SpringNode extends Node {
     this.leftEndLength = options?.leftEndLength ?? 15;
     this.rightEndLength = options?.rightEndLength ?? 25;
 
-    const frontColorProperty =
-      options?.frontColorProperty ??
-      ClassicalMechanicsColors.springFrontColorProperty;
-    const backColorProperty =
-      options?.backColorProperty ??
-      ClassicalMechanicsColors.springBackColorProperty;
+    const frontColorProperty = options?.frontColorProperty ?? ClassicalMechanicsColors.springFrontColorProperty;
+    const backColorProperty = options?.backColorProperty ?? ClassicalMechanicsColors.springBackColorProperty;
     const lineWidth = options?.lineWidth ?? 1;
 
     // Back part of spring (goes behind)
@@ -186,4 +182,4 @@ export class SpringNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('SpringNode', SpringNode);
+classicalMechanics.register("SpringNode", SpringNode);

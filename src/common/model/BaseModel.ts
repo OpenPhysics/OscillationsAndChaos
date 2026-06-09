@@ -14,22 +14,18 @@
  * @author Martin Veillette (PhET Interactive Simulations)
  */
 
-import {
-  NumberProperty,
-  BooleanProperty,
-  EnumerationProperty,
-} from "scenerystack/axon";
 import { assert } from "scenerystack";
-import { ODESolver } from "./ODESolver.js";
-import { RungeKuttaSolver } from "./RungeKuttaSolver.js";
-import { AdaptiveRK45Solver } from "./AdaptiveRK45Solver.js";
-import { ForestRuthPEFRLSolver } from "./ForestRuthPEFRLSolver.js";
-import { DormandPrince87Solver } from "./DormandPrince87Solver.js";
-import SolverType from "./SolverType.js";
-import NominalTimeStep from "./NominalTimeStep.js";
+import { BooleanProperty, EnumerationProperty, NumberProperty } from "scenerystack/axon";
 import { TimeSpeed } from "scenerystack/scenery-phet";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
 import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
+import { AdaptiveRK45Solver } from "./AdaptiveRK45Solver.js";
+import { DormandPrince87Solver } from "./DormandPrince87Solver.js";
+import { ForestRuthPEFRLSolver } from "./ForestRuthPEFRLSolver.js";
+import type NominalTimeStep from "./NominalTimeStep.js";
+import type { ODESolver } from "./ODESolver.js";
+import { RungeKuttaSolver } from "./RungeKuttaSolver.js";
+import SolverType from "./SolverType.js";
 
 /**
  * Abstract base class that all physics models should extend.
@@ -110,10 +106,10 @@ export abstract class BaseModel {
    */
   public step(dt: number, forceStep: boolean = false): void {
     // Validate input
-    assert && assert(isFinite(dt), 'dt must be finite');
+    assert && assert(isFinite(dt), "dt must be finite");
 
     // Only step if playing (unless forced for manual stepping)
-    if (!this.isPlayingProperty.value && !forceStep) {
+    if (!(this.isPlayingProperty.value || forceStep)) {
       return;
     }
 
@@ -123,29 +119,26 @@ export abstract class BaseModel {
     const cappedDt = Math.min(Math.abs(dt), MAX_DT) * Math.sign(dt);
 
     // Apply time speed multiplier (only when auto-playing, not for manual steps)
-    const timeSpeedMultiplier = forceStep
-      ? 1.0
-      : this.getTimeSpeedMultiplier();
+    const timeSpeedMultiplier = forceStep ? 1.0 : this.getTimeSpeedMultiplier();
     const adjustedDt = cappedDt * timeSpeedMultiplier;
 
     // Get the current state from the subclass
     const state = this.getState();
 
     // Validate state array returned by subclass
-    assert && assert(Array.isArray(state), 'state must be an array');
-    assert && assert(state.length > 0, 'state array must not be empty');
-    assert && assert(state.every(v => isFinite(v)), 'all state values must be finite');
+    assert && assert(Array.isArray(state), "state must be an array");
+    assert && assert(state.length > 0, "state array must not be empty");
+    assert &&
+      assert(
+        state.every((v) => isFinite(v)),
+        "all state values must be finite",
+      );
 
     // Use solver with automatic sub-stepping
-    const newTime = this.solver.step(
-      state,
-      this.getDerivatives.bind(this),
-      this.timeProperty.value,
-      adjustedDt,
-    );
+    const newTime = this.solver.step(state, this.getDerivatives.bind(this), this.timeProperty.value, adjustedDt);
 
     // Validate computed time
-    assert && assert(isFinite(newTime), 'newTime must be finite');
+    assert && assert(isFinite(newTime), "newTime must be finite");
 
     // Update the state in the subclass
     this.setState(state);
@@ -192,11 +185,7 @@ export abstract class BaseModel {
    * @param derivatives - Output array for derivatives
    * @param time - Current time
    */
-  protected abstract getDerivatives(
-    state: number[],
-    derivatives: number[],
-    time: number,
-  ): void;
+  protected abstract getDerivatives(state: number[], derivatives: number[], time: number): void;
 
   /**
    * Reset the model to initial conditions.
@@ -206,4 +195,4 @@ export abstract class BaseModel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('BaseModel', BaseModel);
+classicalMechanics.register("BaseModel", BaseModel);

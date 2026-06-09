@@ -87,8 +87,8 @@ npm run build
 - `npm start`: Start development server
 - `npm run build`: Build for production
 - `npm run preview`: Preview production build
-- `npm run lint`: Run ESLint
-- `npm run format`: Format code with Prettier
+- `npm run lint`: Lint and format-check with Biome
+- `npm run format`: Format code with Biome
 - `npm run fix`: Fix linting and formatting issues
 - `npm run check`: Type-check TypeScript code
 - `npm run serve`: Serve production build

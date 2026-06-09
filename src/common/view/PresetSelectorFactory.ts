@@ -2,12 +2,12 @@
  * Factory for creating preset selector combo boxes.
  */
 
-import { ComboBox } from "scenerystack/sun";
-import { Text, Node } from "scenerystack/scenery";
+import type { Property, TReadOnlyProperty } from "scenerystack/axon";
+import { type Node, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
-import { Property, TReadOnlyProperty } from "scenerystack/axon";
+import { ComboBox } from "scenerystack/sun";
 import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import { Preset } from "../model/Preset.js";
+import type { Preset } from "../model/Preset.js";
 import { FONT_SIZE_PRESET_LABEL } from "./FontSizeConstants.js";
 
 /**
@@ -28,7 +28,7 @@ export function createPresetSelector(
   presetProperty: Property<PresetOption>,
   presets: Preset[],
   customLabel: TReadOnlyProperty<string>,
-  listParent: Node
+  listParent: Node,
 ): ComboBox<PresetOption> {
   const presetItems: Array<{
     value: PresetOption;

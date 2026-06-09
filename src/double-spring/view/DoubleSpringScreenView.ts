@@ -3,46 +3,43 @@
  * Displays two masses connected by springs.
  */
 
-import { type ScreenViewOptions } from "scenerystack/sim";
-import { DoubleSpringModel } from "../model/DoubleSpringModel.js";
-import { Rectangle, Line, VBox, Node, Text, RichText } from "scenerystack/scenery";
-import { PhetFont, FormulaNode } from "scenerystack/scenery-phet";
 import { StringUtils } from "scenerystack";
-import { Range, Vector2 } from "scenerystack/dot";
-import { SpringNode } from "../../common/view/SpringNode.js";
-import { ParametricSpringNode } from "../../common/view/ParametricSpringNode.js";
-import SpringVisualizationType from "../../common/view/SpringVisualizationType.js";
-import { VectorNode } from "../../common/view/VectorNode.js";
-import { DragListener } from "scenerystack/scenery";
-import { StringManager } from "../../i18n/StringManager.js";
-import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
-import { BaseScreenView } from "../../common/view/BaseScreenView.js";
-import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
-import { DoubleSpringPresets } from "../model/DoubleSpringPresets.js";
-import { Preset } from "../../common/model/Preset.js";
 import { Property } from "scenerystack/axon";
+import { Range, Vector2 } from "scenerystack/dot";
+import { ModelViewTransform2 } from "scenerystack/phetcommon";
+import { DragListener, Line, Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
+import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
+import type { ScreenViewOptions } from "scenerystack/sim";
+import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
+import type { Preset } from "../../common/model/Preset.js";
+import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
+import { BaseScreenView } from "../../common/view/BaseScreenView.js";
+import {
+  FONT_SIZE_BODY_TEXT,
+  FONT_SIZE_SCREEN_TITLE,
+  FONT_SIZE_SECONDARY_LABEL,
+} from "../../common/view/FontSizeConstants.js";
 import type { PlottableProperty } from "../../common/view/graph/PlottableProperty.js";
-import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
 import { ParameterControlPanel } from "../../common/view/ParameterControlPanel.js";
-import { type PresetOption } from "../../common/view/PresetSelectorFactory.js";
+import { ParametricSpringNode } from "../../common/view/ParametricSpringNode.js";
+import type { PresetOption } from "../../common/view/PresetSelectorFactory.js";
+import { SpringNode } from "../../common/view/SpringNode.js";
 import {
   DOUBLE_SPRING_LOOPS,
   DOUBLE_SPRING_RADIUS,
-  SPRING_LINE_WIDTH,
   SPRING_LEFT_END_LENGTH,
+  SPRING_LINE_WIDTH,
   SPRING_RIGHT_END_LENGTH,
 } from "../../common/view/SpringVisualizationConstants.js";
-import {
-  FONT_SIZE_BODY_TEXT,
-  FONT_SIZE_SECONDARY_LABEL,
-  FONT_SIZE_SCREEN_TITLE,
-} from "../../common/view/FontSizeConstants.js";
-import {
-  SPACING_LARGE,
-} from "../../common/view/UILayoutConstants.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import SpringVisualizationType from "../../common/view/SpringVisualizationType.js";
+import { SPACING_LARGE } from "../../common/view/UILayoutConstants.js";
+import type { VectorNode } from "../../common/view/VectorNode.js";
+import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
+import { StringManager } from "../../i18n/StringManager.js";
+import type { DoubleSpringModel } from "../model/DoubleSpringModel.js";
+import { DoubleSpringPresets } from "../model/DoubleSpringPresets.js";
 
 export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   private readonly mass1Node: Rectangle;
@@ -70,7 +67,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   private readonly acceleration2VectorNode: VectorNode;
 
   // Accessibility strings
-  private readonly a11yStrings: ReturnType<StringManager['getAccessibilityStrings']>;
+  private readonly a11yStrings: ReturnType<StringManager["getAccessibilityStrings"]>;
   private readonly stringManager: StringManager;
 
   public constructor(model: DoubleSpringModel, options?: ScreenViewOptions) {
@@ -112,16 +109,10 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     this.setupMeasurementTools(this.modelViewTransform, undefined, false);
 
     // Wall (horizontal bar at top)
-    const wall = new Line(
-      this.layoutBounds.centerX-20,
-      wallY,
-      this.layoutBounds.centerX+20,
-      wallY,
-      {
-        stroke: ClassicalMechanicsColors.rodStrokeColorProperty,
-        lineWidth: 4,
-      },
-    );
+    const wall = new Line(this.layoutBounds.centerX - 20, wallY, this.layoutBounds.centerX + 20, wallY, {
+      stroke: ClassicalMechanicsColors.rodStrokeColorProperty,
+      lineWidth: 4,
+    });
     this.addChild(wall);
 
     // Create both spring node types for spring 1 (only one will be visible at a time)
@@ -160,15 +151,10 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Set initial spring nodes based on preference
     const useParametric =
-      ClassicalMechanicsPreferences.springVisualizationTypeProperty.value ===
-      SpringVisualizationType.PARAMETRIC;
+      ClassicalMechanicsPreferences.springVisualizationTypeProperty.value === SpringVisualizationType.PARAMETRIC;
 
-    this.currentSpring1Node = useParametric
-      ? this.parametricSpring1Node
-      : this.classicSpring1Node;
-    this.currentSpring2Node = useParametric
-      ? this.parametricSpring2Node
-      : this.classicSpring2Node;
+    this.currentSpring1Node = useParametric ? this.parametricSpring1Node : this.classicSpring1Node;
+    this.currentSpring2Node = useParametric ? this.parametricSpring2Node : this.classicSpring2Node;
 
     this.addChild(this.currentSpring1Node);
     this.addChild(this.currentSpring2Node);
@@ -241,11 +227,9 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Listen to spring visualization preference changes
     // Using lazyLink to avoid triggering during initialization
-    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink(
-      (springType) => {
-        this.switchSpringVisualization(springType);
-      }
-    );
+    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
+      this.switchSpringVisualization(springType);
+    });
 
     // Drag listeners with accessibility announcements
     let dragOffsetModel1 = 0; // Track the offset in model coordinates for mass1
@@ -270,7 +254,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
         end: () => {
           const position = this.model.position1Property.value.toFixed(2);
           const template = this.a11yStrings.mass1ReleasedAtStringProperty.value;
-          const announcement = template.replace('{{position}}', position);
+          const announcement = template.replace("{{position}}", position);
           SimulationAnnouncer.announceDragInteraction(announcement);
         },
       }),
@@ -298,7 +282,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
         end: () => {
           const position = this.model.position2Property.value.toFixed(2);
           const template = this.a11yStrings.mass2ReleasedAtStringProperty.value;
-          const announcement = template.replace('{{position}}', position);
+          const announcement = template.replace("{{position}}", position);
           SimulationAnnouncer.announceDragInteraction(announcement);
         },
       }),
@@ -312,11 +296,9 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Listen to spring visualization preference changes
     // Using lazyLink to avoid triggering during initialization
-    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink(
-      (springType) => {
-        this.switchSpringVisualization(springType);
-      }
-    );
+    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
+      this.switchSpringVisualization(springType);
+    });
 
     // Create vector nodes using factory
     const vectors1 = VectorNodeFactory.createVectorNodes("₁");
@@ -447,37 +429,39 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     // Add accessibility announcements for parameter changes
     this.model.mass1Property.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = 'Mass 1: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = "Mass 1: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.mass2Property.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = 'Mass 2: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = "Mass 2: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.springConstant1Property.lazyLink((springConstant) => {
       const template = this.a11yStrings.springConstantChangedStringProperty.value;
-      const announcement = 'Spring 1: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(springConstant, 0));
+      const announcement =
+        "Spring 1: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(springConstant, 0));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.springConstant2Property.lazyLink((springConstant) => {
       const template = this.a11yStrings.springConstantChangedStringProperty.value;
-      const announcement = 'Spring 2: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(springConstant, 0));
+      const announcement =
+        "Spring 2: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(springConstant, 0));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.damping1Property.lazyLink((damping) => {
       const template = this.a11yStrings.dampingChangedStringProperty.value;
-      const announcement = 'Damping 1: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(damping, 2));
+      const announcement = "Damping 1: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 2));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.damping2Property.lazyLink((damping) => {
       const template = this.a11yStrings.dampingChangedStringProperty.value;
-      const announcement = 'Damping 2: ' + template.replace('{{value}}', StringUtils.toFixedNumberLTR(damping, 2));
+      const announcement = "Damping 2: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 2));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.gravityProperty.lazyLink((gravity) => {
       const template = this.a11yStrings.gravityChangedStringProperty.value;
-      const announcement = template.replace('{{value}}', StringUtils.toFixedNumberLTR(gravity, 1));
+      const announcement = template.replace("{{value}}", StringUtils.toFixedNumberLTR(gravity, 1));
       SimulationAnnouncer.announceParameterChange(announcement);
     });
 
@@ -594,21 +578,15 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   /**
    * Switch between classic and parametric spring visualization.
    */
-  private switchSpringVisualization(
-    springType: SpringVisualizationType,
-  ): void {
+  private switchSpringVisualization(springType: SpringVisualizationType): void {
     // Remove current spring nodes
     this.removeChild(this.currentSpring1Node);
     this.removeChild(this.currentSpring2Node);
 
     // Switch to new spring nodes
     const useParametric = springType === SpringVisualizationType.PARAMETRIC;
-    this.currentSpring1Node = useParametric
-      ? this.parametricSpring1Node
-      : this.classicSpring1Node;
-    this.currentSpring2Node = useParametric
-      ? this.parametricSpring2Node
-      : this.classicSpring2Node;
+    this.currentSpring1Node = useParametric ? this.parametricSpring1Node : this.classicSpring1Node;
+    this.currentSpring2Node = useParametric ? this.parametricSpring2Node : this.classicSpring2Node;
 
     // Add new spring nodes (insert before mass nodes to maintain z-order)
     const mass1Index = this.indexOfChild(this.mass1Node);
@@ -656,23 +634,26 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
    */
   protected createInfoDialogContent(): Node {
     // Create formula nodes
-    const equation1 = new FormulaNode("m_1 \\frac{d^2 x_1}{d t^2} = -k_1 x_1 + k_2(x_2 - x_1) - b_1\\frac{d x_1}{d t} + m_1 g", {
-      maxWidth: 700,
-    });
+    const equation1 = new FormulaNode(
+      "m_1 \\frac{d^2 x_1}{d t^2} = -k_1 x_1 + k_2(x_2 - x_1) - b_1\\frac{d x_1}{d t} + m_1 g",
+      {
+        maxWidth: 700,
+      },
+    );
     const equation2 = new FormulaNode("m_2 \\frac{d^2 x_2}{d t^2} = -k_2(x_2 - x_1) - b_2\\frac{d x_2}{d t} + m_2 g", {
       maxWidth: 700,
     });
     const variablesList = new FormulaNode(
       "\\begin{array}{l}" +
-      "\\bullet\\; m_1, m_2 = \\text{masses (kg)}\\\\" +
-      "\\bullet\\; k_1, k_2 = \\text{spring constants (N/m)}\\\\" +
-      "\\bullet\\; b_1, b_2 = \\text{damping coefficients (N}\\!\\cdot\\!\\text{s/m)}\\\\" +
-      "\\bullet\\; x_1, x_2 = \\text{displacements from equilibrium (m)}\\\\" +
-      "\\bullet\\; g = \\text{gravitational acceleration (m/s}^2\\text{)}" +
-      "\\end{array}",
+        "\\bullet\\; m_1, m_2 = \\text{masses (kg)}\\\\" +
+        "\\bullet\\; k_1, k_2 = \\text{spring constants (N/m)}\\\\" +
+        "\\bullet\\; b_1, b_2 = \\text{damping coefficients (N}\\!\\cdot\\!\\text{s/m)}\\\\" +
+        "\\bullet\\; x_1, x_2 = \\text{displacements from equilibrium (m)}\\\\" +
+        "\\bullet\\; g = \\text{gravitational acceleration (m/s}^2\\text{)}" +
+        "\\end{array}",
       {
         maxWidth: 700,
-      }
+      },
     );
 
     // Link text color property to formula nodes
@@ -688,19 +669,19 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
       align: "left",
       children: [
         new Text("Double Spring System", {
-          font: new PhetFont({size: FONT_SIZE_SCREEN_TITLE, weight: "bold"}),
+          font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         new RichText(
           "This simulation models two masses connected by springs in series, demonstrating coupled oscillations and normal modes. Damping can be added to observe energy dissipation.",
           {
-            font: new PhetFont({size: FONT_SIZE_SECONDARY_LABEL}),
+            font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
             fill: ClassicalMechanicsColors.textColorProperty,
             maxWidth: 700,
-          }
+          },
         ),
         new Text("Equations of Motion:", {
-          font: new PhetFont({size: FONT_SIZE_SECONDARY_LABEL, weight: "bold"}),
+          font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         new VBox({
@@ -709,7 +690,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           children: [equation1, equation2],
         }),
         new Text("Where:", {
-          font: new PhetFont({size: FONT_SIZE_BODY_TEXT}),
+          font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         variablesList,
@@ -733,10 +714,8 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     const mass1ModelPos = new Vector2(0, mass1TotalLength);
     const mass2ModelPos = new Vector2(0, mass2TotalLength);
-    const mass1ViewPos =
-      this.modelViewTransform!.modelToViewPosition(mass1ModelPos);
-    const mass2ViewPos =
-      this.modelViewTransform!.modelToViewPosition(mass2ModelPos);
+    const mass1ViewPos = this.modelViewTransform!.modelToViewPosition(mass1ModelPos);
+    const mass2ViewPos = this.modelViewTransform!.modelToViewPosition(mass2ModelPos);
 
     // Update mass positions
     this.mass1Node.center = mass1ViewPos;
@@ -748,7 +727,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
       mass1ViewPos.x - mass1HalfWidth,
       mass1ViewPos.y,
       mass1ViewPos.x + mass1HalfWidth,
-      mass1ViewPos.y
+      mass1ViewPos.y,
     );
 
     const mass2HalfWidth = this.mass2Node.width / 2;
@@ -756,7 +735,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
       mass2ViewPos.x - mass2HalfWidth,
       mass2ViewPos.y,
       mass2ViewPos.x + mass2HalfWidth,
-      mass2ViewPos.y
+      mass2ViewPos.y,
     );
 
     // Account for mass heights which vary with mass values
@@ -781,9 +760,11 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
    */
   private updateSpring1Appearance(springConstant: number): void {
     // Map spring constant [1, 50] to lineWidth [1, 2.5]
-    const minK = 1, maxK = 50;
-    const minLineWidth = 1, maxLineWidth = 2.5;
-    const lineWidth = minLineWidth + (springConstant - minK) * (maxLineWidth - minLineWidth) / (maxK - minK);
+    const minK = 1,
+      maxK = 50;
+    const minLineWidth = 1,
+      maxLineWidth = 2.5;
+    const lineWidth = minLineWidth + ((springConstant - minK) * (maxLineWidth - minLineWidth)) / (maxK - minK);
 
     this.currentSpring1Node.setLineWidth(lineWidth);
   }
@@ -794,9 +775,11 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
    */
   private updateSpring2Appearance(springConstant: number): void {
     // Map spring constant [1, 50] to lineWidth [1, 2.5]
-    const minK = 1, maxK = 50;
-    const minLineWidth = 1, maxLineWidth = 2.5;
-    const lineWidth = minLineWidth + (springConstant - minK) * (maxLineWidth - minLineWidth) / (maxK - minK);
+    const minK = 1,
+      maxK = 50;
+    const minLineWidth = 1,
+      maxLineWidth = 2.5;
+    const lineWidth = minLineWidth + ((springConstant - minK) * (maxLineWidth - minLineWidth)) / (maxK - minK);
 
     this.currentSpring2Node.setLineWidth(lineWidth);
   }
@@ -807,9 +790,11 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
    */
   private updateMass1Size(mass: number): void {
     // Map mass [0.1, 5.0] kg to size [25, 60] pixels
-    const minMass = 0.1, maxMass = 5.0;
-    const minSize = 25, maxSize = 60;
-    const size = minSize + (mass - minMass) * (maxSize - minSize) / (maxMass - minMass);
+    const minMass = 0.1,
+      maxMass = 5.0;
+    const minSize = 25,
+      maxSize = 60;
+    const size = minSize + ((mass - minMass) * (maxSize - minSize)) / (maxMass - minMass);
 
     // Update rectangle dimensions (keeping it centered)
     this.mass1Node.setRect(-size / 2, -size / 2, size, size);
@@ -824,9 +809,11 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
    */
   private updateMass2Size(mass: number): void {
     // Map mass [0.1, 5.0] kg to size [25, 60] pixels
-    const minMass = 0.1, maxMass = 5.0;
-    const minSize = 25, maxSize = 60;
-    const size = minSize + (mass - minMass) * (maxSize - minSize) / (maxMass - minMass);
+    const minMass = 0.1,
+      maxMass = 5.0;
+    const minSize = 25,
+      maxSize = 60;
+    const size = minSize + ((mass - minMass) * (maxSize - minSize)) / (maxMass - minMass);
 
     // Update rectangle dimensions (keeping it centered)
     this.mass2Node.setRect(-size / 2, -size / 2, size, size);
@@ -946,7 +933,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Announce preset change
     const template = this.a11yStrings.presetAppliedStringProperty.value;
-    const announcement = template.replace('{{preset}}', preset.nameProperty.value);
+    const announcement = template.replace("{{preset}}", preset.nameProperty.value);
     SimulationAnnouncer.announceDragInteraction(announcement);
 
     this.isApplyingPreset = false;
@@ -954,4 +941,4 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('DoubleSpringScreenView', DoubleSpringScreenView);
+classicalMechanics.register("DoubleSpringScreenView", DoubleSpringScreenView);

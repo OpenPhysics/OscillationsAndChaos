@@ -3,32 +3,21 @@
  * This provides a flexible way to explore relationships between any two quantities.
  */
 
-import { Node, HBox, Text, Rectangle, FireListener } from "scenerystack/scenery";
-import {
-  ChartRectangle,
-  ChartTransform,
-  LinePlot,
-  GridLineSet,
-  TickMarkSet,
-  TickLabelSet,
-} from "scenerystack/bamboo";
+import { BooleanProperty, Property, type TReadOnlyProperty } from "scenerystack/axon";
+import { ChartRectangle, ChartTransform, GridLineSet, LinePlot, TickLabelSet, TickMarkSet } from "scenerystack/bamboo";
 import { Range } from "scenerystack/dot";
-import {
-  Property,
-  BooleanProperty,
-  type TReadOnlyProperty,
-} from "scenerystack/axon";
-import { Orientation } from "scenerystack/phet-core";
 import { Shape } from "scenerystack/kite";
-import type { PlottableProperty } from "./PlottableProperty.js";
+import { Orientation } from "scenerystack/phet-core";
+import { FireListener, HBox, Node, Rectangle, Text } from "scenerystack/scenery";
+import { PhetFont } from "scenerystack/scenery-phet";
 import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../../ClassicalMechanicsNamespace.js";
 import { StringManager } from "../../../i18n/StringManager.js";
 import SimulationAnnouncer from "../../util/SimulationAnnouncer.js";
-import { PhetFont } from "scenerystack/scenery-phet";
+import GraphControlsPanel from "./GraphControlsPanel.js";
 import GraphDataManager from "./GraphDataManager.js";
 import GraphInteractionHandler from "./GraphInteractionHandler.js";
-import GraphControlsPanel from "./GraphControlsPanel.js";
-import classicalMechanics from '../../../ClassicalMechanicsNamespace.js';
+import type { PlottableProperty } from "./PlottableProperty.js";
 
 export default class ConfigurableGraph extends Node {
   private readonly availableProperties: PlottableProperty[];
@@ -96,8 +85,8 @@ export default class ConfigurableGraph extends Node {
     initialYProperty: PlottableProperty,
     width: number,
     height: number,
-    maxDataPoints: number = 2000,
     listParent: Node,
+    maxDataPoints: number = 2000,
   ) {
     super();
 
@@ -170,7 +159,7 @@ export default class ConfigurableGraph extends Node {
       edge: "min",
       createLabel: (value: number) =>
         new Text(value.toFixed(2), {
-          font: new PhetFont({size: 10}),
+          font: new PhetFont({ size: 10 }),
           fill: ClassicalMechanicsColors.graphLabelColorProperty,
         }),
     });
@@ -180,7 +169,7 @@ export default class ConfigurableGraph extends Node {
       edge: "min",
       createLabel: (value: number) =>
         new Text(value.toFixed(2), {
-          font: new PhetFont({size: 10}),
+          font: new PhetFont({ size: 10 }),
           fill: ClassicalMechanicsColors.graphLabelColorProperty,
         }),
     });
@@ -193,29 +182,17 @@ export default class ConfigurableGraph extends Node {
     const axisInteractionHeight = 30; // Height for X-axis region (bottom)
 
     // Y-axis interaction region (left side of graph, covering full height)
-    this.yAxisInteractionRegion = new Rectangle(
-      -axisInteractionWidth,
-      0,
-      axisInteractionWidth,
-      height,
-      {
-        fill: 'transparent',
-        pickable: true,
-      }
-    );
+    this.yAxisInteractionRegion = new Rectangle(-axisInteractionWidth, 0, axisInteractionWidth, height, {
+      fill: "transparent",
+      pickable: true,
+    });
     this.graphContentNode.addChild(this.yAxisInteractionRegion);
 
     // X-axis interaction region (bottom of graph, covering full width)
-    this.xAxisInteractionRegion = new Rectangle(
-      0,
-      height,
-      width,
-      axisInteractionHeight,
-      {
-        fill: 'transparent',
-        pickable: true,
-      }
-    );
+    this.xAxisInteractionRegion = new Rectangle(0, height, width, axisInteractionHeight, {
+      fill: "transparent",
+      pickable: true,
+    });
     this.graphContentNode.addChild(this.xAxisInteractionRegion);
 
     // Create line plot
@@ -236,7 +213,7 @@ export default class ConfigurableGraph extends Node {
 
     // Create axis labels
     this.xAxisLabelNode = new Text(this.formatAxisLabel(initialXProperty), {
-      font: new PhetFont({size: 12}),
+      font: new PhetFont({ size: 12 }),
       fill: ClassicalMechanicsColors.graphLabelColorProperty,
       centerX: this.graphWidth / 2,
       top: this.graphHeight + 35,
@@ -244,7 +221,7 @@ export default class ConfigurableGraph extends Node {
     this.graphContentNode.addChild(this.xAxisLabelNode);
 
     this.yAxisLabelNode = new Text(this.formatAxisLabel(initialYProperty), {
-      font: new PhetFont({size: 12}),
+      font: new PhetFont({ size: 12 }),
       fill: ClassicalMechanicsColors.graphLabelColorProperty,
       rotation: -Math.PI / 2,
       centerY: this.graphHeight / 2,
@@ -253,27 +230,21 @@ export default class ConfigurableGraph extends Node {
     this.graphContentNode.addChild(this.yAxisLabelNode);
 
     // Initialize data manager
-    this.dataManager = new GraphDataManager(
-      this.chartTransform,
-      this.linePlot,
-      this.trailNode,
-      maxDataPoints,
-      {
-        verticalGridLineSet: this.verticalGridLineSet,
-        horizontalGridLineSet: this.horizontalGridLineSet,
-        xTickMarkSet: this.xTickMarkSet,
-        yTickMarkSet: this.yTickMarkSet,
-        xTickLabelSet: this.xTickLabelSet,
-        yTickLabelSet: this.yTickLabelSet,
-      }
-    );
+    this.dataManager = new GraphDataManager(this.chartTransform, this.linePlot, this.trailNode, maxDataPoints, {
+      verticalGridLineSet: this.verticalGridLineSet,
+      horizontalGridLineSet: this.horizontalGridLineSet,
+      xTickMarkSet: this.xTickMarkSet,
+      yTickMarkSet: this.yTickMarkSet,
+      xTickLabelSet: this.xTickLabelSet,
+      yTickLabelSet: this.yTickLabelSet,
+    });
 
     // Create controls panel helper
     const controlsPanel = new GraphControlsPanel(
       this.availableProperties,
       this.xPropertyProperty,
       this.yPropertyProperty,
-      this.graphWidth
+      this.graphWidth,
     );
 
     // Create title panel with combo boxes for axis selection
@@ -290,14 +261,14 @@ export default class ConfigurableGraph extends Node {
     // Helper function to create a button
     const createButton = (label: string, onClick: () => void): Node => {
       const buttonText = new Text(label, {
-        font: new PhetFont({ size: 14, weight: 'bold' }),
+        font: new PhetFont({ size: 14, weight: "bold" }),
         fill: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
       });
 
       const buttonBackground = new Rectangle(0, 0, buttonSize, buttonSize, 3, 3, {
         fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
         stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-        cursor: 'pointer',
+        cursor: "pointer",
       });
 
       const button = new Node({
@@ -318,44 +289,46 @@ export default class ConfigurableGraph extends Node {
       });
 
       // Add click handler
-      button.addInputListener(new FireListener({
-        fire: onClick,
-      }));
+      button.addInputListener(
+        new FireListener({
+          fire: onClick,
+        }),
+      );
 
       return button;
     };
 
     // Create rescale button
-    this.rescaleButton = createButton('↻', () => {
+    this.rescaleButton = createButton("↻", () => {
       // Reset manual zoom flag and rescale to fit data
       this.dataManager.setManuallyZoomed(false);
       this.dataManager.updateAxisRanges();
     });
 
     // Create zoom buttons (will be wired up after interactionHandler is created)
-    const zoomInButton = createButton('+', () => {
+    const zoomInButton = createButton("+", () => {
       this.interactionHandler.zoomIn();
     });
 
-    const zoomOutButton = createButton('−', () => {
+    const zoomOutButton = createButton("−", () => {
       this.interactionHandler.zoomOut();
     });
 
     // Create pan buttons (will be wired up after interactionHandler is created)
-    const panLeftButton = createButton('←', () => {
-      this.interactionHandler.pan('left');
+    const panLeftButton = createButton("←", () => {
+      this.interactionHandler.pan("left");
     });
 
-    const panRightButton = createButton('→', () => {
-      this.interactionHandler.pan('right');
+    const panRightButton = createButton("→", () => {
+      this.interactionHandler.pan("right");
     });
 
-    const panUpButton = createButton('↑', () => {
-      this.interactionHandler.pan('up');
+    const panUpButton = createButton("↑", () => {
+      this.interactionHandler.pan("up");
     });
 
-    const panDownButton = createButton('↓', () => {
-      this.interactionHandler.pan('down');
+    const panDownButton = createButton("↓", () => {
+      this.interactionHandler.pan("down");
     });
 
     // Create HBox to hold all buttons
@@ -383,7 +356,7 @@ export default class ConfigurableGraph extends Node {
       this.xAxisLabelNode.centerX = this.graphWidth / 2;
       this.clearData();
       const template = a11yStrings.xAxisChangedStringProperty.value;
-      const announcement = template.replace('{{property}}', this.getNameValue(property.name));
+      const announcement = template.replace("{{property}}", this.getNameValue(property.name));
       SimulationAnnouncer.announceGraphChange(announcement);
     });
 
@@ -392,7 +365,7 @@ export default class ConfigurableGraph extends Node {
       this.yAxisLabelNode.centerY = this.graphHeight / 2;
       this.clearData();
       const template = a11yStrings.yAxisChangedStringProperty.value;
-      const announcement = template.replace('{{property}}', this.getNameValue(property.name));
+      const announcement = template.replace("{{property}}", this.getNameValue(property.name));
       SimulationAnnouncer.announceGraphChange(announcement);
     });
 
@@ -428,7 +401,7 @@ export default class ConfigurableGraph extends Node {
         width: this.graphWidth,
         height: this.graphHeight,
       },
-      this.resizeGraph.bind(this)
+      this.resizeGraph.bind(this),
     );
 
     // Setup all interactions
@@ -436,7 +409,9 @@ export default class ConfigurableGraph extends Node {
 
     // Create and add resize handles
     const resizeHandles = this.interactionHandler.createResizeHandles();
-    resizeHandles.forEach(handle => this.addChild(handle));
+    resizeHandles.forEach((handle) => {
+      this.addChild(handle);
+    });
 
     // Link visibility property to the content node, header bar, and resize handles
     this.graphVisibleProperty.link((visible) => {
@@ -450,7 +425,7 @@ export default class ConfigurableGraph extends Node {
     // Add visual feedback for drag and resize operations
     this.isDraggingProperty.link((isDragging) => {
       this.opacity = isDragging ? 0.8 : 1.0;
-      this.headerBar.cursor = isDragging ? 'grabbing' : 'grab';
+      this.headerBar.cursor = isDragging ? "grabbing" : "grab";
     });
 
     this.isResizingProperty.link((isResizing) => {
@@ -463,9 +438,7 @@ export default class ConfigurableGraph extends Node {
   /**
    * Helper to get the string value from either a string or TReadOnlyProperty<string>
    */
-  private getNameValue(
-    name: string | TReadOnlyProperty<string>,
-  ): string {
+  private getNameValue(name: string | TReadOnlyProperty<string>): string {
     return typeof name === "string" ? name : name.value;
   }
 
@@ -509,9 +482,7 @@ export default class ConfigurableGraph extends Node {
     this.yAxisLabelNode.centerY = newHeight / 2;
 
     // Update title panel position
-    const titlePanel = this.graphContentNode.children.find(
-      (child) => child instanceof HBox
-    );
+    const titlePanel = this.graphContentNode.children.find((child) => child instanceof HBox);
     if (titlePanel) {
       titlePanel.centerX = newWidth / 2;
     }
@@ -580,4 +551,4 @@ export default class ConfigurableGraph extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('ConfigurableGraph', ConfigurableGraph);
+classicalMechanics.register("ConfigurableGraph", ConfigurableGraph);

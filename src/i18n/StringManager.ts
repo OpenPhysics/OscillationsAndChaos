@@ -5,10 +5,10 @@
  * Provides access to localized strings for all components.
  */
 
-import { LocalizedString, ReadOnlyProperty } from "scenerystack";
-import strings_en from "./strings_en.json";
-import strings_fr from "./strings_fr.json";
-import classicalMechanics from '../ClassicalMechanicsNamespace.js';
+import { LocalizedString, type ReadOnlyProperty } from "scenerystack";
+import classicalMechanics from "../ClassicalMechanicsNamespace.js";
+import stringsEn from "./strings_en.json";
+import stringsFr from "./strings_fr.json";
 
 /**
  * Manages all localized strings for the simulation
@@ -26,8 +26,8 @@ export class StringManager {
   private constructor() {
     // Create localized string properties
     this.stringProperties = LocalizedString.getNestedStringProperties({
-      en: strings_en,
-      fr: strings_fr,
+      en: stringsEn,
+      fr: stringsFr,
     });
   }
 
@@ -59,14 +59,10 @@ export class StringManager {
     doublePendulumStringProperty: ReadOnlyProperty<string>;
   } {
     return {
-      singleSpringStringProperty:
-        this.stringProperties.screens.singleSpringStringProperty,
-      doubleSpringStringProperty:
-        this.stringProperties.screens.doubleSpringStringProperty,
-      pendulumStringProperty:
-        this.stringProperties.screens.pendulumStringProperty,
-      doublePendulumStringProperty:
-        this.stringProperties.screens.doublePendulumStringProperty,
+      singleSpringStringProperty: this.stringProperties.screens.singleSpringStringProperty,
+      doubleSpringStringProperty: this.stringProperties.screens.doubleSpringStringProperty,
+      pendulumStringProperty: this.stringProperties.screens.pendulumStringProperty,
+      doublePendulumStringProperty: this.stringProperties.screens.doublePendulumStringProperty,
     };
   }
 
@@ -92,25 +88,16 @@ export class StringManager {
       massStringProperty: this.stringProperties.controls.massStringProperty,
       mass1StringProperty: this.stringProperties.controls.mass1StringProperty,
       mass2StringProperty: this.stringProperties.controls.mass2StringProperty,
-      springConstantStringProperty:
-        this.stringProperties.controls.springConstantStringProperty,
-      springConstant1StringProperty:
-        this.stringProperties.controls.springConstant1StringProperty,
-      springConstant2StringProperty:
-        this.stringProperties.controls.springConstant2StringProperty,
-      dampingStringProperty:
-        this.stringProperties.controls.dampingStringProperty,
-      damping1StringProperty:
-        this.stringProperties.controls.damping1StringProperty,
-      damping2StringProperty:
-        this.stringProperties.controls.damping2StringProperty,
+      springConstantStringProperty: this.stringProperties.controls.springConstantStringProperty,
+      springConstant1StringProperty: this.stringProperties.controls.springConstant1StringProperty,
+      springConstant2StringProperty: this.stringProperties.controls.springConstant2StringProperty,
+      dampingStringProperty: this.stringProperties.controls.dampingStringProperty,
+      damping1StringProperty: this.stringProperties.controls.damping1StringProperty,
+      damping2StringProperty: this.stringProperties.controls.damping2StringProperty,
       lengthStringProperty: this.stringProperties.controls.lengthStringProperty,
-      length1StringProperty:
-        this.stringProperties.controls.length1StringProperty,
-      length2StringProperty:
-        this.stringProperties.controls.length2StringProperty,
-      gravityStringProperty:
-        this.stringProperties.controls.gravityStringProperty,
+      length1StringProperty: this.stringProperties.controls.length1StringProperty,
+      length2StringProperty: this.stringProperties.controls.length2StringProperty,
+      gravityStringProperty: this.stringProperties.controls.gravityStringProperty,
     };
   }
 
@@ -126,17 +113,12 @@ export class StringManager {
     metersPerSecondSquaredStringProperty: ReadOnlyProperty<string>;
   } {
     return {
-      kilogramsStringProperty:
-        this.stringProperties.units.kilogramsStringProperty,
-      newtonsPerMeterStringProperty:
-        this.stringProperties.units.newtonsPerMeterStringProperty,
-      newtonSecondsPerMeterStringProperty:
-        this.stringProperties.units.newtonSecondsPerMeterStringProperty,
-      newtonMeterSecondsStringProperty:
-        this.stringProperties.units.newtonMeterSecondsStringProperty,
+      kilogramsStringProperty: this.stringProperties.units.kilogramsStringProperty,
+      newtonsPerMeterStringProperty: this.stringProperties.units.newtonsPerMeterStringProperty,
+      newtonSecondsPerMeterStringProperty: this.stringProperties.units.newtonSecondsPerMeterStringProperty,
+      newtonMeterSecondsStringProperty: this.stringProperties.units.newtonMeterSecondsStringProperty,
       metersStringProperty: this.stringProperties.units.metersStringProperty,
-      metersPerSecondSquaredStringProperty:
-        this.stringProperties.units.metersPerSecondSquaredStringProperty,
+      metersPerSecondSquaredStringProperty: this.stringProperties.units.metersPerSecondSquaredStringProperty,
     };
   }
 
@@ -169,16 +151,12 @@ export class StringManager {
       valueStringProperty: this.stringProperties.graph.axis.valueStringProperty,
 
       // Legend labels
-      line1StringProperty:
-        this.stringProperties.graph.legend.line1StringProperty,
-      line2StringProperty:
-        this.stringProperties.graph.legend.line2StringProperty,
-      line3StringProperty:
-        this.stringProperties.graph.legend.line3StringProperty,
+      line1StringProperty: this.stringProperties.graph.legend.line1StringProperty,
+      line2StringProperty: this.stringProperties.graph.legend.line2StringProperty,
+      line3StringProperty: this.stringProperties.graph.legend.line3StringProperty,
 
       // Pendulum-specific labels
-      angleAndVelocityStringProperty:
-        this.stringProperties.graph.pendulum.angleAndVelocityStringProperty,
+      angleAndVelocityStringProperty: this.stringProperties.graph.pendulum.angleAndVelocityStringProperty,
     };
   }
 
@@ -233,7 +211,8 @@ export class StringManager {
       kineticEnergyStringProperty: this.stringProperties.graph.properties.kineticEnergyStringProperty,
       potentialEnergyStringProperty: this.stringProperties.graph.properties.potentialEnergyStringProperty,
       springPotentialEnergyStringProperty: this.stringProperties.graph.properties.springPotentialEnergyStringProperty,
-      gravitationalPotentialEnergyStringProperty: this.stringProperties.graph.properties.gravitationalPotentialEnergyStringProperty,
+      gravitationalPotentialEnergyStringProperty:
+        this.stringProperties.graph.properties.gravitationalPotentialEnergyStringProperty,
       totalEnergyStringProperty: this.stringProperties.graph.properties.totalEnergyStringProperty,
       timeStringProperty: this.stringProperties.graph.properties.timeStringProperty,
     };
@@ -269,9 +248,11 @@ export class StringManager {
       solverMethodStringProperty: this.stringProperties.preferences.solverMethodStringProperty,
       solverDescriptionStringProperty: this.stringProperties.preferences.solverDescriptionStringProperty,
       nominalTimeStepStringProperty: this.stringProperties.preferences.nominalTimeStepStringProperty,
-      nominalTimeStepDescriptionStringProperty: this.stringProperties.preferences.nominalTimeStepDescriptionStringProperty,
+      nominalTimeStepDescriptionStringProperty:
+        this.stringProperties.preferences.nominalTimeStepDescriptionStringProperty,
       springVisualizationStringProperty: this.stringProperties.preferences.springVisualizationStringProperty,
-      springVisualizationDescriptionStringProperty: this.stringProperties.preferences.springVisualizationDescriptionStringProperty,
+      springVisualizationDescriptionStringProperty:
+        this.stringProperties.preferences.springVisualizationDescriptionStringProperty,
     };
   }
 
@@ -305,16 +286,20 @@ export class StringManager {
     dragAnnouncementsDescriptionStringProperty: ReadOnlyProperty<string>;
   } {
     // Type assertion needed due to TypeScript's limitations with deeply nested conditional types
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const audioProps = this.stringProperties.preferences.audio as any;
+    const audioProps = this.stringProperties.preferences.audio as unknown as Record<string, ReadOnlyProperty<string>>;
     return {
       simVoicingOptionsStringProperty: audioProps.simVoicingOptionsStringProperty as ReadOnlyProperty<string>,
-      announceParameterChangesStringProperty: audioProps.announceParameterChangesStringProperty as ReadOnlyProperty<string>,
-      parameterAnnouncementsDescriptionStringProperty: audioProps.parameterAnnouncementsDescriptionStringProperty as ReadOnlyProperty<string>,
+      announceParameterChangesStringProperty:
+        audioProps.announceParameterChangesStringProperty as ReadOnlyProperty<string>,
+      parameterAnnouncementsDescriptionStringProperty:
+        audioProps.parameterAnnouncementsDescriptionStringProperty as ReadOnlyProperty<string>,
       announceStateChangesStringProperty: audioProps.announceStateChangesStringProperty as ReadOnlyProperty<string>,
-      stateAnnouncementsDescriptionStringProperty: audioProps.stateAnnouncementsDescriptionStringProperty as ReadOnlyProperty<string>,
-      announceDragInteractionsStringProperty: audioProps.announceDragInteractionsStringProperty as ReadOnlyProperty<string>,
-      dragAnnouncementsDescriptionStringProperty: audioProps.dragAnnouncementsDescriptionStringProperty as ReadOnlyProperty<string>,
+      stateAnnouncementsDescriptionStringProperty:
+        audioProps.stateAnnouncementsDescriptionStringProperty as ReadOnlyProperty<string>,
+      announceDragInteractionsStringProperty:
+        audioProps.announceDragInteractionsStringProperty as ReadOnlyProperty<string>,
+      dragAnnouncementsDescriptionStringProperty:
+        audioProps.dragAnnouncementsDescriptionStringProperty as ReadOnlyProperty<string>,
     };
   }
 
@@ -608,7 +593,8 @@ export class StringManager {
 
       // Parameter changes
       massChangedStringProperty: this.stringProperties.accessibility.parameters.massChangedStringProperty,
-      springConstantChangedStringProperty: this.stringProperties.accessibility.parameters.springConstantChangedStringProperty,
+      springConstantChangedStringProperty:
+        this.stringProperties.accessibility.parameters.springConstantChangedStringProperty,
       dampingChangedStringProperty: this.stringProperties.accessibility.parameters.dampingChangedStringProperty,
       lengthChangedStringProperty: this.stringProperties.accessibility.parameters.lengthChangedStringProperty,
       gravityChangedStringProperty: this.stringProperties.accessibility.parameters.gravityChangedStringProperty,
@@ -621,12 +607,18 @@ export class StringManager {
       yAxisChangedStringProperty: this.stringProperties.accessibility.graph.yAxisChangedStringProperty,
 
       // Visualization changes
-      velocityVectorsShownStringProperty: this.stringProperties.accessibility.visualization.velocityVectorsShownStringProperty,
-      velocityVectorsHiddenStringProperty: this.stringProperties.accessibility.visualization.velocityVectorsHiddenStringProperty,
-      forceVectorsShownStringProperty: this.stringProperties.accessibility.visualization.forceVectorsShownStringProperty,
-      forceVectorsHiddenStringProperty: this.stringProperties.accessibility.visualization.forceVectorsHiddenStringProperty,
-      accelerationVectorsShownStringProperty: this.stringProperties.accessibility.visualization.accelerationVectorsShownStringProperty,
-      accelerationVectorsHiddenStringProperty: this.stringProperties.accessibility.visualization.accelerationVectorsHiddenStringProperty,
+      velocityVectorsShownStringProperty:
+        this.stringProperties.accessibility.visualization.velocityVectorsShownStringProperty,
+      velocityVectorsHiddenStringProperty:
+        this.stringProperties.accessibility.visualization.velocityVectorsHiddenStringProperty,
+      forceVectorsShownStringProperty:
+        this.stringProperties.accessibility.visualization.forceVectorsShownStringProperty,
+      forceVectorsHiddenStringProperty:
+        this.stringProperties.accessibility.visualization.forceVectorsHiddenStringProperty,
+      accelerationVectorsShownStringProperty:
+        this.stringProperties.accessibility.visualization.accelerationVectorsShownStringProperty,
+      accelerationVectorsHiddenStringProperty:
+        this.stringProperties.accessibility.visualization.accelerationVectorsHiddenStringProperty,
 
       // Tool visibility changes
       gridShownStringProperty: this.stringProperties.accessibility.tools.gridShownStringProperty,
@@ -640,7 +632,8 @@ export class StringManager {
 
       // Preference changes
       solverChangedStringProperty: this.stringProperties.accessibility.preferences.solverChangedStringProperty,
-      springVisualizationChangedStringProperty: this.stringProperties.accessibility.preferences.springVisualizationChangedStringProperty,
+      springVisualizationChangedStringProperty:
+        this.stringProperties.accessibility.preferences.springVisualizationChangedStringProperty,
     };
   }
 
@@ -754,8 +747,10 @@ export class StringManager {
     return {
       titleStringProperty: this.stringProperties.screenSummary.singleSpring.titleStringProperty,
       overviewStringProperty: this.stringProperties.screenSummary.singleSpring.overviewStringProperty,
-      playAreaDescriptionStringProperty: this.stringProperties.screenSummary.singleSpring.playAreaDescriptionStringProperty,
-      controlAreaDescriptionStringProperty: this.stringProperties.screenSummary.singleSpring.controlAreaDescriptionStringProperty,
+      playAreaDescriptionStringProperty:
+        this.stringProperties.screenSummary.singleSpring.playAreaDescriptionStringProperty,
+      controlAreaDescriptionStringProperty:
+        this.stringProperties.screenSummary.singleSpring.controlAreaDescriptionStringProperty,
       interactionHintStringProperty: this.stringProperties.screenSummary.singleSpring.interactionHintStringProperty,
     };
   }
@@ -773,8 +768,10 @@ export class StringManager {
     return {
       titleStringProperty: this.stringProperties.screenSummary.doubleSpring.titleStringProperty,
       overviewStringProperty: this.stringProperties.screenSummary.doubleSpring.overviewStringProperty,
-      playAreaDescriptionStringProperty: this.stringProperties.screenSummary.doubleSpring.playAreaDescriptionStringProperty,
-      controlAreaDescriptionStringProperty: this.stringProperties.screenSummary.doubleSpring.controlAreaDescriptionStringProperty,
+      playAreaDescriptionStringProperty:
+        this.stringProperties.screenSummary.doubleSpring.playAreaDescriptionStringProperty,
+      controlAreaDescriptionStringProperty:
+        this.stringProperties.screenSummary.doubleSpring.controlAreaDescriptionStringProperty,
       interactionHintStringProperty: this.stringProperties.screenSummary.doubleSpring.interactionHintStringProperty,
     };
   }
@@ -793,7 +790,8 @@ export class StringManager {
       titleStringProperty: this.stringProperties.screenSummary.pendulum.titleStringProperty,
       overviewStringProperty: this.stringProperties.screenSummary.pendulum.overviewStringProperty,
       playAreaDescriptionStringProperty: this.stringProperties.screenSummary.pendulum.playAreaDescriptionStringProperty,
-      controlAreaDescriptionStringProperty: this.stringProperties.screenSummary.pendulum.controlAreaDescriptionStringProperty,
+      controlAreaDescriptionStringProperty:
+        this.stringProperties.screenSummary.pendulum.controlAreaDescriptionStringProperty,
       interactionHintStringProperty: this.stringProperties.screenSummary.pendulum.interactionHintStringProperty,
     };
   }
@@ -811,8 +809,10 @@ export class StringManager {
     return {
       titleStringProperty: this.stringProperties.screenSummary.doublePendulum.titleStringProperty,
       overviewStringProperty: this.stringProperties.screenSummary.doublePendulum.overviewStringProperty,
-      playAreaDescriptionStringProperty: this.stringProperties.screenSummary.doublePendulum.playAreaDescriptionStringProperty,
-      controlAreaDescriptionStringProperty: this.stringProperties.screenSummary.doublePendulum.controlAreaDescriptionStringProperty,
+      playAreaDescriptionStringProperty:
+        this.stringProperties.screenSummary.doublePendulum.playAreaDescriptionStringProperty,
+      controlAreaDescriptionStringProperty:
+        this.stringProperties.screenSummary.doublePendulum.controlAreaDescriptionStringProperty,
       interactionHintStringProperty: this.stringProperties.screenSummary.doublePendulum.interactionHintStringProperty,
     };
   }
@@ -827,4 +827,4 @@ export class StringManager {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('StringManager', StringManager);
+classicalMechanics.register("StringManager", StringManager);

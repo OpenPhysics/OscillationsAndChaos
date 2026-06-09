@@ -11,11 +11,11 @@
  * @author Martin Veillette (PhET Interactive Simulations)
  */
 
-import { Node, Text, type TColor, type NodeOptions } from "scenerystack/scenery";
-import { ArrowNode } from "scenerystack/scenery-phet";
-import { Vector2 } from "scenerystack/dot";
-import { type TReadOnlyProperty } from "scenerystack/axon";
 import { PhetFont } from "scenerystack";
+import type { TReadOnlyProperty } from "scenerystack/axon";
+import { Vector2 } from "scenerystack/dot";
+import { Node, type NodeOptions, type TColor, Text } from "scenerystack/scenery";
+import { ArrowNode } from "scenerystack/scenery-phet";
 import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 
 /**
@@ -88,7 +88,7 @@ export class VectorNode extends Node {
     // Create label if provided
     if (options.label) {
       this.labelText = new Text(options.label, {
-        font: new PhetFont({size: 12}),
+        font: new PhetFont({ size: 12 }),
         fill: options.color,
       });
       this.addChild(this.labelText);
@@ -134,12 +134,7 @@ export class VectorNode extends Node {
     const tipPosition = this.tailPosition.plus(scaledVector);
 
     // Update arrow
-    this.arrowNode.setTailAndTip(
-      this.tailPosition.x,
-      this.tailPosition.y,
-      tipPosition.x,
-      tipPosition.y,
-    );
+    this.arrowNode.setTailAndTip(this.tailPosition.x, this.tailPosition.y, tipPosition.x, tipPosition.y);
 
     // Update label position if it exists
     if (this.labelText) {
@@ -159,4 +154,4 @@ export class VectorNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('VectorNode', VectorNode);
+classicalMechanics.register("VectorNode", VectorNode);

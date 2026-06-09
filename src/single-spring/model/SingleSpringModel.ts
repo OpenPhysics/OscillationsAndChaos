@@ -18,15 +18,11 @@
  * @author Martin Veillette (PhET Interactive Simulations)
  */
 
-import {
-  NumberProperty,
-  DerivedProperty,
-  type TReadOnlyProperty,
-} from "scenerystack/axon";
+import { DerivedProperty, NumberProperty, type TReadOnlyProperty } from "scenerystack/axon";
 import { Range } from "scenerystack/dot";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import { BaseModel } from "../../common/model/BaseModel.js";
 import { StatePropertyMapper } from "../../common/model/StatePropertyMapper.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 
 export class SingleSpringModel extends BaseModel {
   // State variables
@@ -57,70 +53,74 @@ export class SingleSpringModel extends BaseModel {
     // Initialize state to match first preset ("Heavy and Slow")
     // Position matches first preset initial displacement
     this.positionProperty = new NumberProperty(1.0, {
-      range: new Range(-5, 5)
+      range: new Range(-5, 5),
     });
 
     this.velocityProperty = new NumberProperty(0.0);
 
     // Initialize parameters to match first preset ("Heavy and Slow")
     this.massProperty = new NumberProperty(5.0, {
-      range: new Range(0.1, 5.0)
+      range: new Range(0.1, 5.0),
     });
 
     this.springConstantProperty = new NumberProperty(15.0, {
-      range: new Range(1.0, 50.0)
+      range: new Range(1.0, 50.0),
     });
 
     this.dampingProperty = new NumberProperty(0.5, {
-      range: new Range(0.0, 20.0)
+      range: new Range(0.0, 20.0),
     });
 
     this.gravityProperty = new NumberProperty(9.8, {
-      range: new Range(0.0, 20.0)
+      range: new Range(0.0, 20.0),
     });
 
     this.naturalLengthProperty = new NumberProperty(1.0);
 
     // Computed acceleration
     this.accelerationProperty = new DerivedProperty(
-      [this.positionProperty, this.velocityProperty, this.massProperty, this.springConstantProperty, this.dampingProperty, this.gravityProperty],
-      (x, v, m, k, b, g) => (-k * x - b * v + m * g) / m
+      [
+        this.positionProperty,
+        this.velocityProperty,
+        this.massProperty,
+        this.springConstantProperty,
+        this.dampingProperty,
+        this.gravityProperty,
+      ],
+      (x, v, m, k, b, g) => (-k * x - b * v + m * g) / m,
     );
 
     // Computed energies
     this.kineticEnergyProperty = new DerivedProperty(
       [this.velocityProperty, this.massProperty],
-      (v, m) => 0.5 * m * v * v
+      (v, m) => 0.5 * m * v * v,
     );
 
     // Potential energy includes both spring and gravitational components
     this.potentialEnergyProperty = new DerivedProperty(
       [this.positionProperty, this.springConstantProperty, this.massProperty, this.gravityProperty],
-      (x, k, m, g) => 0.5 * k * x * x - m * g * x // Spring PE + Gravitational PE (taking downward as positive)
+      (x, k, m, g) => 0.5 * k * x * x - m * g * x, // Spring PE + Gravitational PE (taking downward as positive)
     );
 
     // Spring potential energy only
     this.springPotentialEnergyProperty = new DerivedProperty(
       [this.positionProperty, this.springConstantProperty],
-      (x, k) => 0.5 * k * x * x
+      (x, k) => 0.5 * k * x * x,
     );
 
     // Gravitational potential energy only
     this.gravitationalPotentialEnergyProperty = new DerivedProperty(
       [this.positionProperty, this.massProperty, this.gravityProperty],
-      (x, m, g) => -m * g * x // Negative because downward is positive and PE decreases going down
+      (x, m, g) => -m * g * x, // Negative because downward is positive and PE decreases going down
     );
 
     this.totalEnergyProperty = new DerivedProperty(
       [this.kineticEnergyProperty, this.potentialEnergyProperty],
-      (ke, pe) => ke + pe
+      (ke, pe) => ke + pe,
     );
 
     // Initialize state mapper with properties in state order
-    this.stateMapper = new StatePropertyMapper([
-      this.positionProperty,
-      this.velocityProperty,
-    ]);
+    this.stateMapper = new StatePropertyMapper([this.positionProperty, this.velocityProperty]);
   }
 
   /**
@@ -144,11 +144,7 @@ export class SingleSpringModel extends BaseModel {
    * Implements: x' = v, v' = (-k*x - b*v + m*g) / m
    * Note: position x is positive downward from natural length
    */
-  protected getDerivatives(
-    state: number[],
-    derivatives: number[],
-    _: number,
-  ): void {
+  protected getDerivatives(state: number[], derivatives: number[], _: number): void {
     const x = state[0];
     const v = state[1];
 
@@ -180,4 +176,4 @@ export class SingleSpringModel extends BaseModel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('SingleSpringModel', SingleSpringModel);
+classicalMechanics.register("SingleSpringModel", SingleSpringModel);

@@ -3,7 +3,7 @@
  * This allows the graph to be configured with any numeric property from the model.
  */
 
-import { type TReadOnlyProperty } from "scenerystack/axon";
+import type { TReadOnlyProperty } from "scenerystack/axon";
 
 export type PlottableProperty = {
   // The name to display in the selector (can be a string or a localized string property)
@@ -14,4 +14,4 @@ export type PlottableProperty = {
 
   // Optional unit string for axis label (e.g., "m", "m/s", "J")
   unit?: string;
-}
+};

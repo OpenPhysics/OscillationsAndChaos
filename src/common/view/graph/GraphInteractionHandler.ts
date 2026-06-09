@@ -7,14 +7,13 @@
  * - Resize handles
  */
 
-import { Vector2 } from "scenerystack/dot";
-import { Range } from "scenerystack/dot";
-import { Rectangle, DragListener, type Pointer, type Node } from "scenerystack/scenery";
+import type { BooleanProperty } from "scenerystack/axon";
 import type { ChartRectangle, ChartTransform, TickLabelSet } from "scenerystack/bamboo";
-import { BooleanProperty } from "scenerystack/axon";
+import { Range, Vector2 } from "scenerystack/dot";
+import { DragListener, type Node, type Pointer, Rectangle } from "scenerystack/scenery";
 import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../../ClassicalMechanicsNamespace.js";
 import type GraphDataManager from "./GraphDataManager.js";
-import classicalMechanics from '../../../ClassicalMechanicsNamespace.js';
 
 /**
  * Configuration for the chart and its data management
@@ -80,7 +79,7 @@ export default class GraphInteractionHandler {
     uiState: GraphUIState,
     uiElements: GraphUIElements,
     dimensions: GraphDimensions,
-    onResize: (width: number, height: number) => void
+    onResize: (width: number, height: number) => void,
   ) {
     this.chartTransform = chartConfig.chartTransform;
     this.chartRectangle = chartConfig.chartRectangle;
@@ -176,14 +175,8 @@ export default class GraphInteractionHandler {
           const deltaY = dragStartModelPoint.y - currentModelPoint.y;
 
           // Translate the ranges by the delta
-          const newXRange = new Range(
-            dragStartXRange.min + deltaX,
-            dragStartXRange.max + deltaX
-          );
-          const newYRange = new Range(
-            dragStartYRange.min + deltaY,
-            dragStartYRange.max + deltaY
-          );
+          const newXRange = new Range(dragStartXRange.min + deltaX, dragStartXRange.max + deltaX);
+          const newYRange = new Range(dragStartYRange.min + deltaY, dragStartYRange.max + deltaY);
 
           // Update the chart transform
           this.chartTransform.setModelXRange(newXRange);
@@ -206,7 +199,7 @@ export default class GraphInteractionHandler {
     });
 
     this.chartRectangle.addInputListener(dragListener);
-    this.chartRectangle.cursor = 'move';
+    this.chartRectangle.cursor = "move";
   }
 
   /**
@@ -223,7 +216,7 @@ export default class GraphInteractionHandler {
     this.chartRectangle.addInputListener({
       down: (event) => {
         // Only track touch events (not mouse)
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           const localPoint = this.chartRectangle.globalToLocalPoint(event.pointer.point);
           activePointers.set(event.pointer, localPoint);
 
@@ -241,7 +234,7 @@ export default class GraphInteractionHandler {
 
       move: (event) => {
         // Only handle touch events
-        if (event.pointer.type === 'touch' && activePointers.has(event.pointer)) {
+        if (event.pointer.type === "touch" && activePointers.has(event.pointer)) {
           const localPoint = this.chartRectangle.globalToLocalPoint(event.pointer.point);
           activePointers.set(event.pointer, localPoint);
 
@@ -267,10 +260,7 @@ export default class GraphInteractionHandler {
             this.chartTransform.setModelYRange(new Range(yMin, yMax));
 
             // Update tick spacing
-            this.dataManager.updateTickSpacing(
-              this.chartTransform.modelXRange,
-              this.chartTransform.modelYRange
-            );
+            this.dataManager.updateTickSpacing(this.chartTransform.modelXRange, this.chartTransform.modelYRange);
 
             // Update trail
             this.dataManager.updateTrail();
@@ -280,7 +270,7 @@ export default class GraphInteractionHandler {
 
       up: (event) => {
         // Remove this pointer from tracking
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           activePointers.delete(event.pointer);
 
           // Reset pinch state if we no longer have 2 touches
@@ -295,7 +285,7 @@ export default class GraphInteractionHandler {
 
       cancel: (event) => {
         // Handle cancelled touches (e.g., when gesture is interrupted)
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           activePointers.delete(event.pointer);
           if (activePointers.size < 2) {
             initialDistance = null;
@@ -322,7 +312,7 @@ export default class GraphInteractionHandler {
 
     this.yAxisInteractionRegion.addInputListener({
       down: (event) => {
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           const globalPoint = event.pointer.point;
           activePointers.set(event.pointer, globalPoint);
 
@@ -344,7 +334,7 @@ export default class GraphInteractionHandler {
       },
 
       move: (event) => {
-        if (event.pointer.type === 'touch' && activePointers.has(event.pointer)) {
+        if (event.pointer.type === "touch" && activePointers.has(event.pointer)) {
           const globalPoint = event.pointer.point;
           activePointers.set(event.pointer, globalPoint);
 
@@ -355,15 +345,11 @@ export default class GraphInteractionHandler {
             // Convert delta to model coordinates
             const modelDeltaY = deltaY * (initialYRange.getLength() / this.graphHeight);
 
-            const newYRange = new Range(
-              initialYRange.min + modelDeltaY,
-              initialYRange.max + modelDeltaY
-            );
+            const newYRange = new Range(initialYRange.min + modelDeltaY, initialYRange.max + modelDeltaY);
 
             this.chartTransform.setModelYRange(newYRange);
             this.dataManager.updateTickSpacing(this.chartTransform.modelXRange, newYRange);
             this.dataManager.updateTrail();
-
           } else if (activePointers.size === 2 && initialYDistance && initialYMidpoint !== null && initialYRange) {
             // Two touches - pinch zoom on Y-axis only
             const points = Array.from(activePointers.values());
@@ -389,7 +375,7 @@ export default class GraphInteractionHandler {
       },
 
       up: (event) => {
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           activePointers.delete(event.pointer);
 
           if (activePointers.size < 2) {
@@ -404,7 +390,7 @@ export default class GraphInteractionHandler {
       },
 
       cancel: (event) => {
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           activePointers.delete(event.pointer);
           if (activePointers.size < 2) {
             initialYDistance = null;
@@ -438,7 +424,7 @@ export default class GraphInteractionHandler {
 
           const newYRange = new Range(
             mouseDragInitialYRange.min + modelDeltaY,
-            mouseDragInitialYRange.max + modelDeltaY
+            mouseDragInitialYRange.max + modelDeltaY,
           );
 
           this.chartTransform.setModelYRange(newYRange);
@@ -457,7 +443,7 @@ export default class GraphInteractionHandler {
 
     // Make Y-axis interaction region pickable so it can receive input
     this.yAxisInteractionRegion.pickable = true;
-    this.yAxisInteractionRegion.cursor = 'ns-resize';
+    this.yAxisInteractionRegion.cursor = "ns-resize";
 
     // Add mouse wheel support for Y-axis zooming (zoom vertically only)
     this.yAxisInteractionRegion.addInputListener({
@@ -504,7 +490,7 @@ export default class GraphInteractionHandler {
 
     this.xAxisInteractionRegion.addInputListener({
       down: (event) => {
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           const globalPoint = event.pointer.point;
           activePointers.set(event.pointer, globalPoint);
 
@@ -526,7 +512,7 @@ export default class GraphInteractionHandler {
       },
 
       move: (event) => {
-        if (event.pointer.type === 'touch' && activePointers.has(event.pointer)) {
+        if (event.pointer.type === "touch" && activePointers.has(event.pointer)) {
           const globalPoint = event.pointer.point;
           activePointers.set(event.pointer, globalPoint);
 
@@ -537,15 +523,11 @@ export default class GraphInteractionHandler {
             // Convert delta to model coordinates
             const modelDeltaX = -deltaX * (initialXRange.getLength() / this.graphWidth);
 
-            const newXRange = new Range(
-              initialXRange.min + modelDeltaX,
-              initialXRange.max + modelDeltaX
-            );
+            const newXRange = new Range(initialXRange.min + modelDeltaX, initialXRange.max + modelDeltaX);
 
             this.chartTransform.setModelXRange(newXRange);
             this.dataManager.updateTickSpacing(newXRange, this.chartTransform.modelYRange);
             this.dataManager.updateTrail();
-
           } else if (activePointers.size === 2 && initialXDistance && initialXMidpoint !== null && initialXRange) {
             // Two touches - pinch zoom on X-axis only
             const points = Array.from(activePointers.values());
@@ -571,7 +553,7 @@ export default class GraphInteractionHandler {
       },
 
       up: (event) => {
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           activePointers.delete(event.pointer);
 
           if (activePointers.size < 2) {
@@ -586,7 +568,7 @@ export default class GraphInteractionHandler {
       },
 
       cancel: (event) => {
-        if (event.pointer.type === 'touch') {
+        if (event.pointer.type === "touch") {
           activePointers.delete(event.pointer);
           if (activePointers.size < 2) {
             initialXDistance = null;
@@ -620,7 +602,7 @@ export default class GraphInteractionHandler {
 
           const newXRange = new Range(
             mouseDragInitialXRange.min + modelDeltaX,
-            mouseDragInitialXRange.max + modelDeltaX
+            mouseDragInitialXRange.max + modelDeltaX,
           );
 
           this.chartTransform.setModelXRange(newXRange);
@@ -639,7 +621,7 @@ export default class GraphInteractionHandler {
 
     // Make X-axis interaction region pickable so it can receive input
     this.xAxisInteractionRegion.pickable = true;
-    this.xAxisInteractionRegion.cursor = 'ew-resize';
+    this.xAxisInteractionRegion.cursor = "ew-resize";
 
     // Add mouse wheel support for X-axis zooming (zoom horizontally only)
     this.xAxisInteractionRegion.addInputListener({
@@ -715,27 +697,19 @@ export default class GraphInteractionHandler {
 
     // Define corner positions and cursors
     const corners = [
-      { x: 0, y: 0, cursor: 'nwse-resize' }, // Top-left
-      { x: this.graphWidth, y: 0, cursor: 'nesw-resize' }, // Top-right
-      { x: 0, y: this.graphHeight, cursor: 'nesw-resize' }, // Bottom-left
-      { x: this.graphWidth, y: this.graphHeight, cursor: 'nwse-resize' }, // Bottom-right
+      { x: 0, y: 0, cursor: "nwse-resize" }, // Top-left
+      { x: this.graphWidth, y: 0, cursor: "nesw-resize" }, // Top-right
+      { x: 0, y: this.graphHeight, cursor: "nesw-resize" }, // Bottom-left
+      { x: this.graphWidth, y: this.graphHeight, cursor: "nwse-resize" }, // Bottom-right
     ];
 
     corners.forEach((corner, index) => {
-      const handle = new Rectangle(
-        corner.x + handleOffset,
-        corner.y + handleOffset,
-        handleSize,
-        handleSize,
-        2,
-        2,
-        {
-          fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-          stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-          lineWidth: 2,
-          cursor: corner.cursor,
-        }
-      );
+      const handle = new Rectangle(corner.x + handleOffset, corner.y + handleOffset, handleSize, handleSize, 2, 2, {
+        fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
+        stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+        lineWidth: 2,
+        cursor: corner.cursor,
+      });
 
       this.resizeHandles.push(handle);
       this.setupResizeHandleDrag(handle, index);
@@ -764,7 +738,9 @@ export default class GraphInteractionHandler {
       },
 
       drag: (event) => {
-        if (!dragStartGraphBounds || !dragStartPointerPoint) return;
+        if (!(dragStartGraphBounds && dragStartPointerPoint)) {
+          return;
+        }
 
         const delta = event.pointer.point.minus(dragStartPointerPoint);
         let newWidth = dragStartGraphBounds.width;
@@ -841,12 +817,7 @@ export default class GraphInteractionHandler {
     ];
 
     this.resizeHandles.forEach((handle, index) => {
-      handle.setRect(
-        corners[index].x + handleOffset,
-        corners[index].y + handleOffset,
-        12,
-        12
-      );
+      handle.setRect(corners[index].x + handleOffset, corners[index].y + handleOffset, 12, 12);
     });
   }
 
@@ -930,7 +901,7 @@ export default class GraphInteractionHandler {
    * Pan the graph in a given direction by 10% of the current range
    * Note: Does not disable auto-rescaling, allowing the graph to continue adjusting to new data
    */
-  public pan(direction: 'left' | 'right' | 'up' | 'down'): void {
+  public pan(direction: "left" | "right" | "up" | "down"): void {
     const currentXRange = this.chartTransform.modelXRange;
     const currentYRange = this.chartTransform.modelYRange;
 
@@ -942,16 +913,16 @@ export default class GraphInteractionHandler {
     let newYRange = currentYRange;
 
     switch (direction) {
-      case 'left':
+      case "left":
         newXRange = new Range(currentXRange.min - xDelta, currentXRange.max - xDelta);
         break;
-      case 'right':
+      case "right":
         newXRange = new Range(currentXRange.min + xDelta, currentXRange.max + xDelta);
         break;
-      case 'up':
+      case "up":
         newYRange = new Range(currentYRange.min + yDelta, currentYRange.max + yDelta);
         break;
-      case 'down':
+      case "down":
         newYRange = new Range(currentYRange.min - yDelta, currentYRange.max - yDelta);
         break;
     }
@@ -969,4 +940,4 @@ export default class GraphInteractionHandler {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('GraphInteractionHandler', GraphInteractionHandler);
+classicalMechanics.register("GraphInteractionHandler", GraphInteractionHandler);

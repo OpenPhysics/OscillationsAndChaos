@@ -27,8 +27,8 @@
  */
 
 import { assert } from "scenerystack";
-import { ODESolver, DerivativeFunction } from "./ODESolver.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import type { DerivativeFunction, ODESolver } from "./ODESolver.js";
 
 export class AdaptiveRK45Solver implements ODESolver {
   // Temporary arrays to avoid reallocation
@@ -52,7 +52,7 @@ export class AdaptiveRK45Solver implements ODESolver {
    * @param dt - Time step in seconds (must be positive and finite)
    */
   public setFixedTimeStep(dt: number): void {
-    assert && assert(isFinite(dt) && dt > 0, 'dt must be finite and positive');
+    assert && assert(isFinite(dt) && dt > 0, "dt must be finite and positive");
     this.fixedTimeStep = dt;
     this.maxStepSize = dt;
   }
@@ -81,10 +81,14 @@ export class AdaptiveRK45Solver implements ODESolver {
     dt: number,
   ): { error: number; newState: number[] } {
     // Validate inputs
-    assert && assert(Array.isArray(state) && state.length > 0, 'state must be a non-empty array');
-    assert && assert(state.every(v => isFinite(v)), 'all state values must be finite');
-    assert && assert(isFinite(time), 'time must be finite');
-    assert && assert(isFinite(dt) && dt !== 0, 'dt must be finite and non-zero');
+    assert && assert(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
+    assert &&
+      assert(
+        state.every((v) => isFinite(v)),
+        "all state values must be finite",
+      );
+    assert && assert(isFinite(time), "time must be finite");
+    assert && assert(isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
 
     const n = state.length;
 
@@ -112,23 +116,20 @@ export class AdaptiveRK45Solver implements ODESolver {
 
     // k3 = f(t + 3*dt/10, y + 3*k1*dt/40 + 9*k2*dt/40)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] =
-        state[i] + ((3 * this.k1[i] + 9 * this.k2[i]) * dt) / 40;
+      this.tempState[i] = state[i] + ((3 * this.k1[i] + 9 * this.k2[i]) * dt) / 40;
     }
     derivativeFn(this.tempState, this.k3, time + (3 * dt) / 10);
 
     // k4 = f(t + 3*dt/5, y + 3*k1*dt/10 - 9*k2*dt/10 + 6*k3*dt/5)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] =
-        state[i] + ((3 * this.k1[i] - 9 * this.k2[i] + 12 * this.k3[i]) * dt) / 10;
+      this.tempState[i] = state[i] + ((3 * this.k1[i] - 9 * this.k2[i] + 12 * this.k3[i]) * dt) / 10;
     }
     derivativeFn(this.tempState, this.k4, time + (3 * dt) / 5);
 
     // k5 = f(t + dt, y - 11*k1*dt/54 + 5*k2*dt/2 - 70*k3*dt/27 + 35*k4*dt/27)
     for (let i = 0; i < n; i++) {
       this.tempState[i] =
-        state[i] +
-        ((-11 * this.k1[i] + 135 * this.k2[i] - 140 * this.k3[i] + 70 * this.k4[i]) * dt) / 54;
+        state[i] + ((-11 * this.k1[i] + 135 * this.k2[i] - 140 * this.k3[i] + 70 * this.k4[i]) * dt) / 54;
     }
     derivativeFn(this.tempState, this.k5, time + dt);
 
@@ -136,8 +137,12 @@ export class AdaptiveRK45Solver implements ODESolver {
     for (let i = 0; i < n; i++) {
       this.tempState[i] =
         state[i] +
-        ((1631 * this.k1[i] / 55296 + 175 * this.k2[i] / 512 + 575 * this.k3[i] / 13824 +
-          44275 * this.k4[i] / 110592 + 253 * this.k5[i] / 4096) * dt);
+        ((1631 * this.k1[i]) / 55296 +
+          (175 * this.k2[i]) / 512 +
+          (575 * this.k3[i]) / 13824 +
+          (44275 * this.k4[i]) / 110592 +
+          (253 * this.k5[i]) / 4096) *
+          dt;
     }
     derivativeFn(this.tempState, this.k6, time + (7 * dt) / 8);
 
@@ -146,8 +151,8 @@ export class AdaptiveRK45Solver implements ODESolver {
     for (let i = 0; i < n; i++) {
       state4[i] =
         state[i] +
-        ((37 * this.k1[i] / 378 + 250 * this.k3[i] / 621 + 125 * this.k4[i] / 594 +
-          512 * this.k6[i] / 1771) * dt);
+        ((37 * this.k1[i]) / 378 + (250 * this.k3[i]) / 621 + (125 * this.k4[i]) / 594 + (512 * this.k6[i]) / 1771) *
+          dt;
     }
 
     // 5th order solution
@@ -155,8 +160,12 @@ export class AdaptiveRK45Solver implements ODESolver {
     for (let i = 0; i < n; i++) {
       state5[i] =
         state[i] +
-        ((2825 * this.k1[i] / 27648 + 18575 * this.k3[i] / 48384 + 13525 * this.k4[i] / 55296 +
-          277 * this.k5[i] / 14336 + this.k6[i] / 4) * dt);
+        ((2825 * this.k1[i]) / 27648 +
+          (18575 * this.k3[i]) / 48384 +
+          (13525 * this.k4[i]) / 55296 +
+          (277 * this.k5[i]) / 14336 +
+          this.k6[i] / 4) *
+          dt;
     }
 
     // Estimate error (difference between 4th and 5th order solutions)
@@ -167,8 +176,12 @@ export class AdaptiveRK45Solver implements ODESolver {
     }
 
     // Validate computed results
-    assert && assert(isFinite(maxError), 'computed error must be finite');
-    assert && assert(state5.every(v => isFinite(v)), 'all computed state values must be finite');
+    assert && assert(isFinite(maxError), "computed error must be finite");
+    assert &&
+      assert(
+        state5.every((v) => isFinite(v)),
+        "all computed state values must be finite",
+      );
 
     return { error: maxError, newState: state5 };
   }
@@ -190,17 +203,16 @@ export class AdaptiveRK45Solver implements ODESolver {
    * @param dt - Time interval to integrate (can be negative for backward integration)
    * @returns Final time after integration
    */
-  public step(
-    state: number[],
-    derivativeFn: DerivativeFunction,
-    time: number,
-    dt: number,
-  ): number {
+  public step(state: number[], derivativeFn: DerivativeFunction, time: number, dt: number): number {
     // Validate inputs
-    assert && assert(Array.isArray(state) && state.length > 0, 'state must be a non-empty array');
-    assert && assert(state.every(v => isFinite(v)), 'all state values must be finite');
-    assert && assert(isFinite(time), 'time must be finite');
-    assert && assert(isFinite(dt) && dt !== 0, 'dt must be finite and non-zero');
+    assert && assert(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
+    assert &&
+      assert(
+        state.every((v) => isFinite(v)),
+        "all state values must be finite",
+      );
+    assert && assert(isFinite(time), "time must be finite");
+    assert && assert(isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
 
     let currentTime = time;
     let remainingTime = dt;
@@ -237,4 +249,4 @@ export class AdaptiveRK45Solver implements ODESolver {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('AdaptiveRK45Solver', AdaptiveRK45Solver);
+classicalMechanics.register("AdaptiveRK45Solver", AdaptiveRK45Solver);

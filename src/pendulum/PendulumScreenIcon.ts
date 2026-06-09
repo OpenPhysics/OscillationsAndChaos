@@ -3,9 +3,9 @@
  * Shows a simple pendulum with a pivot point, rod, and bob.
  */
 
+import { Circle, Line, Node, Rectangle } from "scenerystack/scenery";
 import { ScreenIcon } from "scenerystack/sim";
-import { Node, Circle, Line, Rectangle } from "scenerystack/scenery";
-import classicalMechanics from '../ClassicalMechanicsNamespace.js';
+import classicalMechanics from "../ClassicalMechanicsNamespace.js";
 
 export class PendulumScreenIcon extends ScreenIcon {
   public constructor() {
@@ -82,4 +82,4 @@ export class PendulumScreenIcon extends ScreenIcon {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('PendulumScreenIcon', PendulumScreenIcon);
+classicalMechanics.register("PendulumScreenIcon", PendulumScreenIcon);

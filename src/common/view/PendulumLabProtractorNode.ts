@@ -6,14 +6,14 @@
  * Copyright 2014-2025, University of Colorado Boulder
  */
 
-import { Circle, Line, Node, Path, Text } from "scenerystack/scenery";
-import { Shape } from "scenerystack/kite";
-import { Vector2 } from "scenerystack/dot";
-import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { type TReadOnlyProperty } from "scenerystack/axon";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
 import { PhetFont, StringUtils } from "scenerystack";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import type { TReadOnlyProperty } from "scenerystack/axon";
+import { Vector2 } from "scenerystack/dot";
+import { Shape } from "scenerystack/kite";
+import type { ModelViewTransform2 } from "scenerystack/phetcommon";
+import { Circle, Line, Node, Path, Text } from "scenerystack/scenery";
+import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 
 // Constants for protractor appearance
 const LINE_LENGTH_DEFAULT = 3.6;
@@ -27,11 +27,11 @@ export type PendulumData = {
   isDraggingProperty?: TReadOnlyProperty<boolean>;
   color?: string;
   lengthProperty: TReadOnlyProperty<number>;
-}
+};
 
 export type PendulumLabProtractorNodeOptions = {
   pickable?: boolean;
-}
+};
 
 /**
  * Protractor node that displays angle measurements for pendulum simulations.
@@ -45,15 +45,13 @@ export class PendulumLabProtractorNode extends Node {
   public constructor(
     pendulumData: PendulumData,
     modelViewTransform: ModelViewTransform2,
-    options?: PendulumLabProtractorNodeOptions
+    options?: PendulumLabProtractorNodeOptions,
   ) {
     // Use color property for pendulum-specific elements
     const pendulumColorProperty = ClassicalMechanicsColors.mass1FillColorProperty;
 
     // Central dashed reference line (vertical line from pivot)
-    const maxLength = modelViewTransform.modelToViewDeltaX(
-      pendulumData.lengthProperty.value * 1.2
-    );
+    const maxLength = modelViewTransform.modelToViewDeltaX(pendulumData.lengthProperty.value * 1.2);
     const centralDashLine = new Line(0, 0, 0, maxLength, {
       stroke: pendulumColorProperty,
       lineDash: [4, 7],
@@ -69,7 +67,7 @@ export class PendulumLabProtractorNode extends Node {
       let tickLength: number;
 
       // Calculate the angle in radians
-      const currentAngle = currentAngleDegrees * Math.PI / 180;
+      const currentAngle = (currentAngleDegrees * Math.PI) / 180;
 
       // Determine tick length based on degree intervals
       if (currentAngleDegrees % 10 === 0) {
@@ -100,39 +98,20 @@ export class PendulumLabProtractorNode extends Node {
     super({
       pickable: options?.pickable ?? false,
       translation: modelViewTransform.modelToViewPosition(Vector2.ZERO),
-      children: [
-        centralDashLine,
-        pivotDot,
-        pivotCircle,
-        degreesLayer,
-        protractorPath,
-        pendulumTickLayer,
-      ],
+      children: [centralDashLine, pivotDot, pivotCircle, degreesLayer, protractorPath, pendulumTickLayer],
     });
 
     // Create tick marks for the pendulum angle (left and right of vertical)
-    const tickNodeLeft = new Line(
-      RADIUS - PENDULUM_TICK_LENGTH - 2,
-      0,
-      RADIUS - 2,
-      0,
-      {
-        stroke: pendulumColorProperty,
-        lineWidth: 2,
-      }
-    );
+    const tickNodeLeft = new Line(RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {
+      stroke: pendulumColorProperty,
+      lineWidth: 2,
+    });
     pendulumTickLayer.addChild(tickNodeLeft);
 
-    const tickNodeRight = new Line(
-      RADIUS - PENDULUM_TICK_LENGTH - 2,
-      0,
-      RADIUS - 2,
-      0,
-      {
-        stroke: pendulumColorProperty,
-        lineWidth: 2,
-      }
-    );
+    const tickNodeRight = new Line(RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {
+      stroke: pendulumColorProperty,
+      lineWidth: 2,
+    });
     pendulumTickLayer.addChild(tickNodeRight);
 
     // Function to update tick positions based on pendulum angle
@@ -145,7 +124,7 @@ export class PendulumLabProtractorNode extends Node {
     // Create text to display the angle in degrees
     const degreesText = new Text("0°", {
       centerY: 15,
-      font: new PhetFont({size: 14}),
+      font: new PhetFont({ size: 14 }),
       fill: pendulumColorProperty,
     });
     degreesLayer.addChild(degreesText);
@@ -153,7 +132,7 @@ export class PendulumLabProtractorNode extends Node {
     // Function to update the degrees text
     const updateDegreesText = () => {
       const angle = pendulumData.angleProperty.value;
-      const degrees = angle * 180 / Math.PI;
+      const degrees = (angle * 180) / Math.PI;
 
       degreesText.string = `${StringUtils.toFixedNumberLTR(Math.abs(degrees), 0)}°`;
 
@@ -198,4 +177,4 @@ export class PendulumLabProtractorNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('PendulumLabProtractorNode', PendulumLabProtractorNode);
+classicalMechanics.register("PendulumLabProtractorNode", PendulumLabProtractorNode);

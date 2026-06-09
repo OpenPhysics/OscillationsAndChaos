@@ -3,9 +3,14 @@
  * This helps prevent regression when modifying constants.
  */
 
-import { VELOCITY_VECTOR_SCALE, FORCE_VECTOR_SCALE, ACCELERATION_VECTOR_SCALE } from "../view/VectorScaleConstants.js";
+import {
+  DIALOG_MEDIUM_MAX_WIDTH,
+  GRAPH_HEIGHT,
+  GRAPH_LEFT_MARGIN,
+  GRAPH_RIGHT_MARGIN,
+} from "../view/DialogAndPanelConstants.js";
 import { MAX_TRAIL_POINTS } from "../view/graph/GraphDataConstants.js";
-import { GRAPH_HEIGHT, GRAPH_LEFT_MARGIN, GRAPH_RIGHT_MARGIN, DIALOG_MEDIUM_MAX_WIDTH } from "../view/DialogAndPanelConstants.js";
+import { ACCELERATION_VECTOR_SCALE, FORCE_VECTOR_SCALE, VELOCITY_VECTOR_SCALE } from "../view/VectorScaleConstants.js";
 
 /**
  * Validation result for a single constraint
@@ -155,9 +160,9 @@ export class ConstantValidator {
    * Get a summary of validation results
    */
   public static getSummary(results: ValidationResult[]): string {
-    const critical = results.filter(r => !r.passed && r.severity === "critical");
-    const warnings = results.filter(r => !r.passed && r.severity === "warning");
-    const passed = results.filter(r => r.passed);
+    const critical = results.filter((r) => !r.passed && r.severity === "critical");
+    const warnings = results.filter((r) => !r.passed && r.severity === "warning");
+    const passed = results.filter((r) => r.passed);
 
     let summary = `Constant Validation Summary:\n`;
     summary += `  ✓ Passed: ${passed.length}\n`;
@@ -166,13 +171,17 @@ export class ConstantValidator {
 
     if (critical.length > 0) {
       summary += `Critical Issues:\n`;
-      critical.forEach(r => summary += `  ✗ ${r.name}: ${r.message}\n`);
+      critical.forEach((r) => {
+        summary += `  ✗ ${r.name}: ${r.message}\n`;
+      });
       summary += `\n`;
     }
 
     if (warnings.length > 0) {
       summary += `Warnings:\n`;
-      warnings.forEach(r => summary += `  ⚠ ${r.name}: ${r.message}\n`);
+      warnings.forEach((r) => {
+        summary += `  ⚠ ${r.name}: ${r.message}\n`;
+      });
     }
 
     return summary;
@@ -188,13 +197,16 @@ export function validateConstants(): void {
   const results = validator.validate();
   const summary = ConstantValidator.getSummary(results);
 
+  // biome-ignore lint/suspicious/noConsole: development-only constant validation reporter
   console.log(summary);
 
   // Return non-zero if any critical issues found
-  const hasCritical = results.some(r => !r.passed && r.severity === "critical");
+  const hasCritical = results.some((r) => !r.passed && r.severity === "critical");
   if (hasCritical) {
+    // biome-ignore lint/suspicious/noConsole: development-only constant validation reporter
     console.error("❌ Critical constant validation failures detected!");
   } else {
+    // biome-ignore lint/suspicious/noConsole: development-only constant validation reporter
     console.log("✅ All critical constant validations passed");
   }
 }

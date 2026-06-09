@@ -3,14 +3,11 @@
  */
 
 import { Screen, type ScreenOptions } from "scenerystack/sim";
+import classicalMechanics from "../ClassicalMechanicsNamespace.js";
 import { SingleSpringModel } from "./model/SingleSpringModel.js";
 import { SingleSpringScreenView } from "./view/SingleSpringScreenView.js";
-import classicalMechanics from '../ClassicalMechanicsNamespace.js';
 
-export class SingleSpringScreen extends Screen<
-  SingleSpringModel,
-  SingleSpringScreenView
-> {
+export class SingleSpringScreen extends Screen<SingleSpringModel, SingleSpringScreenView> {
   public constructor(options: ScreenOptions) {
     super(
       () => new SingleSpringModel(),
@@ -21,4 +18,4 @@ export class SingleSpringScreen extends Screen<
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('SingleSpringScreen', SingleSpringScreen);
+classicalMechanics.register("SingleSpringScreen", SingleSpringScreen);

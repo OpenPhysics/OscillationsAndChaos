@@ -8,17 +8,17 @@
  * @author Martin Veillette (PhET Interactive Simulations)
  */
 
+import type { NumberProperty, Property, TReadOnlyProperty } from "scenerystack/axon";
+import type { Range } from "scenerystack/dot";
+import { HBox, type Node, type TColor, Text, VBox } from "scenerystack/scenery";
+import { NumberControl, type NumberControlOptions, PhetFont } from "scenerystack/scenery-phet";
 import { Panel, type PanelOptions } from "scenerystack/sun";
-import { VBox, HBox, Text, Node, TColor } from "scenerystack/scenery";
-import { Property, TReadOnlyProperty, NumberProperty } from "scenerystack/axon";
-import { Range } from "scenerystack/dot";
-import { PhetFont, NumberControl, type NumberControlOptions } from "scenerystack/scenery-phet";
 import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import { createPresetSelector, PresetOption } from "./PresetSelectorFactory.js";
-import { Preset } from "../model/Preset.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import type { Preset } from "../model/Preset.js";
 import { FONT_SIZE_SECONDARY_LABEL } from "./FontSizeConstants.js";
-import { SPACING_SMALL, SPACING_MEDIUM, PANEL_MARGIN_X, PANEL_MARGIN_Y } from "./UILayoutConstants.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import { createPresetSelector, type PresetOption } from "./PresetSelectorFactory.js";
+import { PANEL_MARGIN_X, PANEL_MARGIN_Y, SPACING_MEDIUM, SPACING_SMALL } from "./UILayoutConstants.js";
 
 /**
  * Configuration for a single parameter control
@@ -75,7 +75,7 @@ export class ParameterControlPanel extends Panel {
       options.presetProperty,
       options.presets,
       options.customLabelProperty,
-      options.listParent
+      options.listParent,
     );
 
     const presetLabel = new Text(options.presetLabelProperty, {
@@ -108,12 +108,7 @@ export class ParameterControlPanel extends Panel {
         };
       }
 
-      return new NumberControl(
-        paramConfig.labelProperty,
-        paramConfig.property,
-        paramConfig.range,
-        controlOptions
-      );
+      return new NumberControl(paramConfig.labelProperty, paramConfig.property, paramConfig.range, controlOptions);
     });
 
     // Assemble panel content
@@ -135,4 +130,4 @@ export class ParameterControlPanel extends Panel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('ParameterControlPanel', ParameterControlPanel);
+classicalMechanics.register("ParameterControlPanel", ParameterControlPanel);

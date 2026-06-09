@@ -3,8 +3,8 @@
  * Reduces boilerplate and adds validation for state vector operations.
  */
 
-import { NumberProperty } from "scenerystack/axon";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import type { NumberProperty } from "scenerystack/axon";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 
 /**
  * Maps between property values and state vectors, providing:
@@ -28,7 +28,7 @@ export class StatePropertyMapper {
    * @returns Array of property values in the order specified during construction
    */
   public getState(): number[] {
-    return this.properties.map(prop => prop.value);
+    return this.properties.map((prop) => prop.value);
   }
 
   /**
@@ -39,17 +39,13 @@ export class StatePropertyMapper {
    */
   public setState(state: number[]): void {
     if (state.length !== this.properties.length) {
-      throw new Error(
-        `State vector length mismatch: expected ${this.properties.length}, got ${state.length}`
-      );
+      throw new Error(`State vector length mismatch: expected ${this.properties.length}, got ${state.length}`);
     }
 
     // Validate that all state values are finite numbers
     for (let i = 0; i < state.length; i++) {
       if (!isFinite(state[i])) {
-        throw new Error(
-          `Invalid state value at index ${i}: ${state[i]} (must be a finite number)`
-        );
+        throw new Error(`Invalid state value at index ${i}: ${state[i]} (must be a finite number)`);
       }
     }
 
@@ -68,4 +64,4 @@ export class StatePropertyMapper {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('StatePropertyMapper', StatePropertyMapper);
+classicalMechanics.register("StatePropertyMapper", StatePropertyMapper);

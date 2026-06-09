@@ -9,16 +9,15 @@
  * @author Martin Veillette (PhET Interactive Simulations)
  */
 
-import { Panel, type PanelOptions } from "scenerystack/sun";
-import { VBox, HBox, Text } from "scenerystack/scenery";
-import { Checkbox } from "scenerystack/sun";
-import { BooleanProperty, type ReadOnlyProperty } from "scenerystack/axon";
-import { PhetColorScheme, ArrowNode } from "scenerystack/scenery-phet";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
 import { PhetFont } from "scenerystack";
-import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
+import type { BooleanProperty, ReadOnlyProperty } from "scenerystack/axon";
+import { HBox, Text, VBox } from "scenerystack/scenery";
+import { ArrowNode, PhetColorScheme } from "scenerystack/scenery-phet";
+import { Checkbox, Panel, type PanelOptions } from "scenerystack/sun";
+import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 
 /**
  * Configuration for a single vector type (velocity, force, or acceleration)
@@ -58,7 +57,7 @@ export class VectorControlPanel extends Panel {
         spacing: 5,
         children: [
           new Text(options.velocity.labelProperty, {
-            font: new PhetFont({size: 12}),
+            font: new PhetFont({ size: 12 }),
             fill: ClassicalMechanicsColors.textColorProperty,
           }),
           new ArrowNode(0, 0, 15, 0, {
@@ -72,7 +71,7 @@ export class VectorControlPanel extends Panel {
       }),
       {
         boxWidth: 14,
-      }
+      },
     );
 
     const forceCheckbox = new Checkbox(
@@ -81,7 +80,7 @@ export class VectorControlPanel extends Panel {
         spacing: 5,
         children: [
           new Text(options.force.labelProperty, {
-            font: new PhetFont({size: 12}),
+            font: new PhetFont({ size: 12 }),
             fill: ClassicalMechanicsColors.textColorProperty,
           }),
           new ArrowNode(0, 0, 15, 0, {
@@ -95,7 +94,7 @@ export class VectorControlPanel extends Panel {
       }),
       {
         boxWidth: 14,
-      }
+      },
     );
 
     const accelerationCheckbox = new Checkbox(
@@ -104,7 +103,7 @@ export class VectorControlPanel extends Panel {
         spacing: 5,
         children: [
           new Text(options.acceleration.labelProperty, {
-            font: new PhetFont({size: 12}),
+            font: new PhetFont({ size: 12 }),
             fill: ClassicalMechanicsColors.textColorProperty,
           }),
           new ArrowNode(0, 0, 15, 0, {
@@ -118,7 +117,7 @@ export class VectorControlPanel extends Panel {
       }),
       {
         boxWidth: 14,
-      }
+      },
     );
 
     const content = new VBox({
@@ -147,9 +146,7 @@ export class VectorControlPanel extends Panel {
 
     options.force.showProperty.lazyLink((showForce) => {
       if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
-        const announcement = showForce
-          ? options.force.a11yStrings.shown.value
-          : options.force.a11yStrings.hidden.value;
+        const announcement = showForce ? options.force.a11yStrings.shown.value : options.force.a11yStrings.hidden.value;
         SimulationAnnouncer.announceSimulationState(announcement);
       }
     });
@@ -166,4 +163,4 @@ export class VectorControlPanel extends Panel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('VectorControlPanel', VectorControlPanel);
+classicalMechanics.register("VectorControlPanel", VectorControlPanel);

@@ -16,13 +16,12 @@
  * @author Chris Malley (PixelZoom, Inc.) - Original PhET implementation
  */
 
-import { Node, Path, type NodeOptions } from "scenerystack/scenery";
-import { Color, ReadOnlyProperty } from "scenerystack";
-import { Shape } from "scenerystack/kite";
+import type { Color, ReadOnlyProperty } from "scenerystack";
 import { Vector2 } from "scenerystack/dot";
-import { LinearGradient } from "scenerystack/scenery";
+import { Shape } from "scenerystack/kite";
+import { LinearGradient, Node, type NodeOptions, Path } from "scenerystack/scenery";
 import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 
 type ParametricSpringNodeOptions = NodeOptions & {
   frontColorProperty?: ReadOnlyProperty<Color>;
@@ -77,15 +76,9 @@ export class ParametricSpringNode extends Node {
     this.leftEndLength = options?.leftEndLength ?? 15;
     this.rightEndLength = options?.rightEndLength ?? 25;
 
-    this.frontColorProperty =
-      options?.frontColorProperty ??
-      ClassicalMechanicsColors.springFrontColorProperty;
-    this.middleColorProperty =
-      options?.middleColorProperty ??
-      ClassicalMechanicsColors.springFrontColorProperty;
-    this.backColorProperty =
-      options?.backColorProperty ??
-      ClassicalMechanicsColors.springBackColorProperty;
+    this.frontColorProperty = options?.frontColorProperty ?? ClassicalMechanicsColors.springFrontColorProperty;
+    this.middleColorProperty = options?.middleColorProperty ?? ClassicalMechanicsColors.springFrontColorProperty;
+    this.backColorProperty = options?.backColorProperty ?? ClassicalMechanicsColors.springBackColorProperty;
 
     // Back part of spring (goes behind)
     this.backPath = new Path(null, {
@@ -137,11 +130,7 @@ export class ParametricSpringNode extends Node {
     for (let index = 0; index < numberOfCoilPoints; index++) {
       // is the current point on the front path?
       const isFront =
-        ((2 * Math.PI * index) / this.pointsPerLoop +
-          this.phase +
-          this.deltaPhase) %
-          (2 * Math.PI) >
-        Math.PI;
+        ((2 * Math.PI * index) / this.pointsPerLoop + this.phase + this.deltaPhase) % (2 * Math.PI) > Math.PI;
 
       // horizontal line at left end
       if (index === 0) {
@@ -181,7 +170,8 @@ export class ParametricSpringNode extends Node {
 
     // Calculate the total length of the spring shape to ensure it reaches the endpoint
     // This must match the naturalLength calculation in setEndpoints()
-    const totalLength = this.leftEndLength + this.rightEndLength + 2 * this.radius + this.xScale * this.loops * this.radius;
+    const totalLength =
+      this.leftEndLength + this.rightEndLength + 2 * this.radius + this.xScale * this.loops * this.radius;
 
     const centerPoint = new Vector2(lastCoilPoint.x, 0);
     const endPoint = new Vector2(totalLength, 0);
@@ -239,10 +229,7 @@ export class ParametricSpringNode extends Node {
     return (
       this.leftEndLength +
       this.radius +
-      this.radius *
-        Math.cos(
-          (2 * Math.PI * index) / this.pointsPerLoop + this.phase,
-        ) +
+      this.radius * Math.cos((2 * Math.PI * index) / this.pointsPerLoop + this.phase) +
       this.xScale * (index / this.pointsPerLoop) * this.radius
     );
   }
@@ -254,11 +241,7 @@ export class ParametricSpringNode extends Node {
     return (
       this.aspectRatio *
       this.radius *
-      Math.cos(
-        (2 * Math.PI * index) / this.pointsPerLoop +
-          this.deltaPhase +
-          this.phase,
-      )
+      Math.cos((2 * Math.PI * index) / this.pointsPerLoop + this.deltaPhase + this.phase)
     );
   }
 
@@ -277,20 +260,13 @@ export class ParametricSpringNode extends Node {
 
     // Calculate the natural length of the spring (without stretching)
     const naturalLength =
-      this.leftEndLength +
-      this.rightEndLength +
-      2 * this.radius +
-      this.xScale * this.loops * this.radius;
+      this.leftEndLength + this.rightEndLength + 2 * this.radius + this.xScale * this.loops * this.radius;
 
     // Adjust xScale to match the desired length
     if (naturalLength > 0) {
       const adjustedXScale = Math.max(
         0.1,
-        (length -
-          this.leftEndLength -
-          this.rightEndLength -
-          2 * this.radius) /
-          (this.loops * this.radius),
+        (length - this.leftEndLength - this.rightEndLength - 2 * this.radius) / (this.loops * this.radius),
       );
       this.xScale = adjustedXScale;
     }
@@ -336,4 +312,4 @@ export class ParametricSpringNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('ParametricSpringNode', ParametricSpringNode);
+classicalMechanics.register("ParametricSpringNode", ParametricSpringNode);

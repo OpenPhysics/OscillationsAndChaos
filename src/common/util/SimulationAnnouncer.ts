@@ -7,14 +7,11 @@
  * is preferred over manual ARIA live regions for better user control and richer output options.
  */
 
-import { Utterance } from "scenerystack/utterance-queue";
 import { voicingUtteranceQueue } from "scenerystack/scenery";
+import { Utterance } from "scenerystack/utterance-queue";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
-import {
-  PARAMETER_CHANGE_ANNOUNCEMENT_DELAY,
-  GRAPH_CHANGE_ANNOUNCEMENT_DELAY,
-} from "./AccessibilityDelayConstants.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import { GRAPH_CHANGE_ANNOUNCEMENT_DELAY, PARAMETER_CHANGE_ANNOUNCEMENT_DELAY } from "./AccessibilityDelayConstants.js";
 
 /**
  * SimulationAnnouncer - Singleton class for managing voicing announcements
@@ -127,11 +124,10 @@ class SimulationAnnouncer {
     });
     voicingUtteranceQueue.addToBack(utterance);
   }
-
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('SimulationAnnouncer', SimulationAnnouncer);
+classicalMechanics.register("SimulationAnnouncer", SimulationAnnouncer);
 
 // Export singleton instance for convenience
 export default SimulationAnnouncer.getInstance();

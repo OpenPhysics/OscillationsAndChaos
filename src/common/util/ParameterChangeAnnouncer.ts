@@ -2,9 +2,9 @@
  * Utility for creating parameter change listeners with consistent announcement behavior.
  */
 
-import { Property, TReadOnlyProperty } from "scenerystack/axon";
-import SimulationAnnouncer from "./SimulationAnnouncer.js";
+import type { Property, TReadOnlyProperty } from "scenerystack/axon";
 import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
+import SimulationAnnouncer from "./SimulationAnnouncer.js";
 
 /**
  * Create a parameter change listener that announces changes using a template string.
@@ -16,7 +16,7 @@ import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.j
 export function createParameterChangeListener(
   property: Property<number>,
   announcementTemplate: TReadOnlyProperty<string>,
-  formatValue: (value: number) => string = (v) => v.toFixed(1)
+  formatValue: (value: number) => string = (v) => v.toFixed(1),
 ): void {
   property.lazyLink((value) => {
     if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {

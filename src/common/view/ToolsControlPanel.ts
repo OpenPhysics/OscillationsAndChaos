@@ -8,16 +8,15 @@
  * @author Martin Veillette (PhET Interactive Simulations)
  */
 
-import { Panel, type PanelOptions } from "scenerystack/sun";
-import { VBox, HBox, Text } from "scenerystack/scenery";
-import { Checkbox } from "scenerystack/sun";
-import { BooleanProperty, type ReadOnlyProperty } from "scenerystack/axon";
-import { GridIcon } from "scenerystack/scenery-phet";
 import { PhetFont } from "scenerystack";
+import type { BooleanProperty, ReadOnlyProperty } from "scenerystack/axon";
+import { HBox, Text, VBox } from "scenerystack/scenery";
+import { GridIcon } from "scenerystack/scenery-phet";
+import { Checkbox, Panel, type PanelOptions } from "scenerystack/sun";
 import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
+import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
-import classicalMechanics from '../../ClassicalMechanicsNamespace.js';
+import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 
 /**
  * Configuration for a single tool
@@ -66,55 +65,51 @@ export class ToolsControlPanel extends Panel {
         children: [
           gridIcon,
           new Text(options.grid.labelProperty, {
-            font: new PhetFont({size: 14}),
+            font: new PhetFont({ size: 14 }),
             fill: ClassicalMechanicsColors.textColorProperty,
           }),
         ],
       }),
       {
         boxWidth: 16,
-      }
+      },
     );
 
     const showDistanceToolCheckbox = new Checkbox(
       options.distance.showProperty,
       new Text(options.distance.labelProperty, {
-        font: new PhetFont({size: 14}),
+        font: new PhetFont({ size: 14 }),
         fill: ClassicalMechanicsColors.textColorProperty,
       }),
       {
         boxWidth: 16,
-      }
+      },
     );
 
     const showStopwatchCheckbox = new Checkbox(
       options.stopwatch.showProperty,
       new Text(options.stopwatch.labelProperty, {
-        font: new PhetFont({size: 14}),
+        font: new PhetFont({ size: 14 }),
         fill: ClassicalMechanicsColors.textColorProperty,
       }),
       {
         boxWidth: 16,
-      }
+      },
     );
 
-    const children = [
-      showGridCheckbox,
-      showDistanceToolCheckbox,
-      showStopwatchCheckbox,
-    ];
+    const children = [showGridCheckbox, showDistanceToolCheckbox, showStopwatchCheckbox];
 
     // Add protractor checkbox if provided (for pendulum screens)
     if (options.protractor) {
       const showProtractorCheckbox = new Checkbox(
         options.protractor.showProperty,
         new Text(options.protractor.labelProperty, {
-          font: new PhetFont({size: 14}),
+          font: new PhetFont({ size: 14 }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         {
           boxWidth: 16,
-        }
+        },
       );
       // Insert protractor before stopwatch
       children.splice(2, 0, showProtractorCheckbox);
@@ -125,12 +120,12 @@ export class ToolsControlPanel extends Panel {
       const showGraphCheckbox = new Checkbox(
         options.graph.showProperty,
         new Text(options.graph.labelProperty, {
-          font: new PhetFont({size: 14}),
+          font: new PhetFont({ size: 14 }),
           fill: ClassicalMechanicsColors.textColorProperty,
         }),
         {
           boxWidth: 16,
-        }
+        },
       );
       // Add graph checkbox at the end
       children.push(showGraphCheckbox);
@@ -153,9 +148,7 @@ export class ToolsControlPanel extends Panel {
     // Add accessibility announcements for tool visibility changes
     options.grid.showProperty.lazyLink((showGrid) => {
       if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
-        const announcement = showGrid
-          ? options.grid.a11yStrings.shown.value
-          : options.grid.a11yStrings.hidden.value;
+        const announcement = showGrid ? options.grid.a11yStrings.shown.value : options.grid.a11yStrings.hidden.value;
         SimulationAnnouncer.announceSimulationState(announcement);
       }
     });
@@ -205,4 +198,4 @@ export class ToolsControlPanel extends Panel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register('ToolsControlPanel', ToolsControlPanel);
+classicalMechanics.register("ToolsControlPanel", ToolsControlPanel);
