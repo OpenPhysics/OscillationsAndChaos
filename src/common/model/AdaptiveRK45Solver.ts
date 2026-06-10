@@ -110,38 +110,38 @@ export class AdaptiveRK45Solver implements ODESolver {
 
     // k2 = f(t + dt/5, y + k1*dt/5)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] = state[i] + (this.k1[i] * dt) / 5;
+      this.tempState[i]! = state[i]! + (this.k1[i]! * dt) / 5;
     }
     derivativeFn(this.tempState, this.k2, time + dt / 5);
 
     // k3 = f(t + 3*dt/10, y + 3*k1*dt/40 + 9*k2*dt/40)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] = state[i] + ((3 * this.k1[i] + 9 * this.k2[i]) * dt) / 40;
+      this.tempState[i]! = state[i]! + ((3 * this.k1[i]! + 9 * this.k2[i]!) * dt) / 40;
     }
     derivativeFn(this.tempState, this.k3, time + (3 * dt) / 10);
 
     // k4 = f(t + 3*dt/5, y + 3*k1*dt/10 - 9*k2*dt/10 + 6*k3*dt/5)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] = state[i] + ((3 * this.k1[i] - 9 * this.k2[i] + 12 * this.k3[i]) * dt) / 10;
+      this.tempState[i]! = state[i]! + ((3 * this.k1[i]! - 9 * this.k2[i]! + 12 * this.k3[i]!) * dt) / 10;
     }
     derivativeFn(this.tempState, this.k4, time + (3 * dt) / 5);
 
     // k5 = f(t + dt, y - 11*k1*dt/54 + 5*k2*dt/2 - 70*k3*dt/27 + 35*k4*dt/27)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] =
-        state[i] + ((-11 * this.k1[i] + 135 * this.k2[i] - 140 * this.k3[i] + 70 * this.k4[i]) * dt) / 54;
+      this.tempState[i]! =
+        state[i]! + ((-11 * this.k1[i]! + 135 * this.k2[i]! - 140 * this.k3[i]! + 70 * this.k4[i]!) * dt) / 54;
     }
     derivativeFn(this.tempState, this.k5, time + dt);
 
     // k6 = f(t + 7*dt/8, y + 1631*k1*dt/55296 + 175*k2*dt/512 + 575*k3*dt/13824 + 44275*k4*dt/110592 + 253*k5*dt/4096)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] =
-        state[i] +
-        ((1631 * this.k1[i]) / 55296 +
-          (175 * this.k2[i]) / 512 +
-          (575 * this.k3[i]) / 13824 +
-          (44275 * this.k4[i]) / 110592 +
-          (253 * this.k5[i]) / 4096) *
+      this.tempState[i]! =
+        state[i]! +
+        ((1631 * this.k1[i]!) / 55296 +
+          (175 * this.k2[i]!) / 512 +
+          (575 * this.k3[i]!) / 13824 +
+          (44275 * this.k4[i]!) / 110592 +
+          (253 * this.k5[i]!) / 4096) *
           dt;
     }
     derivativeFn(this.tempState, this.k6, time + (7 * dt) / 8);
@@ -149,30 +149,30 @@ export class AdaptiveRK45Solver implements ODESolver {
     // 4th order solution
     const state4 = new Array(n);
     for (let i = 0; i < n; i++) {
-      state4[i] =
-        state[i] +
-        ((37 * this.k1[i]) / 378 + (250 * this.k3[i]) / 621 + (125 * this.k4[i]) / 594 + (512 * this.k6[i]) / 1771) *
+      state4[i]! =
+        state[i]! +
+        ((37 * this.k1[i]!) / 378 + (250 * this.k3[i]!) / 621 + (125 * this.k4[i]!) / 594 + (512 * this.k6[i]!) / 1771) *
           dt;
     }
 
     // 5th order solution
     const state5 = new Array(n);
     for (let i = 0; i < n; i++) {
-      state5[i] =
-        state[i] +
-        ((2825 * this.k1[i]) / 27648 +
-          (18575 * this.k3[i]) / 48384 +
-          (13525 * this.k4[i]) / 55296 +
-          (277 * this.k5[i]) / 14336 +
-          this.k6[i] / 4) *
+      state5[i]! =
+        state[i]! +
+        ((2825 * this.k1[i]!) / 27648 +
+          (18575 * this.k3[i]!) / 48384 +
+          (13525 * this.k4[i]!) / 55296 +
+          (277 * this.k5[i]!) / 14336 +
+          this.k6[i]! / 4) *
           dt;
     }
 
     // Estimate error (difference between 4th and 5th order solutions)
     let maxError = 0;
     for (let i = 0; i < n; i++) {
-      this.error[i] = Math.abs(state5[i] - state4[i]);
-      maxError = Math.max(maxError, this.error[i]);
+      this.error[i]! = Math.abs(state5[i]! - state4[i]!);
+      maxError = Math.max(maxError, this.error[i]!);
     }
 
     // Validate computed results
@@ -226,7 +226,7 @@ export class AdaptiveRK45Solver implements ODESolver {
       if (result.error < this.tolerance || currentStepSize <= this.minStepSize) {
         // Accept the step
         for (let i = 0; i < state.length; i++) {
-          state[i] = result.newState[i];
+          state[i]! = result.newState[i]!;
         }
         currentTime += currentStepSize;
         remainingTime -= currentStepSize;

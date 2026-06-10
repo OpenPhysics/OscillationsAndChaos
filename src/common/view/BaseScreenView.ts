@@ -305,8 +305,8 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
     // Create the configurable graph
     this.configurableGraph = new ConfigurableGraph(
       availableProperties,
-      availableProperties[timePropertyIndex], // Time for x-axis
-      availableProperties[defaultYAxisIndex], // Default property for y-axis
+      availableProperties[timePropertyIndex]!, // Time for x-axis
+      availableProperties[defaultYAxisIndex]!, // Default property for y-axis
       graphWidth,
       GRAPH_HEIGHT,
       this, // list parent for combo boxes
@@ -671,11 +671,13 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       titleNodeOptions: {
         fill: ClassicalMechanicsColors.textColorProperty,
       },
-      sliderOptions: parameter.thumbFill
+      ...(parameter.thumbFill
         ? {
-            thumbFill: parameter.thumbFill,
+            sliderOptions: {
+              thumbFill: parameter.thumbFill,
+            },
           }
-        : undefined,
+        : {}),
     });
   }
 
@@ -714,7 +716,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
     detectCustomChangeProperties: Property<number>[],
   ): void {
     this.presets = presets;
-    this.presetProperty = new Property<Preset | "Custom">(presets[0]);
+    this.presetProperty = new Property<Preset | "Custom">(presets[0]!);
 
     // Listen for preset changes to apply configuration
     this.presetProperty.link((preset) => {

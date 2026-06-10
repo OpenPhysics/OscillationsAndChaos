@@ -145,8 +145,8 @@ export class SingleSpringModel extends BaseModel {
    * Note: position x is positive downward from natural length
    */
   protected getDerivatives(state: number[], derivatives: number[], _: number): void {
-    const x = state[0];
-    const v = state[1];
+    const x = state[0]!;
+    const v = state[1]!;
 
     const m = this.massProperty.value;
     const k = this.springConstantProperty.value;
@@ -154,10 +154,10 @@ export class SingleSpringModel extends BaseModel {
     const g = this.gravityProperty.value;
 
     // dx/dt = v
-    derivatives[0] = v;
+    derivatives[0]! = v;
 
     // dv/dt = (-k*x - b*v + m*g) / m = -k*x/m - b*v/m + g
-    derivatives[1] = (-k * x - b * v + m * g) / m;
+    derivatives[1]! = (-k * x - b * v + m * g) / m;
   }
 
   /**

@@ -76,7 +76,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     this.presets = DoublePendulumPresets.getPresets();
 
     // Initialize with first preset as default
-    this.presetProperty = new Property<PresetOption>(this.presets[0]);
+    this.presetProperty = new Property<PresetOption>(this.presets[0]!);
 
     // Pivot point (top center)
     this.pivotPoint = new Vector2(this.layoutBounds.centerX, this.layoutBounds.minY + 100);
@@ -385,7 +385,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     });
 
     // Apply the first preset immediately
-    this.applyPreset(this.presets[0]);
+    this.applyPreset(this.presets[0]!);
 
     // Create configurable graph with available properties
     const propertyNames = this.stringManager.getGraphPropertyNames();
@@ -726,9 +726,9 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Update trail shape
     if (this.trailPoints.length > 1) {
       const shape = new Shape();
-      shape.moveToPoint(this.trailPoints[0]);
+      shape.moveToPoint(this.trailPoints[0]!);
       for (let i = 1; i < this.trailPoints.length; i++) {
-        shape.lineToPoint(this.trailPoints[i]);
+        shape.lineToPoint(this.trailPoints[i]!);
       }
       this.trailPath.shape = shape;
     }
@@ -895,29 +895,29 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     const config = preset.configuration;
 
     // Apply all configuration values to model properties
-    if (config.length1 !== undefined) {
-      this.model.length1Property.value = config.length1;
+    if (config['length1'] !== undefined) {
+      this.model.length1Property.value = config['length1'];
     }
-    if (config.length2 !== undefined) {
-      this.model.length2Property.value = config.length2;
+    if (config['length2'] !== undefined) {
+      this.model.length2Property.value = config['length2'];
     }
-    if (config.mass1 !== undefined) {
-      this.model.mass1Property.value = config.mass1;
+    if (config['mass1'] !== undefined) {
+      this.model.mass1Property.value = config['mass1'];
     }
-    if (config.mass2 !== undefined) {
-      this.model.mass2Property.value = config.mass2;
+    if (config['mass2'] !== undefined) {
+      this.model.mass2Property.value = config['mass2'];
     }
-    if (config.gravity !== undefined) {
-      this.model.gravityProperty.value = config.gravity;
+    if (config['gravity'] !== undefined) {
+      this.model.gravityProperty.value = config['gravity'];
     }
-    if (config.damping !== undefined) {
-      this.model.dampingProperty.value = config.damping;
+    if (config['damping'] !== undefined) {
+      this.model.dampingProperty.value = config['damping'];
     }
-    if (config.angle1 !== undefined) {
-      this.model.angle1Property.value = config.angle1;
+    if (config['angle1'] !== undefined) {
+      this.model.angle1Property.value = config['angle1'];
     }
-    if (config.angle2 !== undefined) {
-      this.model.angle2Property.value = config.angle2;
+    if (config['angle2'] !== undefined) {
+      this.model.angle2Property.value = config['angle2'];
     }
 
     // Reset angular velocities when applying preset

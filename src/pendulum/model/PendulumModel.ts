@@ -135,8 +135,8 @@ export class PendulumModel extends BaseModel {
    * ω' = -(g/L)*sin(θ) - (b/mL²)*ω
    */
   protected getDerivatives(state: number[], derivatives: number[], _: number): void {
-    const theta = state[0];
-    const omega = state[1];
+    const theta = state[0]!;
+    const omega = state[1]!;
 
     const m = this.massProperty.value;
     const L = this.lengthProperty.value;
@@ -144,11 +144,11 @@ export class PendulumModel extends BaseModel {
     const b = this.dampingProperty.value;
 
     // dθ/dt = ω
-    derivatives[0] = omega;
+    derivatives[0]! = omega;
 
     // dω/dt = -(g/L)*sin(θ) - (b/mL²)*ω
     const I = m * L * L; // rotational inertia
-    derivatives[1] = -(g / L) * Math.sin(theta) - (b / I) * omega;
+    derivatives[1]! = -(g / L) * Math.sin(theta) - (b / I) * omega;
   }
 
   /**

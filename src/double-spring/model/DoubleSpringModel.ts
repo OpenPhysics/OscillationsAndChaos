@@ -174,10 +174,10 @@ export class DoubleSpringModel extends BaseModel {
    * Note: positions x1 and x2 are positive downward from natural length
    */
   protected getDerivatives(state: number[], derivatives: number[], _: number): void {
-    const x1 = state[0];
-    const v1 = state[1];
-    const x2 = state[2];
-    const v2 = state[3];
+    const x1 = state[0]!;
+    const v1 = state[1]!;
+    const x2 = state[2]!;
+    const v2 = state[3]!;
 
     const m1 = this.mass1Property.value;
     const m2 = this.mass2Property.value;
@@ -188,16 +188,16 @@ export class DoubleSpringModel extends BaseModel {
     const g = this.gravityProperty.value;
 
     // dx1/dt = v1
-    derivatives[0] = v1;
+    derivatives[0]! = v1;
 
     // dv1/dt = (-k1*x1 + k2*(x2 - x1) - b1*v1 + m1*g) / m1
-    derivatives[1] = (-k1 * x1 + k2 * (x2 - x1) - b1 * v1 + m1 * g) / m1;
+    derivatives[1]! = (-k1 * x1 + k2 * (x2 - x1) - b1 * v1 + m1 * g) / m1;
 
     // dx2/dt = v2
-    derivatives[2] = v2;
+    derivatives[2]! = v2;
 
     // dv2/dt = (-k2*(x2 - x1) - b2*v2 + m2*g) / m2
-    derivatives[3] = (-k2 * (x2 - x1) - b2 * v2 + m2 * g) / m2;
+    derivatives[3]! = (-k2 * (x2 - x1) - b2 * v2 + m2 * g) / m2;
   }
 
   /**

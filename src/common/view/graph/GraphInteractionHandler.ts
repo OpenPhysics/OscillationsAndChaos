@@ -223,8 +223,8 @@ export default class GraphInteractionHandler {
           // If we now have exactly 2 touches, start pinch gesture
           if (activePointers.size === 2) {
             const points = Array.from(activePointers.values());
-            initialDistance = points[0].distance(points[1]);
-            initialMidpoint = points[0].average(points[1]);
+            initialDistance = points[0]!.distance(points[1]!);
+            initialMidpoint = points[0]!.average(points[1]!);
             initialXRange = this.chartTransform.modelXRange.copy();
             initialYRange = this.chartTransform.modelYRange.copy();
             this.dataManager.setManuallyZoomed(true);
@@ -241,7 +241,7 @@ export default class GraphInteractionHandler {
           // If we have exactly 2 touches, perform pinch zoom
           if (activePointers.size === 2 && initialDistance && initialMidpoint && initialXRange && initialYRange) {
             const points = Array.from(activePointers.values());
-            const currentDistance = points[0].distance(points[1]);
+            const currentDistance = points[0]!.distance(points[1]!);
 
             // Calculate zoom factor from distance ratio
             const zoomFactor = initialDistance / currentDistance;
@@ -324,8 +324,8 @@ export default class GraphInteractionHandler {
           } else if (activePointers.size === 2) {
             // Two touches - prepare for pinch zoom on Y-axis
             const points = Array.from(activePointers.values());
-            initialYDistance = Math.abs(points[0].y - points[1].y);
-            initialYMidpoint = (points[0].y + points[1].y) / 2;
+            initialYDistance = Math.abs(points[0]!.y - points[1]!.y);
+            initialYMidpoint = (points[0]!.y + points[1]!.y) / 2;
             initialYRange = this.chartTransform.modelYRange.copy();
             singleTouchStartY = null; // Cancel single touch
             this.dataManager.setManuallyZoomed(true);
@@ -353,7 +353,7 @@ export default class GraphInteractionHandler {
           } else if (activePointers.size === 2 && initialYDistance && initialYMidpoint !== null && initialYRange) {
             // Two touches - pinch zoom on Y-axis only
             const points = Array.from(activePointers.values());
-            const currentYDistance = Math.abs(points[0].y - points[1].y);
+            const currentYDistance = Math.abs(points[0]!.y - points[1]!.y);
 
             // Calculate zoom factor from Y-distance ratio
             const zoomFactor = initialYDistance / currentYDistance;
@@ -502,8 +502,8 @@ export default class GraphInteractionHandler {
           } else if (activePointers.size === 2) {
             // Two touches - prepare for pinch zoom on X-axis
             const points = Array.from(activePointers.values());
-            initialXDistance = Math.abs(points[0].x - points[1].x);
-            initialXMidpoint = (points[0].x + points[1].x) / 2;
+            initialXDistance = Math.abs(points[0]!.x - points[1]!.x);
+            initialXMidpoint = (points[0]!.x + points[1]!.x) / 2;
             initialXRange = this.chartTransform.modelXRange.copy();
             singleTouchStartX = null; // Cancel single touch
             this.dataManager.setManuallyZoomed(true);
@@ -531,7 +531,7 @@ export default class GraphInteractionHandler {
           } else if (activePointers.size === 2 && initialXDistance && initialXMidpoint !== null && initialXRange) {
             // Two touches - pinch zoom on X-axis only
             const points = Array.from(activePointers.values());
-            const currentXDistance = Math.abs(points[0].x - points[1].x);
+            const currentXDistance = Math.abs(points[0]!.x - points[1]!.x);
 
             // Calculate zoom factor from X-distance ratio
             const zoomFactor = initialXDistance / currentXDistance;
@@ -817,7 +817,7 @@ export default class GraphInteractionHandler {
     ];
 
     this.resizeHandles.forEach((handle, index) => {
-      handle.setRect(corners[index].x + handleOffset, corners[index].y + handleOffset, 12, 12);
+      handle.setRect(corners[index]!.x + handleOffset, corners[index]!.y + handleOffset, 12, 12);
     });
   }
 

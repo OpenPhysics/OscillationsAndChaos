@@ -82,7 +82,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     this.presets = DoubleSpringPresets.getPresets();
 
     // Initialize with first preset as default
-    this.presetProperty = new Property<PresetOption>(this.presets[0]);
+    this.presetProperty = new Property<PresetOption>(this.presets[0]!);
 
     // Get accessibility strings for announcements
     this.stringManager = StringManager.getInstance();
@@ -466,7 +466,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     });
 
     // Apply the first preset immediately
-    this.applyPreset(this.presets[0]);
+    this.applyPreset(this.presets[0]!);
 
     // pdom - Note: setupScreenSummary and adding masses to playAreaNode
     // are done after graph positioning but before setupCommonControls
@@ -900,23 +900,23 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     const config = preset.configuration;
 
     // Apply all configuration values to model properties
-    if (config.mass1 !== undefined) {
-      this.model.mass1Property.value = config.mass1;
+    if (config['mass1'] !== undefined) {
+      this.model.mass1Property.value = config['mass1'];
     }
-    if (config.mass2 !== undefined) {
-      this.model.mass2Property.value = config.mass2;
+    if (config['mass2'] !== undefined) {
+      this.model.mass2Property.value = config['mass2'];
     }
-    if (config.springConstant1 !== undefined) {
-      this.model.springConstant1Property.value = config.springConstant1;
+    if (config['springConstant1'] !== undefined) {
+      this.model.springConstant1Property.value = config['springConstant1'];
     }
-    if (config.springConstant2 !== undefined) {
-      this.model.springConstant2Property.value = config.springConstant2;
+    if (config['springConstant2'] !== undefined) {
+      this.model.springConstant2Property.value = config['springConstant2'];
     }
-    if (config.position1 !== undefined) {
-      this.model.position1Property.value = config.position1;
+    if (config['position1'] !== undefined) {
+      this.model.position1Property.value = config['position1'];
     }
-    if (config.position2 !== undefined) {
-      this.model.position2Property.value = config.position2;
+    if (config['position2'] !== undefined) {
+      this.model.position2Property.value = config['position2'];
     }
 
     // Reset velocities when applying preset

@@ -64,7 +64,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     this.a11yStrings = this.stringManager.getAccessibilityStrings();
 
     // Initialize with first preset as default
-    this.presetProperty = new Property<PresetOption>(this.presets[0]);
+    this.presetProperty = new Property<PresetOption>(this.presets[0]!);
 
     // Pivot point (top center of screen)
     this.pivotPoint = new Vector2(this.layoutBounds.centerX, this.layoutBounds.minY + 100);
@@ -252,7 +252,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     });
 
     // Apply the first preset immediately
-    this.applyPreset(this.presets[0]);
+    this.applyPreset(this.presets[0]!);
 
     // Create configurable graph with available properties
     const propertyNames = this.stringManager.getGraphPropertyNames();
@@ -578,20 +578,20 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     const config = preset.configuration;
 
     // Apply all configuration values to model properties
-    if (config.length !== undefined) {
-      this.model.lengthProperty.value = config.length;
+    if (config['length'] !== undefined) {
+      this.model.lengthProperty.value = config['length'];
     }
-    if (config.mass !== undefined) {
-      this.model.massProperty.value = config.mass;
+    if (config['mass'] !== undefined) {
+      this.model.massProperty.value = config['mass'];
     }
-    if (config.gravity !== undefined) {
-      this.model.gravityProperty.value = config.gravity;
+    if (config['gravity'] !== undefined) {
+      this.model.gravityProperty.value = config['gravity'];
     }
-    if (config.damping !== undefined) {
-      this.model.dampingProperty.value = config.damping;
+    if (config['damping'] !== undefined) {
+      this.model.dampingProperty.value = config['damping'];
     }
-    if (config.angle !== undefined) {
-      this.model.angleProperty.value = config.angle;
+    if (config['angle'] !== undefined) {
+      this.model.angleProperty.value = config['angle'];
     }
 
     // Reset angular velocity when applying preset
@@ -606,7 +606,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     }
 
     // Announce preset change
-    const angleDegrees = StringUtils.toFixedNumberLTR(((config.angle || 0) * 180) / Math.PI, 1);
+    const angleDegrees = StringUtils.toFixedNumberLTR(((config['angle'] || 0) * 180) / Math.PI, 1);
     const template = this.a11yStrings.presetAppliedStringProperty.value;
     const announcement = template.replace(
       "{{preset}}",

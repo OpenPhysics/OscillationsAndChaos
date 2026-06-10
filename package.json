@@ -2,7 +2,8 @@
   "name": "OscillationAndChaos",
   "private": true,
   "version": "0.0.0",
-  "description": "Interactive Classical Mechanics Simulations using SceneryStack.",
+  "type": "module",
+  "description": "Collection of four classical mechanics simulations exploring oscillations and chaos: single spring, double spring, pendulum, and double pendulum.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,16 +13,22 @@
     "url": "https://github.com/OpenPhysics/OscillationsAndChaos/issues"
   },
   "homepage": "https://github.com/OpenPhysics/OscillationsAndChaos#readme",
-  "type": "module",
   "keywords": [
-    "classical mechanics",
-    "physics",
+    "oscillations-and-chaos",
     "simulation",
     "SceneryStack",
     "interactive",
+    "physics",
+    "classical mechanics",
+    "pendulum",
+    "chaos",
     "education",
-    "double pendulum"
+    "pwa"
   ],
+  "phet-io": {
+    "validation": false,
+    "compareDesignedAPIChanges": false
+  },
   "scripts": {
     "start": "vite",
     "dev": "vite",
@@ -42,15 +49,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",
+    "@types/node": "^22.10.0",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.16",
     "vite-plugin-singlefile": "^2.3.3"
   },
   "engines": {
     "node": ">=22.0.0"
-  },
-  "phet-io": {
-    "validation": false,
-    "compareDesignedAPIChanges": false
   }
 }

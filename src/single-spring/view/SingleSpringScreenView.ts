@@ -100,7 +100,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     this.presets = SingleSpringPresets.getPresets();
 
     // Initialize with first preset as default
-    this.presetProperty = new Property<PresetOption>(this.presets[0]);
+    this.presetProperty = new Property<PresetOption>(this.presets[0]!);
 
     // Fixed point for spring attachment (top of screen, centered horizontally)
     // Position the fixed point at the wall location for proper attachment
@@ -293,7 +293,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     });
 
     // Apply the first preset immediately
-    this.applyPreset(this.presets[0]);
+    this.applyPreset(this.presets[0]!);
 
     // Create configurable graph with available properties
     const stringManager = StringManager.getInstance();
@@ -670,17 +670,17 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     const config = preset.configuration;
 
     // Apply all configuration values to model properties
-    if (config.mass !== undefined) {
-      this.model.massProperty.value = config.mass;
+    if (config['mass'] !== undefined) {
+      this.model.massProperty.value = config['mass'];
     }
-    if (config.springConstant !== undefined) {
-      this.model.springConstantProperty.value = config.springConstant;
+    if (config['springConstant'] !== undefined) {
+      this.model.springConstantProperty.value = config['springConstant'];
     }
-    if (config.damping !== undefined) {
-      this.model.dampingProperty.value = config.damping;
+    if (config['damping'] !== undefined) {
+      this.model.dampingProperty.value = config['damping'];
     }
-    if (config.position !== undefined) {
-      this.model.positionProperty.value = config.position;
+    if (config['position'] !== undefined) {
+      this.model.positionProperty.value = config['position'];
     }
 
     // Reset velocity when applying preset

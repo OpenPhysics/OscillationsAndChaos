@@ -134,7 +134,7 @@ export class ParametricSpringNode extends Node {
 
       // horizontal line at left end
       if (index === 0) {
-        const p = new Vector2(0, coilPoints[0].y);
+        const p = new Vector2(0, coilPoints[0]!.y);
         this.springPoints.push(p);
         if (isFront) {
           this.frontShape.moveToPoint(p);
@@ -144,21 +144,21 @@ export class ParametricSpringNode extends Node {
       }
 
       // coil point
-      this.springPoints.push(coilPoints[index]);
+      this.springPoints.push(coilPoints[index]!);
       if (isFront) {
         // we're in the front
         if (!wasFront && index !== 0) {
           // ... and we've just moved to the front
-          this.frontShape.moveToPoint(coilPoints[index - 1]);
+          this.frontShape.moveToPoint(coilPoints[index - 1]!);
         }
-        this.frontShape.lineToPoint(coilPoints[index]);
+        this.frontShape.lineToPoint(coilPoints[index]!);
       } else {
         // we're in the back
         if (wasFront && index !== 0) {
           // ... and we've just moved to the back
-          this.backShape.moveToPoint(coilPoints[index - 1]);
+          this.backShape.moveToPoint(coilPoints[index - 1]!);
         }
-        this.backShape.lineToPoint(coilPoints[index]);
+        this.backShape.lineToPoint(coilPoints[index]!);
       }
 
       wasFront = isFront;
@@ -166,7 +166,7 @@ export class ParametricSpringNode extends Node {
 
     // horizontal line at right end
     // First return to centerline (y=0), then draw horizontal end line
-    const lastCoilPoint = coilPoints[numberOfCoilPoints - 1];
+    const lastCoilPoint = coilPoints[numberOfCoilPoints - 1]!;
 
     // Calculate the total length of the spring shape to ensure it reaches the endpoint
     // This must match the naturalLength calculation in setEndpoints()

@@ -112,68 +112,68 @@ export class ForestRuthPEFRLSolver implements ODESolver {
 
     // Copy initial state
     for (let i = 0; i < n; i++) {
-      this.tempState[i] = state[i];
+      this.tempState[i]! = state[i]!;
     }
 
     // PEFRL algorithm - optimized 4-stage symplectic integrator
     // Stage 1: Position update with ξ
     derivativeFn(this.tempState, this.derivatives, time);
     for (let i = 0; i < halfN; i++) {
-      this.tempState[i] += ForestRuthPEFRLSolver.XI * dt * this.derivatives[i];
+      this.tempState[i]! += ForestRuthPEFRLSolver.XI * dt * this.derivatives[i]!;
     }
 
     // Stage 2: Velocity update with (1 - 2λ)/2
     derivativeFn(this.tempState, this.derivatives, time + ForestRuthPEFRLSolver.XI * dt);
     const coeff1 = (1 - 2 * ForestRuthPEFRLSolver.LAMBDA) / 2;
     for (let i = 0; i < halfN; i++) {
-      this.tempState[halfN + i] += coeff1 * dt * this.derivatives[halfN + i];
+      this.tempState[halfN + i]! += coeff1 * dt * this.derivatives[halfN + i]!;
     }
 
     // Stage 3: Position update with χ
     for (let i = 0; i < halfN; i++) {
-      this.tempState[i] += ForestRuthPEFRLSolver.CHI * dt * this.tempState[halfN + i];
+      this.tempState[i]! += ForestRuthPEFRLSolver.CHI * dt * this.tempState[halfN + i]!;
     }
 
     // Stage 4: Velocity update with λ
     const time2 = time + (ForestRuthPEFRLSolver.XI + ForestRuthPEFRLSolver.CHI) * dt;
     derivativeFn(this.tempState, this.derivatives, time2);
     for (let i = 0; i < halfN; i++) {
-      this.tempState[halfN + i] += ForestRuthPEFRLSolver.LAMBDA * dt * this.derivatives[halfN + i];
+      this.tempState[halfN + i]! += ForestRuthPEFRLSolver.LAMBDA * dt * this.derivatives[halfN + i]!;
     }
 
     // Stage 5: Position update with (1 - 2(χ + ξ))
     const coeff2 = 1 - 2 * (ForestRuthPEFRLSolver.CHI + ForestRuthPEFRLSolver.XI);
     for (let i = 0; i < halfN; i++) {
-      this.tempState[i] += coeff2 * dt * this.tempState[halfN + i];
+      this.tempState[i]! += coeff2 * dt * this.tempState[halfN + i]!;
     }
 
     // Stage 6: Velocity update with λ
     const time3 = time + (1 - ForestRuthPEFRLSolver.CHI - ForestRuthPEFRLSolver.XI) * dt;
     derivativeFn(this.tempState, this.derivatives, time3);
     for (let i = 0; i < halfN; i++) {
-      this.tempState[halfN + i] += ForestRuthPEFRLSolver.LAMBDA * dt * this.derivatives[halfN + i];
+      this.tempState[halfN + i]! += ForestRuthPEFRLSolver.LAMBDA * dt * this.derivatives[halfN + i]!;
     }
 
     // Stage 7: Position update with χ
     for (let i = 0; i < halfN; i++) {
-      this.tempState[i] += ForestRuthPEFRLSolver.CHI * dt * this.tempState[halfN + i];
+      this.tempState[i]! += ForestRuthPEFRLSolver.CHI * dt * this.tempState[halfN + i]!;
     }
 
     // Stage 8: Velocity update with (1 - 2λ)/2
     const time4 = time + (1 - ForestRuthPEFRLSolver.XI) * dt;
     derivativeFn(this.tempState, this.derivatives, time4);
     for (let i = 0; i < halfN; i++) {
-      this.tempState[halfN + i] += coeff1 * dt * this.derivatives[halfN + i];
+      this.tempState[halfN + i]! += coeff1 * dt * this.derivatives[halfN + i]!;
     }
 
     // Stage 9: Final position update with ξ
     for (let i = 0; i < halfN; i++) {
-      this.tempState[i] += ForestRuthPEFRLSolver.XI * dt * this.tempState[halfN + i];
+      this.tempState[i]! += ForestRuthPEFRLSolver.XI * dt * this.tempState[halfN + i]!;
     }
 
     // Copy result back to state
     for (let i = 0; i < n; i++) {
-      state[i] = this.tempState[i];
+      state[i]! = this.tempState[i]!;
     }
   }
 

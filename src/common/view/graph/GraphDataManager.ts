@@ -116,10 +116,10 @@ export default class GraphDataManager {
       return;
     }
 
-    let xMin = this.dataPoints[0].x;
-    let xMax = this.dataPoints[0].x;
-    let yMin = this.dataPoints[0].y;
-    let yMax = this.dataPoints[0].y;
+    let xMin = this.dataPoints[0]!.x;
+    let xMax = this.dataPoints[0]!.x;
+    let yMin = this.dataPoints[0]!.y;
+    let yMax = this.dataPoints[0]!.y;
 
     for (const point of this.dataPoints) {
       xMin = Math.min(xMin, point.x);
@@ -235,7 +235,7 @@ export default class GraphDataManager {
       const opacity = minOpacity + (maxOpacity - minOpacity) * fraction;
 
       // Transform model coordinates to view coordinates
-      const viewPosition = this.chartTransform.modelToViewPosition(point);
+      const viewPosition = this.chartTransform.modelToViewPosition(point!);
 
       // Create circle for this trail point
       const circle = new Circle(radius, {

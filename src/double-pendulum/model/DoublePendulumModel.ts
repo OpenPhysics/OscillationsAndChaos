@@ -221,10 +221,10 @@ export class DoublePendulumModel extends BaseModel {
    * These are the coupled nonlinear equations derived from Lagrangian mechanics.
    */
   protected getDerivatives(state: number[], derivatives: number[], _: number): void {
-    const theta1 = state[0];
-    const omega1 = state[1];
-    const theta2 = state[2];
-    const omega2 = state[3];
+    const theta1 = state[0]!;
+    const omega1 = state[1]!;
+    const theta2 = state[2]!;
+    const omega2 = state[3]!;
 
     const m1 = this.mass1Property.value;
     const m2 = this.mass2Property.value;
@@ -242,7 +242,7 @@ export class DoublePendulumModel extends BaseModel {
     const denom2 = (L2 / L1) * denom1;
 
     // dθ1/dt = ω1
-    derivatives[0] = omega1;
+    derivatives[0]! = omega1;
 
     // dω1/dt (angular acceleration of first pendulum)
     const num1 =
@@ -252,10 +252,10 @@ export class DoublePendulumModel extends BaseModel {
       (m1 + m2) * g * Math.sin(theta1) -
       b * omega1;
 
-    derivatives[1] = num1 / denom1;
+    derivatives[1]! = num1 / denom1;
 
     // dθ2/dt = ω2
-    derivatives[2] = omega2;
+    derivatives[2]! = omega2;
 
     // dω2/dt (angular acceleration of second pendulum)
     const num2 =
@@ -265,7 +265,7 @@ export class DoublePendulumModel extends BaseModel {
       (m1 + m2) * g * Math.sin(theta2) -
       b * omega2;
 
-    derivatives[3] = num2 / denom2;
+    derivatives[3]! = num2 / denom2;
   }
 
   /**

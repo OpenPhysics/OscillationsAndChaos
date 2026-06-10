@@ -84,25 +84,25 @@ export class RungeKuttaSolver implements ODESolver {
 
     // k2 = f(t + dt/2, y + k1*dt/2)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] = state[i] + (this.k1[i] * dt) / 2;
+      this.tempState[i]! = state[i]! + (this.k1[i]! * dt) / 2;
     }
     derivativeFn(this.tempState, this.k2, time + dt / 2);
 
     // k3 = f(t + dt/2, y + k2*dt/2)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] = state[i] + (this.k2[i] * dt) / 2;
+      this.tempState[i]! = state[i]! + (this.k2[i]! * dt) / 2;
     }
     derivativeFn(this.tempState, this.k3, time + dt / 2);
 
     // k4 = f(t + dt, y + k3*dt)
     for (let i = 0; i < n; i++) {
-      this.tempState[i] = state[i] + this.k3[i] * dt;
+      this.tempState[i]! = state[i]! + this.k3[i]! * dt;
     }
     derivativeFn(this.tempState, this.k4, time + dt);
 
     // y_new = y + (k1 + 2*k2 + 2*k3 + k4) * dt/6
     for (let i = 0; i < n; i++) {
-      state[i] += ((this.k1[i] + 2 * this.k2[i] + 2 * this.k3[i] + this.k4[i]) * dt) / 6;
+      state[i]! += ((this.k1[i]! + 2 * this.k2[i]! + 2 * this.k3[i]! + this.k4[i]!) * dt) / 6;
     }
   }
 

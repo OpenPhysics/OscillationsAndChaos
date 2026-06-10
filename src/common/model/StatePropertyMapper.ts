@@ -44,14 +44,14 @@ export class StatePropertyMapper {
 
     // Validate that all state values are finite numbers
     for (let i = 0; i < state.length; i++) {
-      if (!isFinite(state[i])) {
+      if (!isFinite(state[i]!)) {
         throw new Error(`Invalid state value at index ${i}: ${state[i]} (must be a finite number)`);
       }
     }
 
     // Update all properties
     for (let i = 0; i < state.length; i++) {
-      this.properties[i].value = state[i];
+      this.properties[i]!.value = state[i]!;
     }
   }
 
