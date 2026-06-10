@@ -30,7 +30,7 @@ In short, when you submit code changes, your submissions are understood to be un
 
 ## Report bugs using Github's [issue tracker]
 
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/veillette/classicalMechanicsSimulations/issues); it's that easy!
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/OpenPhysics/OscillationsAndChaos/issues); it's that easy!
 
 ## Write bug reports with detail, background, and sample code
 
