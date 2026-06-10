@@ -42,7 +42,8 @@
     "icons": "tsx scripts/generate-icons.ts",
     "serve": "npx serve -s dist",
     "watch": "tsc --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {
     "katex": "^0.16.25",
