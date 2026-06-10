@@ -288,18 +288,23 @@ export class StringManager {
     // Type assertion needed due to TypeScript's limitations with deeply nested conditional types
     const audioProps = this.stringProperties.preferences.audio as unknown as Record<string, ReadOnlyProperty<string>>;
     return {
-      simVoicingOptionsStringProperty: audioProps['simVoicingOptionsStringProperty'] as ReadOnlyProperty<string>,
-      announceParameterChangesStringProperty:
-        audioProps['announceParameterChangesStringProperty'] as ReadOnlyProperty<string>,
-      parameterAnnouncementsDescriptionStringProperty:
-        audioProps['parameterAnnouncementsDescriptionStringProperty'] as ReadOnlyProperty<string>,
-      announceStateChangesStringProperty: audioProps['announceStateChangesStringProperty'] as ReadOnlyProperty<string>,
-      stateAnnouncementsDescriptionStringProperty:
-        audioProps['stateAnnouncementsDescriptionStringProperty'] as ReadOnlyProperty<string>,
-      announceDragInteractionsStringProperty:
-        audioProps['announceDragInteractionsStringProperty'] as ReadOnlyProperty<string>,
-      dragAnnouncementsDescriptionStringProperty:
-        audioProps['dragAnnouncementsDescriptionStringProperty'] as ReadOnlyProperty<string>,
+      simVoicingOptionsStringProperty: audioProps["simVoicingOptionsStringProperty"] as ReadOnlyProperty<string>,
+      announceParameterChangesStringProperty: audioProps[
+        "announceParameterChangesStringProperty"
+      ] as ReadOnlyProperty<string>,
+      parameterAnnouncementsDescriptionStringProperty: audioProps[
+        "parameterAnnouncementsDescriptionStringProperty"
+      ] as ReadOnlyProperty<string>,
+      announceStateChangesStringProperty: audioProps["announceStateChangesStringProperty"] as ReadOnlyProperty<string>,
+      stateAnnouncementsDescriptionStringProperty: audioProps[
+        "stateAnnouncementsDescriptionStringProperty"
+      ] as ReadOnlyProperty<string>,
+      announceDragInteractionsStringProperty: audioProps[
+        "announceDragInteractionsStringProperty"
+      ] as ReadOnlyProperty<string>,
+      dragAnnouncementsDescriptionStringProperty: audioProps[
+        "dragAnnouncementsDescriptionStringProperty"
+      ] as ReadOnlyProperty<string>,
     };
   }
 

@@ -136,7 +136,8 @@ export class DormandPrince87Solver implements ODESolver {
 
     // Stage 5: k5 = f(t + 5*dt/16, y + dt*(5*k1/16 - 75*k3/64 + 75*k4/64))
     for (let i = 0; i < n; i++) {
-      this.tempState[i]! = state[i]! + dt * ((5 * this.k1[i]!) / 16 - (75 * this.k3[i]!) / 64 + (75 * this.k4[i]!) / 64);
+      this.tempState[i]! =
+        state[i]! + dt * ((5 * this.k1[i]!) / 16 - (75 * this.k3[i]!) / 64 + (75 * this.k4[i]!) / 64);
     }
     derivativeFn(this.tempState, this.k5, time + (5 * dt) / 16);
 

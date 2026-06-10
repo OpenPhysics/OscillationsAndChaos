@@ -38,7 +38,8 @@
     "format": "biome format --write .",
     "fix": "biome check --write .",
     "release": "npm version patch && git push && git push --tags",
-    "check": "tsc --noEmit",
+    "check": "tsc --noEmit && tsc -p tsconfig.scripts.json --noEmit",
+    "icons": "tsx scripts/generate-icons.ts",
     "serve": "npx serve -s dist",
     "watch": "tsc --watch",
     "clean": "rm -rf dist"

@@ -670,17 +670,17 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     const config = preset.configuration;
 
     // Apply all configuration values to model properties
-    if (config['mass'] !== undefined) {
-      this.model.massProperty.value = config['mass'];
+    if (config["mass"] !== undefined) {
+      this.model.massProperty.value = config["mass"];
     }
-    if (config['springConstant'] !== undefined) {
-      this.model.springConstantProperty.value = config['springConstant'];
+    if (config["springConstant"] !== undefined) {
+      this.model.springConstantProperty.value = config["springConstant"];
     }
-    if (config['damping'] !== undefined) {
-      this.model.dampingProperty.value = config['damping'];
+    if (config["damping"] !== undefined) {
+      this.model.dampingProperty.value = config["damping"];
     }
-    if (config['position'] !== undefined) {
-      this.model.positionProperty.value = config['position'];
+    if (config["position"] !== undefined) {
+      this.model.positionProperty.value = config["position"];
     }
 
     // Reset velocity when applying preset

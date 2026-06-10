@@ -900,23 +900,23 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     const config = preset.configuration;
 
     // Apply all configuration values to model properties
-    if (config['mass1'] !== undefined) {
-      this.model.mass1Property.value = config['mass1'];
+    if (config["mass1"] !== undefined) {
+      this.model.mass1Property.value = config["mass1"];
     }
-    if (config['mass2'] !== undefined) {
-      this.model.mass2Property.value = config['mass2'];
+    if (config["mass2"] !== undefined) {
+      this.model.mass2Property.value = config["mass2"];
     }
-    if (config['springConstant1'] !== undefined) {
-      this.model.springConstant1Property.value = config['springConstant1'];
+    if (config["springConstant1"] !== undefined) {
+      this.model.springConstant1Property.value = config["springConstant1"];
     }
-    if (config['springConstant2'] !== undefined) {
-      this.model.springConstant2Property.value = config['springConstant2'];
+    if (config["springConstant2"] !== undefined) {
+      this.model.springConstant2Property.value = config["springConstant2"];
     }
-    if (config['position1'] !== undefined) {
-      this.model.position1Property.value = config['position1'];
+    if (config["position1"] !== undefined) {
+      this.model.position1Property.value = config["position1"];
     }
-    if (config['position2'] !== undefined) {
-      this.model.position2Property.value = config['position2'];
+    if (config["position2"] !== undefined) {
+      this.model.position2Property.value = config["position2"];
     }
 
     // Reset velocities when applying preset

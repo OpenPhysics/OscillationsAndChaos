@@ -47,14 +47,11 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
     );
 
     // Description for parameter announcements
-    const parameterDescription = new Text(
-      audioStrings.parameterAnnouncementsDescriptionStringProperty,
-      {
-        font: new PhetFont(12),
-        fill: "rgb(80,80,80)",
-        maxWidth: 350,
-      },
-    );
+    const parameterDescription = new Text(audioStrings.parameterAnnouncementsDescriptionStringProperty, {
+      font: new PhetFont(12),
+      fill: "rgb(80,80,80)",
+      maxWidth: 350,
+    });
 
     // State change announcements checkbox
     const stateAnnouncementsCheckbox = new Checkbox(
@@ -70,14 +67,11 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
     );
 
     // Description for state announcements
-    const stateDescription = new Text(
-      audioStrings.stateAnnouncementsDescriptionStringProperty,
-      {
-        font: new PhetFont(12),
-        fill: "rgb(80,80,80)",
-        maxWidth: 350,
-      },
-    );
+    const stateDescription = new Text(audioStrings.stateAnnouncementsDescriptionStringProperty, {
+      font: new PhetFont(12),
+      fill: "rgb(80,80,80)",
+      maxWidth: 350,
+    });
 
     // Drag interaction announcements checkbox
     const dragAnnouncementsCheckbox = new Checkbox(
@@ -93,14 +87,11 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
     );
 
     // Description for drag announcements
-    const dragDescription = new Text(
-      audioStrings.dragAnnouncementsDescriptionStringProperty,
-      {
-        font: new PhetFont(12),
-        fill: "rgb(80,80,80)",
-        maxWidth: 350,
-      },
-    );
+    const dragDescription = new Text(audioStrings.dragAnnouncementsDescriptionStringProperty, {
+      font: new PhetFont(12),
+      fill: "rgb(80,80,80)",
+      maxWidth: 350,
+    });
 
     // Add all children to the VBox
     this.children = [

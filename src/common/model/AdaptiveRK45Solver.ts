@@ -151,7 +151,10 @@ export class AdaptiveRK45Solver implements ODESolver {
     for (let i = 0; i < n; i++) {
       state4[i]! =
         state[i]! +
-        ((37 * this.k1[i]!) / 378 + (250 * this.k3[i]!) / 621 + (125 * this.k4[i]!) / 594 + (512 * this.k6[i]!) / 1771) *
+        ((37 * this.k1[i]!) / 378 +
+          (250 * this.k3[i]!) / 621 +
+          (125 * this.k4[i]!) / 594 +
+          (512 * this.k6[i]!) / 1771) *
           dt;
     }
 
