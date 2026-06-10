@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#1a1a2e"/>
+  <!-- pivot -->
+  <circle cx="256" cy="96" r="14" fill="#9aa0b0"/>
+  <!-- upper arm -->
+  <line x1="256" y1="96" x2="176" y2="248" stroke="#4fc3f7" stroke-width="10" stroke-linecap="round"/>
+  <!-- lower arm -->
+  <line x1="176" y1="248" x2="312" y2="372" stroke="#81c784" stroke-width="10" stroke-linecap="round"/>
+  <!-- bobs -->
+  <circle cx="176" cy="248" r="28" fill="#ffb74d"/>
+  <circle cx="312" cy="372" r="34" fill="#ef5350"/>
+  <!-- motion trail hint -->
+  <path d="M312 372 Q360 300 340 220" fill="none" stroke="#ef5350" stroke-width="4" opacity="0.35" stroke-dasharray="10 12"/>
+</svg>
