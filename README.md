@@ -1,59 +1,16 @@
-# Oscillations And Chaos Simulations
+# Oscillations And Chaos
 
-Interactive simulations of classical mechanics systems, built with [SceneryStack](https://scenerystack.org/).
-Explore fundamental concepts in mechanics through real-time, physics-based simulations.
-
-## Screens
-
-### Single Spring
-
-Explore the behavior of a mass-spring system with adjustable spring constant and mass, damping and gravity
-controls, real-time position and energy graphs, and multiple preset scenarios.
-
-### Double Spring
-
-Study coupled oscillations with two springs: independent control of both spring constants and masses,
-observation of normal modes, energy transfer visualization, and phase space diagrams.
-
-### Pendulum
-
-Investigate pendulum motion including adjustable length and mass, small and large angle oscillations, energy
-conservation visualization, and period measurement.
-
-### Double Pendulum
-
-Experience chaotic dynamics with highly sensitive dependence on initial conditions, rich phase space behavior,
-energy tracking for both pendulum bobs, and path tracing to visualize chaotic motion.
+A collection of four classical mechanics simulations built with [SceneryStack](https://scenerystack.org/).
+Explore oscillations, coupled systems, and chaotic dynamics through real-time, physics-based models.
 
 ## Features
 
-- Real-time physics simulation with multiple numerical solvers
-- Interactive controls for all physical parameters
-- Live graphs and visualizations
-- Energy conservation tracking
-- Phase space diagrams
-- Pause/Resume functionality
-- Keyboard shortcuts for efficient control
-- Projector mode for presentations
-- Accessibility features including voicing support
-- Customizable preferences for solver methods and visualization
-- Single HTML file build for easy distribution
-
-## Physics
-
-The simulations use advanced numerical methods to accurately model classical mechanics:
-
-### Numerical Solvers
-
-- **RK4 (Runge-Kutta 4th Order)**: Classic fixed-step solver
-- **Adaptive RK45**: Variable step size for improved accuracy
-- **Forest-Ruth PEFRL**: Symplectic integrator for energy conservation
-- **Dormand-Prince 8(7)**: High-order adaptive method
-
-### Spring Visualization
-
-- **Classic**: Traditional spring coil representation
-- **Parametric**: Mathematical parametric surface visualization
+- **Single Spring** — mass-spring system with damping, gravity, and energy graphs
+- **Double Spring** — coupled oscillators with normal modes and phase-space diagrams
+- **Pendulum** — small and large angle motion with period measurement
+- **Double Pendulum** — chaotic dynamics with path tracing and energy tracking
+- Multiple numerical solvers (RK4, adaptive RK45, symplectic PEFRL, Dormand-Prince 8(7))
+- Classic and parametric spring visualizations, projector mode, and voicing support
 
 ## Quick Start
 
@@ -74,8 +31,9 @@ npm start        # dev server → http://localhost:5173
 | `npm run lint` | Biome lint check |
 | `npm run format` | Auto-format all files |
 | `npm run fix` | Lint + auto-fix |
-| `npm run serve` | Serve production build |
+| `npm run serve` | Serve production build locally |
 | `npm run watch` | Watch TypeScript files |
+| `npm run icons` | Regenerate PNG icons from `public/icons/icon.svg` |
 | `npm run clean` | Remove `dist/` |
 
 ## Tech Stack
@@ -96,8 +54,3 @@ MIT
 
 See [OpenPhysics contributing guidelines](https://github.com/OpenPhysics/.github/blob/main/CONTRIBUTING.md).
 Report bugs via GitHub Issues; use org issue templates.
-
-## Acknowledgments
-
-- Built with [SceneryStack](https://scenerystack.org/)
-- Inspired by [PhET](https://phet.colorado.edu) Interactive Simulations
