@@ -39,8 +39,6 @@
  * - Highly dissipative systems (use RK4 or adaptive methods instead)
  * - Systems with discontinuities
  * - Non-conservative force fields
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { assert } from "scenerystack";

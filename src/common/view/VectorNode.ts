@@ -7,8 +7,6 @@
  * - Scales arrow length based on model units
  * - Positions label at arrow tip
  * - Supports dynamic visibility control
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { PhetFont } from "scenerystack";

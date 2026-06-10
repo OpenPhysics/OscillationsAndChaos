@@ -22,8 +22,6 @@
  * - More complex than fixed-step methods
  * - Overhead of error computation and step size adjustment
  * - May not be ideal for highly oscillatory or chaotic systems
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { assert } from "scenerystack";

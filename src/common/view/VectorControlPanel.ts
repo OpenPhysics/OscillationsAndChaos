@@ -5,8 +5,6 @@
  * Each checkbox includes a small arrow icon in the corresponding vector color
  * for easy visual identification. Vectors are displayed as arrows on the
  * simulation objects when enabled.
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { PhetFont } from "scenerystack";

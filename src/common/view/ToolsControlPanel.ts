@@ -4,8 +4,6 @@
  *
  * This component provides a consistent UI for toggling measurement and visualization
  * tools across all simulation screens. Tools can be configured per screen.
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { PhetFont } from "scenerystack";

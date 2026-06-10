@@ -16,8 +16,6 @@
  *
  * This model demonstrates nonlinear oscillation. For small angles, the motion is approximately
  * simple harmonic. For large angles, the nonlinearity of sin(θ) becomes significant.
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { DerivedProperty, NumberProperty, type TReadOnlyProperty } from "scenerystack/axon";

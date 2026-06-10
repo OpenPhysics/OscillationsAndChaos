@@ -11,9 +11,6 @@
  * two points by manipulating xScale, translation, and rotation.
  *
  * Based on PhET's ParametricSpringNode (scenery-phet/js/ParametricSpringNode.ts).
- *
- * @author Martin Veillette (Berea College) - Original PhET implementation
- * @author Chris Malley (PixelZoom, Inc.) - Original PhET implementation
  */
 
 import type { Color, ReadOnlyProperty } from "scenerystack";

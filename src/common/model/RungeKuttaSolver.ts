@@ -12,8 +12,6 @@
  *
  * The solver uses fixed timesteps for better numerical stability and can automatically
  * sub-step when the requested timestep is larger than the fixed timestep.
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { assert } from "scenerystack";

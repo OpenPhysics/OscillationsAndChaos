@@ -4,8 +4,6 @@
  *
  * This component follows the composition pattern, creating a vertical layout
  * containing a preset selector at the top and parameter sliders below.
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import type { NumberProperty, Property, TReadOnlyProperty } from "scenerystack/axon";

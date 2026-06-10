@@ -14,8 +14,6 @@
  * Subclasses must implement:
  * - createInfoDialogContent() - simulation-specific information dialog
  * - createScreenSummaryContent() - accessibility description
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import {

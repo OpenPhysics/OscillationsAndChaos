@@ -10,8 +10,6 @@
  * - Handles ODE solver selection and configuration
  * - Coordinates physics integration via strategy pattern (ODESolver)
  * - Provides common reset functionality for time-related properties
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { assert } from "scenerystack";

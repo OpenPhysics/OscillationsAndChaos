@@ -14,8 +14,6 @@
  * This model demonstrates damped harmonic oscillation with optional gravitational offset.
  * The spring constant k determines the oscillation frequency, the damping coefficient b
  * controls energy dissipation, and gravity g provides a constant downward force.
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { DerivedProperty, NumberProperty, type TReadOnlyProperty } from "scenerystack/axon";

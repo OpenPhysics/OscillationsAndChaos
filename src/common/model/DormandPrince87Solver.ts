@@ -33,8 +33,6 @@
  * - Real-time simulations (too slow)
  * - Stiff problems
  * - Highly oscillatory or chaotic systems
- *
- * @author Martin Veillette (PhET Interactive Simulations)
  */
 
 import { assert } from "scenerystack";
