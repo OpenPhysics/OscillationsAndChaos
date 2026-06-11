@@ -12,7 +12,7 @@ import type { ChartRectangle, ChartTransform, TickLabelSet } from "scenerystack/
 import { Range, Vector2 } from "scenerystack/dot";
 import { DragListener, type Node, type Pointer, Rectangle } from "scenerystack/scenery";
 import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../../OscillationsAndChaosNamespace.js";
 import type GraphDataManager from "./GraphDataManager.js";
 
 /**
@@ -940,4 +940,4 @@ export default class GraphInteractionHandler {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("GraphInteractionHandler", GraphInteractionHandler);
+OscillationsAndChaosNamespace.register("GraphInteractionHandler", GraphInteractionHandler);

@@ -12,7 +12,7 @@ import { FireListener, HBox, Node, Rectangle, Text } from "scenerystack/scenery"
 import { PhetFont } from "scenerystack/scenery-phet";
 import { StringManager } from "../../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../../OscillationsAndChaosNamespace.js";
 import SimulationAnnouncer from "../../util/SimulationAnnouncer.js";
 import GraphControlsPanel from "./GraphControlsPanel.js";
 import GraphDataManager from "./GraphDataManager.js";
@@ -551,4 +551,4 @@ export default class ConfigurableGraph extends Node {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("ConfigurableGraph", ConfigurableGraph);
+OscillationsAndChaosNamespace.register("ConfigurableGraph", ConfigurableGraph);

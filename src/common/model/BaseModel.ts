@@ -15,7 +15,7 @@
 import { assert } from "scenerystack";
 import { BooleanProperty, EnumerationProperty, NumberProperty } from "scenerystack/axon";
 import { TimeSpeed } from "scenerystack/scenery-phet";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import { AdaptiveRK45Solver } from "./AdaptiveRK45Solver.js";
 import { DormandPrince87Solver } from "./DormandPrince87Solver.js";
@@ -193,4 +193,4 @@ export abstract class BaseModel {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("BaseModel", BaseModel);
+OscillationsAndChaosNamespace.register("BaseModel", BaseModel);

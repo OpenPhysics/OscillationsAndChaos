@@ -4,7 +4,7 @@
  */
 
 import { Enumeration, EnumerationValue } from "scenerystack/phet-core";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
 export default class NominalTimeStep extends EnumerationValue {
   public static readonly FINEST = new NominalTimeStep(0.00001); // 0.01 ms
@@ -25,4 +25,4 @@ export default class NominalTimeStep extends EnumerationValue {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("NominalTimeStep", NominalTimeStep);
+OscillationsAndChaosNamespace.register("NominalTimeStep", NominalTimeStep);

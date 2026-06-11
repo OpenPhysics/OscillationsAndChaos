@@ -13,7 +13,7 @@ import { PhetFont } from "scenerystack/scenery-phet";
 import { Checkbox } from "scenerystack/sun";
 import type { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 
 export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
@@ -107,4 +107,7 @@ export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("OscillationsAndChaosAudioPreferencesNode", OscillationsAndChaosAudioPreferencesNode);
+OscillationsAndChaosNamespace.register(
+  "OscillationsAndChaosAudioPreferencesNode",
+  OscillationsAndChaosAudioPreferencesNode,
+);

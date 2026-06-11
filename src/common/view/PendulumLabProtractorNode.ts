@@ -13,7 +13,7 @@ import { Shape } from "scenerystack/kite";
 import type { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Circle, Line, Node, Path, Text } from "scenerystack/scenery";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
 // Constants for protractor appearance
 const LINE_LENGTH_DEFAULT = 3.6;
@@ -177,4 +177,4 @@ export class PendulumLabProtractorNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("PendulumLabProtractorNode", PendulumLabProtractorNode);
+OscillationsAndChaosNamespace.register("PendulumLabProtractorNode", PendulumLabProtractorNode);

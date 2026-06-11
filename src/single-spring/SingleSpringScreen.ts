@@ -3,7 +3,7 @@
  */
 
 import { Screen, type ScreenOptions } from "scenerystack/sim";
-import oscillationsAndChaos from "../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
 import { SingleSpringModel } from "./model/SingleSpringModel.js";
 import { SingleSpringScreenView } from "./view/SingleSpringScreenView.js";
 
@@ -18,4 +18,4 @@ export class SingleSpringScreen extends Screen<SingleSpringModel, SingleSpringSc
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("SingleSpringScreen", SingleSpringScreen);
+OscillationsAndChaosNamespace.register("SingleSpringScreen", SingleSpringScreen);

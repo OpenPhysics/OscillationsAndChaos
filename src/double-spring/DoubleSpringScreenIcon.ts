@@ -6,7 +6,7 @@
 import { Shape } from "scenerystack/kite";
 import { Node, Path, Rectangle } from "scenerystack/scenery";
 import { ScreenIcon } from "scenerystack/sim";
-import oscillationsAndChaos from "../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
 
 export class DoubleSpringScreenIcon extends ScreenIcon {
   public constructor() {
@@ -111,4 +111,4 @@ export class DoubleSpringScreenIcon extends ScreenIcon {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("DoubleSpringScreenIcon", DoubleSpringScreenIcon);
+OscillationsAndChaosNamespace.register("DoubleSpringScreenIcon", DoubleSpringScreenIcon);

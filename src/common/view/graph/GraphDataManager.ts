@@ -7,7 +7,7 @@ import type { ChartTransform, GridLineSet, LinePlot, TickLabelSet, TickMarkSet }
 import { Range, Vector2 } from "scenerystack/dot";
 import { Circle, type Node } from "scenerystack/scenery";
 import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../../OscillationsAndChaosNamespace.js";
 
 /**
  * Configuration for grid lines, tick marks, and tick labels
@@ -271,4 +271,4 @@ export default class GraphDataManager {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("GraphDataManager", GraphDataManager);
+OscillationsAndChaosNamespace.register("GraphDataManager", GraphDataManager);

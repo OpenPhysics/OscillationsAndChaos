@@ -9,7 +9,7 @@ import { HBox, type Node, Rectangle, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { ComboBox } from "scenerystack/sun";
 import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../../OscillationsAndChaosNamespace.js";
 import type { PlottableProperty } from "./PlottableProperty.js";
 
 export default class GraphControlsPanel {
@@ -145,4 +145,4 @@ export default class GraphControlsPanel {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("GraphControlsPanel", GraphControlsPanel);
+OscillationsAndChaosNamespace.register("GraphControlsPanel", GraphControlsPanel);

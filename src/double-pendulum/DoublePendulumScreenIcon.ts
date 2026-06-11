@@ -5,7 +5,7 @@
 
 import { Circle, Line, Node, Rectangle } from "scenerystack/scenery";
 import { ScreenIcon } from "scenerystack/sim";
-import oscillationsAndChaos from "../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
 
 export class DoublePendulumScreenIcon extends ScreenIcon {
   public constructor() {
@@ -115,4 +115,4 @@ export class DoublePendulumScreenIcon extends ScreenIcon {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("DoublePendulumScreenIcon", DoublePendulumScreenIcon);
+OscillationsAndChaosNamespace.register("DoublePendulumScreenIcon", DoublePendulumScreenIcon);

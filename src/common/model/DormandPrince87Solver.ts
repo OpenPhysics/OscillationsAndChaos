@@ -36,7 +36,7 @@
  */
 
 import { assert } from "scenerystack";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import type { DerivativeFunction, ODESolver } from "./ODESolver.js";
 
 export class DormandPrince87Solver implements ODESolver {
@@ -350,4 +350,4 @@ export class DormandPrince87Solver implements ODESolver {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("DormandPrince87Solver", DormandPrince87Solver);
+OscillationsAndChaosNamespace.register("DormandPrince87Solver", DormandPrince87Solver);

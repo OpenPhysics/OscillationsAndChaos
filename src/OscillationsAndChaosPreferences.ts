@@ -10,7 +10,7 @@ import { Tandem } from "scenerystack/tandem";
 import NominalTimeStep from "./common/model/NominalTimeStep.js";
 import SolverType from "./common/model/SolverType.js";
 import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
-import oscillationsAndChaos from "./OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "./OscillationsAndChaosNamespace.js";
 
 /**
  * Preferences for Oscillations And Chaos.
@@ -118,6 +118,6 @@ const OscillationsAndChaosPreferences = {
 };
 
 // Register the namespace
-oscillationsAndChaos.register("OscillationsAndChaosPreferences", OscillationsAndChaosPreferences);
+OscillationsAndChaosNamespace.register("OscillationsAndChaosPreferences", OscillationsAndChaosPreferences);
 
 export default OscillationsAndChaosPreferences;

@@ -43,7 +43,7 @@ import { Dialog, ScreenSummaryContent, ScreenView, type ScreenViewOptions } from
 import { ComboBox, Panel } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.ts";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import type { Preset } from "../model/Preset.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
@@ -875,4 +875,4 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("BaseScreenView", BaseScreenView);
+OscillationsAndChaosNamespace.register("BaseScreenView", BaseScreenView);

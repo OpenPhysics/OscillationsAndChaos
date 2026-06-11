@@ -13,7 +13,7 @@ import { HBox, Text, VBox } from "scenerystack/scenery";
 import { ArrowNode, PhetColorScheme } from "scenerystack/scenery-phet";
 import { Checkbox, Panel, type PanelOptions } from "scenerystack/sun";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 
@@ -161,4 +161,4 @@ export class VectorControlPanel extends Panel {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("VectorControlPanel", VectorControlPanel);
+OscillationsAndChaosNamespace.register("VectorControlPanel", VectorControlPanel);

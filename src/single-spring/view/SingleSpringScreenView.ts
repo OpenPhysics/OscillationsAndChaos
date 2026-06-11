@@ -36,7 +36,7 @@ import type { VectorNode } from "../../common/view/VectorNode.js";
 import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
 import { StringManager } from "../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import type { SingleSpringModel } from "../model/SingleSpringModel.js";
 import { SingleSpringPresets } from "../model/SingleSpringPresets.js";
@@ -705,4 +705,4 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("SingleSpringScreenView", SingleSpringScreenView);
+OscillationsAndChaosNamespace.register("SingleSpringScreenView", SingleSpringScreenView);

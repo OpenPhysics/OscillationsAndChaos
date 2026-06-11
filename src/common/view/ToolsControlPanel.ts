@@ -12,7 +12,7 @@ import { HBox, Text, VBox } from "scenerystack/scenery";
 import { GridIcon } from "scenerystack/scenery-phet";
 import { Checkbox, Panel, type PanelOptions } from "scenerystack/sun";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 
@@ -196,4 +196,4 @@ export class ToolsControlPanel extends Panel {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("ToolsControlPanel", ToolsControlPanel);
+OscillationsAndChaosNamespace.register("ToolsControlPanel", ToolsControlPanel);

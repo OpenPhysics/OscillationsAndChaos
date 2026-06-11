@@ -5,7 +5,7 @@
 
 import type { Preset } from "../../common/model/Preset.js";
 import { StringManager } from "../../i18n/StringManager.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
 export const DoubleSpringPresets = {
   getPresets(): Preset[] {
@@ -74,4 +74,4 @@ export const DoubleSpringPresets = {
 };
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("DoubleSpringPresets", DoubleSpringPresets);
+OscillationsAndChaosNamespace.register("DoubleSpringPresets", DoubleSpringPresets);

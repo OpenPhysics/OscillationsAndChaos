@@ -11,7 +11,7 @@ import { Vector2 } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
 import { Node, type NodeOptions, Path } from "scenerystack/scenery";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
 type SpringNodeOptions = NodeOptions & {
   frontColorProperty?: ReadOnlyProperty<Color>;
@@ -182,4 +182,4 @@ export class SpringNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("SpringNode", SpringNode);
+OscillationsAndChaosNamespace.register("SpringNode", SpringNode);

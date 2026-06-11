@@ -12,7 +12,7 @@ import { HBox, type Node, type TColor, Text, VBox } from "scenerystack/scenery";
 import { NumberControl, type NumberControlOptions, PhetFont } from "scenerystack/scenery-phet";
 import { Panel, type PanelOptions } from "scenerystack/sun";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import type { Preset } from "../model/Preset.js";
 import { FONT_SIZE_SECONDARY_LABEL } from "./FontSizeConstants.js";
 import { createPresetSelector, type PresetOption } from "./PresetSelectorFactory.js";
@@ -128,4 +128,4 @@ export class ParameterControlPanel extends Panel {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("ParameterControlPanel", ParameterControlPanel);
+OscillationsAndChaosNamespace.register("ParameterControlPanel", ParameterControlPanel);

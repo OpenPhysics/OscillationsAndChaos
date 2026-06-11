@@ -9,7 +9,7 @@
 
 import { voicingUtteranceQueue } from "scenerystack/scenery";
 import { Utterance } from "scenerystack/utterance-queue";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import { GRAPH_CHANGE_ANNOUNCEMENT_DELAY, PARAMETER_CHANGE_ANNOUNCEMENT_DELAY } from "./AccessibilityDelayConstants.js";
 
@@ -127,7 +127,7 @@ class SimulationAnnouncer {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("SimulationAnnouncer", SimulationAnnouncer);
+OscillationsAndChaosNamespace.register("SimulationAnnouncer", SimulationAnnouncer);
 
 // Export singleton instance for convenience
 export default SimulationAnnouncer.getInstance();

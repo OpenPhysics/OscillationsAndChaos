@@ -3,7 +3,7 @@
  */
 
 import { Screen, type ScreenOptions } from "scenerystack/sim";
-import oscillationsAndChaos from "../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
 import { PendulumModel } from "./model/PendulumModel.js";
 import { PendulumScreenView } from "./view/PendulumScreenView.js";
 
@@ -18,4 +18,4 @@ export class PendulumScreen extends Screen<PendulumModel, PendulumScreenView> {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("PendulumScreen", PendulumScreen);
+OscillationsAndChaosNamespace.register("PendulumScreen", PendulumScreen);

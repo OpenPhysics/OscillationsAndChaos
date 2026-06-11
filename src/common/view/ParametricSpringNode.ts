@@ -18,7 +18,7 @@ import { Vector2 } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
 import { LinearGradient, Node, type NodeOptions, Path } from "scenerystack/scenery";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
 type ParametricSpringNodeOptions = NodeOptions & {
   frontColorProperty?: ReadOnlyProperty<Color>;
@@ -309,4 +309,4 @@ export class ParametricSpringNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("ParametricSpringNode", ParametricSpringNode);
+OscillationsAndChaosNamespace.register("ParametricSpringNode", ParametricSpringNode);

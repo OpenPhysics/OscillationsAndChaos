@@ -42,7 +42,7 @@
  */
 
 import { assert } from "scenerystack";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import type { DerivativeFunction, ODESolver } from "./ODESolver.js";
 
 export class ForestRuthPEFRLSolver implements ODESolver {
@@ -223,4 +223,4 @@ export class ForestRuthPEFRLSolver implements ODESolver {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("ForestRuthPEFRLSolver", ForestRuthPEFRLSolver);
+OscillationsAndChaosNamespace.register("ForestRuthPEFRLSolver", ForestRuthPEFRLSolver);

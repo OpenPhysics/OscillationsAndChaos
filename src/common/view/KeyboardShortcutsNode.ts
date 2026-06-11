@@ -10,7 +10,7 @@ import {
   TwoColumnKeyboardHelpContent,
 } from "scenerystack/scenery-phet";
 import { StringManager } from "../../i18n/StringManager.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
 export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
   public constructor() {
@@ -62,4 +62,4 @@ export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("KeyboardShortcutsNode", KeyboardShortcutsNode);
+OscillationsAndChaosNamespace.register("KeyboardShortcutsNode", KeyboardShortcutsNode);

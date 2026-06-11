@@ -28,7 +28,7 @@ import type { VectorNode } from "../../common/view/VectorNode.js";
 import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
 import { StringManager } from "../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import type { DoublePendulumModel } from "../model/DoublePendulumModel.js";
 import { DoublePendulumPresets } from "../model/DoublePendulumPresets.js";
 
@@ -945,4 +945,4 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("DoublePendulumScreenView", DoublePendulumScreenView);
+OscillationsAndChaosNamespace.register("DoublePendulumScreenView", DoublePendulumScreenView);

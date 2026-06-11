@@ -25,7 +25,7 @@
  */
 
 import { assert } from "scenerystack";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import type { DerivativeFunction, ODESolver } from "./ODESolver.js";
 
 export class AdaptiveRK45Solver implements ODESolver {
@@ -250,4 +250,4 @@ export class AdaptiveRK45Solver implements ODESolver {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("AdaptiveRK45Solver", AdaptiveRK45Solver);
+OscillationsAndChaosNamespace.register("AdaptiveRK45Solver", AdaptiveRK45Solver);

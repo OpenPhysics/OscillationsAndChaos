@@ -16,7 +16,7 @@ import type { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Node, type NodeOptions, Path, Text } from "scenerystack/scenery";
 import { ArrowNode } from "scenerystack/scenery-phet";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
 type SceneGridNodeOptions = NodeOptions & {
   gridSpacing?: number; // spacing in model coordinates (meters)
@@ -168,4 +168,4 @@ export class SceneGridNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("SceneGridNode", SceneGridNode);
+OscillationsAndChaosNamespace.register("SceneGridNode", SceneGridNode);

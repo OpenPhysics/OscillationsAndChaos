@@ -5,7 +5,7 @@
 
 import type { Preset } from "../../common/model/Preset.js";
 import { StringManager } from "../../i18n/StringManager.js";
-import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
 export const SingleSpringPresets = {
   getPresets(): Preset[] {
@@ -68,4 +68,4 @@ export const SingleSpringPresets = {
 };
 
 // Register with namespace for debugging accessibility
-oscillationsAndChaos.register("SingleSpringPresets", SingleSpringPresets);
+OscillationsAndChaosNamespace.register("SingleSpringPresets", SingleSpringPresets);
