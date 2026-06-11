@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "description": "Collection of four classical mechanics simulations exploring oscillations and chaos: single spring, double spring, pendulum, and double pendulum.",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "https://github.com/OpenPhysics/OscillationsAndChaos.git"
