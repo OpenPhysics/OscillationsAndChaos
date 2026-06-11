@@ -3,7 +3,7 @@
  */
 
 import { Screen, type ScreenOptions } from "scenerystack/sim";
-import classicalMechanics from "../ClassicalMechanicsNamespace.js";
+import oscillationsAndChaos from "../OscillationsAndChaosNamespace.js";
 import { DoubleSpringModel } from "./model/DoubleSpringModel.js";
 import { DoubleSpringScreenView } from "./view/DoubleSpringScreenView.js";
 
@@ -18,4 +18,4 @@ export class DoubleSpringScreen extends Screen<DoubleSpringModel, DoubleSpringSc
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("DoubleSpringScreen", DoubleSpringScreen);
+oscillationsAndChaos.register("DoubleSpringScreen", DoubleSpringScreen);

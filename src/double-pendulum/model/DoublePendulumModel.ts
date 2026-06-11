@@ -16,9 +16,9 @@
 
 import { DerivedProperty, NumberProperty, type TReadOnlyProperty } from "scenerystack/axon";
 import { Range } from "scenerystack/dot";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import { BaseModel } from "../../common/model/BaseModel.js";
 import { StatePropertyMapper } from "../../common/model/StatePropertyMapper.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 export class DoublePendulumModel extends BaseModel {
   // State variables
@@ -287,4 +287,4 @@ export class DoublePendulumModel extends BaseModel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("DoublePendulumModel", DoublePendulumModel);
+oscillationsAndChaos.register("DoublePendulumModel", DoublePendulumModel);

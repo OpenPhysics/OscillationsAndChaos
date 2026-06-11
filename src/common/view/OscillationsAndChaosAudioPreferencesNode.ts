@@ -1,7 +1,7 @@
 /**
- * ClassicalMechanicsAudioPreferencesNode
+ * OscillationsAndChaosAudioPreferencesNode
  *
- * Custom audio preferences for the Classical Mechanics simulations.
+ * Custom audio preferences for Oscillations And Chaos.
  * Provides sim-specific voicing options that appear in the Audio preferences tab.
  *
  * This follows the pattern from membrane-transport, where custom audio preferences
@@ -12,11 +12,11 @@ import { Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { Checkbox } from "scenerystack/sun";
 import type { Tandem } from "scenerystack/tandem";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 
-export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
+export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
   public constructor(tandem: Tandem) {
     super({
       align: "left",
@@ -35,7 +35,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
 
     // Parameter change announcements checkbox
     const parameterAnnouncementsCheckbox = new Checkbox(
-      ClassicalMechanicsPreferences.announceParameterChangesProperty,
+      OscillationsAndChaosPreferences.announceParameterChangesProperty,
       new Text(audioStrings.announceParameterChangesStringProperty, {
         font: new PhetFont(16),
         maxWidth: 350,
@@ -55,7 +55,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
 
     // State change announcements checkbox
     const stateAnnouncementsCheckbox = new Checkbox(
-      ClassicalMechanicsPreferences.announceStateChangesProperty,
+      OscillationsAndChaosPreferences.announceStateChangesProperty,
       new Text(audioStrings.announceStateChangesStringProperty, {
         font: new PhetFont(16),
         maxWidth: 350,
@@ -75,7 +75,7 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
 
     // Drag interaction announcements checkbox
     const dragAnnouncementsCheckbox = new Checkbox(
-      ClassicalMechanicsPreferences.announceDragInteractionsProperty,
+      OscillationsAndChaosPreferences.announceDragInteractionsProperty,
       new Text(audioStrings.announceDragInteractionsStringProperty, {
         font: new PhetFont(16),
         maxWidth: 350,
@@ -107,4 +107,4 @@ export default class ClassicalMechanicsAudioPreferencesNode extends VBox {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("ClassicalMechanicsAudioPreferencesNode", ClassicalMechanicsAudioPreferencesNode);
+oscillationsAndChaos.register("OscillationsAndChaosAudioPreferencesNode", OscillationsAndChaosAudioPreferencesNode);

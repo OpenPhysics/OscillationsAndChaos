@@ -11,8 +11,8 @@ import type { BooleanProperty } from "scenerystack/axon";
 import type { ChartRectangle, ChartTransform, TickLabelSet } from "scenerystack/bamboo";
 import { Range, Vector2 } from "scenerystack/dot";
 import { DragListener, type Node, type Pointer, Rectangle } from "scenerystack/scenery";
-import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../../ClassicalMechanicsNamespace.js";
+import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../../OscillationsAndChaosNamespace.js";
 import type GraphDataManager from "./GraphDataManager.js";
 
 /**
@@ -705,8 +705,8 @@ export default class GraphInteractionHandler {
 
     corners.forEach((corner, index) => {
       const handle = new Rectangle(corner.x + handleOffset, corner.y + handleOffset, handleSize, handleSize, 2, 2, {
-        fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-        stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+        fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+        stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
         lineWidth: 2,
         cursor: corner.cursor,
       });
@@ -940,4 +940,4 @@ export default class GraphInteractionHandler {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("GraphInteractionHandler", GraphInteractionHandler);
+oscillationsAndChaos.register("GraphInteractionHandler", GraphInteractionHandler);

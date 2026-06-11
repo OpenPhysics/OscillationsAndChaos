@@ -10,9 +10,6 @@ import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { DragListener, Line, Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
 import type { ScreenViewOptions } from "scenerystack/sim";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -38,6 +35,9 @@ import { SPACING_LARGE } from "../../common/view/UILayoutConstants.js";
 import type { VectorNode } from "../../common/view/VectorNode.js";
 import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import type { DoubleSpringModel } from "../model/DoubleSpringModel.js";
 import { DoubleSpringPresets } from "../model/DoubleSpringPresets.js";
 
@@ -110,7 +110,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Wall (horizontal bar at top)
     const wall = new Line(this.layoutBounds.centerX - 20, wallY, this.layoutBounds.centerX + 20, wallY, {
-      stroke: ClassicalMechanicsColors.rodStrokeColorProperty,
+      stroke: OscillationsAndChaosColors.rodStrokeColorProperty,
       lineWidth: 4,
     });
     this.addChild(wall);
@@ -151,7 +151,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Set initial spring nodes based on preference
     const useParametric =
-      ClassicalMechanicsPreferences.springVisualizationTypeProperty.value === SpringVisualizationType.PARAMETRIC;
+      OscillationsAndChaosPreferences.springVisualizationTypeProperty.value === SpringVisualizationType.PARAMETRIC;
 
     this.currentSpring1Node = useParametric ? this.parametricSpring1Node : this.classicSpring1Node;
     this.currentSpring2Node = useParametric ? this.parametricSpring2Node : this.classicSpring2Node;
@@ -170,8 +170,8 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     // Mass 1 (size will be updated based on mass value)
     // pdom - Will be added to playAreaNode later for proper PDOM structure
     this.mass1Node = new Rectangle(-20, -20, 40, 40, {
-      fill: ClassicalMechanicsColors.mass1FillColorProperty,
-      stroke: ClassicalMechanicsColors.mass1StrokeColorProperty,
+      fill: OscillationsAndChaosColors.mass1FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass1StrokeColorProperty,
       lineWidth: 2,
       cornerRadius: 3,
       cursor: "pointer",
@@ -186,7 +186,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Center of mass reference line for mass 1
     this.mass1ReferenceLine = new Line(0, 0, 0, 0, {
-      stroke: ClassicalMechanicsColors.textColorProperty,
+      stroke: OscillationsAndChaosColors.textColorProperty,
       lineWidth: 2,
       lineDash: [5, 3],
     });
@@ -195,8 +195,8 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     // Mass 2 (size will be updated based on mass value)
     // pdom - Will be added to playAreaNode later for proper PDOM structure
     this.mass2Node = new Rectangle(-20, -20, 40, 40, {
-      fill: ClassicalMechanicsColors.mass2FillColorProperty,
-      stroke: ClassicalMechanicsColors.mass2StrokeColorProperty,
+      fill: OscillationsAndChaosColors.mass2FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass2StrokeColorProperty,
       lineWidth: 2,
       cornerRadius: 3,
       cursor: "pointer",
@@ -211,7 +211,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Center of mass reference line for mass 2
     this.mass2ReferenceLine = new Line(0, 0, 0, 0, {
-      stroke: ClassicalMechanicsColors.textColorProperty,
+      stroke: OscillationsAndChaosColors.textColorProperty,
       lineWidth: 2,
       lineDash: [5, 3],
     });
@@ -227,7 +227,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Listen to spring visualization preference changes
     // Using lazyLink to avoid triggering during initialization
-    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
+    OscillationsAndChaosPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
       this.switchSpringVisualization(springType);
     });
 
@@ -296,7 +296,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Listen to spring visualization preference changes
     // Using lazyLink to avoid triggering during initialization
-    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
+    OscillationsAndChaosPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
       this.switchSpringVisualization(springType);
     });
 
@@ -516,7 +516,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           delta: 0.1,
           decimalPlaces: 1,
           unit: "kg",
-          thumbFill: ClassicalMechanicsColors.mass1FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass1FillColorProperty,
         },
         {
           labelProperty: controlLabels.mass2StringProperty,
@@ -525,7 +525,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           delta: 0.1,
           decimalPlaces: 1,
           unit: "kg",
-          thumbFill: ClassicalMechanicsColors.mass2FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass2FillColorProperty,
         },
         {
           labelProperty: controlLabels.springConstant1StringProperty,
@@ -534,7 +534,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           delta: 1.0,
           decimalPlaces: 0,
           unit: "N/m",
-          thumbFill: ClassicalMechanicsColors.mass1FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass1FillColorProperty,
         },
         {
           labelProperty: controlLabels.springConstant2StringProperty,
@@ -543,7 +543,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           delta: 1.0,
           decimalPlaces: 0,
           unit: "N/m",
-          thumbFill: ClassicalMechanicsColors.mass2FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass2FillColorProperty,
         },
         {
           labelProperty: controlLabels.damping1StringProperty,
@@ -552,7 +552,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           delta: 0.05,
           decimalPlaces: 2,
           unit: "N·s/m",
-          thumbFill: ClassicalMechanicsColors.mass1FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass1FillColorProperty,
         },
         {
           labelProperty: controlLabels.damping2StringProperty,
@@ -561,7 +561,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           delta: 0.05,
           decimalPlaces: 2,
           unit: "N·s/m",
-          thumbFill: ClassicalMechanicsColors.mass2FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass2FillColorProperty,
         },
         {
           labelProperty: controlLabels.gravityStringProperty,
@@ -658,7 +658,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Link text color property to formula nodes
     // FormulaNode extends DOM, so we need to set the color via CSS
-    ClassicalMechanicsColors.textColorProperty.link((color) => {
+    OscillationsAndChaosColors.textColorProperty.link((color) => {
       equation1.element.style.color = color.toCSS();
       equation2.element.style.color = color.toCSS();
       variablesList.element.style.color = color.toCSS();
@@ -670,19 +670,19 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
       children: [
         new Text("Double Spring System", {
           font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         new RichText(
           "This simulation models two masses connected by springs in series, demonstrating coupled oscillations and normal modes. Damping can be added to observe energy dissipation.",
           {
             font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
             maxWidth: 700,
           },
         ),
         new Text("Equations of Motion:", {
           font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         new VBox({
           spacing: 12,
@@ -691,7 +691,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
         }),
         new Text("Where:", {
           font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         variablesList,
       ],
@@ -941,4 +941,4 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("DoubleSpringScreenView", DoubleSpringScreenView);
+oscillationsAndChaos.register("DoubleSpringScreenView", DoubleSpringScreenView);

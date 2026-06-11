@@ -11,9 +11,9 @@ import type { BooleanProperty, ReadOnlyProperty } from "scenerystack/axon";
 import { HBox, Text, VBox } from "scenerystack/scenery";
 import { GridIcon } from "scenerystack/scenery-phet";
 import { Checkbox, Panel, type PanelOptions } from "scenerystack/sun";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 
 /**
@@ -64,7 +64,7 @@ export class ToolsControlPanel extends Panel {
           gridIcon,
           new Text(options.grid.labelProperty, {
             font: new PhetFont({ size: 14 }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
           }),
         ],
       }),
@@ -77,7 +77,7 @@ export class ToolsControlPanel extends Panel {
       options.distance.showProperty,
       new Text(options.distance.labelProperty, {
         font: new PhetFont({ size: 14 }),
-        fill: ClassicalMechanicsColors.textColorProperty,
+        fill: OscillationsAndChaosColors.textColorProperty,
       }),
       {
         boxWidth: 16,
@@ -88,7 +88,7 @@ export class ToolsControlPanel extends Panel {
       options.stopwatch.showProperty,
       new Text(options.stopwatch.labelProperty, {
         font: new PhetFont({ size: 14 }),
-        fill: ClassicalMechanicsColors.textColorProperty,
+        fill: OscillationsAndChaosColors.textColorProperty,
       }),
       {
         boxWidth: 16,
@@ -103,7 +103,7 @@ export class ToolsControlPanel extends Panel {
         options.protractor.showProperty,
         new Text(options.protractor.labelProperty, {
           font: new PhetFont({ size: 14 }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         {
           boxWidth: 16,
@@ -119,7 +119,7 @@ export class ToolsControlPanel extends Panel {
         options.graph.showProperty,
         new Text(options.graph.labelProperty, {
           font: new PhetFont({ size: 14 }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         {
           boxWidth: 16,
@@ -138,21 +138,21 @@ export class ToolsControlPanel extends Panel {
     super(content, {
       xMargin: 10,
       yMargin: 8,
-      fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       cornerRadius: 5,
     });
 
     // Add accessibility announcements for tool visibility changes
     options.grid.showProperty.lazyLink((showGrid) => {
-      if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+      if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
         const announcement = showGrid ? options.grid.a11yStrings.shown.value : options.grid.a11yStrings.hidden.value;
         SimulationAnnouncer.announceSimulationState(announcement);
       }
     });
 
     options.distance.showProperty.lazyLink((showDistanceTool) => {
-      if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+      if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
         const announcement = showDistanceTool
           ? options.distance.a11yStrings.shown.value
           : options.distance.a11yStrings.hidden.value;
@@ -161,7 +161,7 @@ export class ToolsControlPanel extends Panel {
     });
 
     options.stopwatch.showProperty.lazyLink((showStopwatch) => {
-      if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+      if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
         const announcement = showStopwatch
           ? options.stopwatch.a11yStrings.shown.value
           : options.stopwatch.a11yStrings.hidden.value;
@@ -172,7 +172,7 @@ export class ToolsControlPanel extends Panel {
     // Add protractor announcements if provided (for pendulum screens)
     if (options.protractor) {
       options.protractor.showProperty.lazyLink((showProtractor) => {
-        if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+        if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
           const announcement = showProtractor
             ? options.protractor!.a11yStrings.shown.value
             : options.protractor!.a11yStrings.hidden.value;
@@ -184,7 +184,7 @@ export class ToolsControlPanel extends Panel {
     // Add graph announcements if provided (for configurable graph)
     if (options.graph) {
       options.graph.showProperty.lazyLink((showGraph) => {
-        if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+        if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
           const announcement = showGraph
             ? options.graph!.a11yStrings.shown.value
             : options.graph!.a11yStrings.hidden.value;
@@ -196,4 +196,4 @@ export class ToolsControlPanel extends Panel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("ToolsControlPanel", ToolsControlPanel);
+oscillationsAndChaos.register("ToolsControlPanel", ToolsControlPanel);

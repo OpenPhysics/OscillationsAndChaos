@@ -3,9 +3,9 @@
  * Each preset demonstrates interesting coupled oscillation phenomena.
  */
 
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import type { Preset } from "../../common/model/Preset.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 export const DoubleSpringPresets = {
   getPresets(): Preset[] {
@@ -74,4 +74,4 @@ export const DoubleSpringPresets = {
 };
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("DoubleSpringPresets", DoubleSpringPresets);
+oscillationsAndChaos.register("DoubleSpringPresets", DoubleSpringPresets);

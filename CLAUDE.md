@@ -25,8 +25,11 @@ Configurable in preferences — RK4, adaptive RK45, Forest-Ruth PEFRL (symplecti
 |---|---|
 | `src/common/model/` | ODE integration, shared model base classes |
 | `src/common/view/BaseScreenView.ts` | Shared view layout patterns |
+| `src/OscillationsAndChaos*.ts` | Shared namespace, colors, and preferences |
 | `src/*/model/` | Per-screen physics state |
 | `src/*/view/*ScreenView.ts` | Per-screen visualization |
+
+Top-level shared files should use the repo-named `OscillationsAndChaos` prefix.
 
 ## Sim-specific commands
 

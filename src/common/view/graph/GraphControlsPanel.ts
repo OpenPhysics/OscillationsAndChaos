@@ -8,8 +8,8 @@ import { DerivedProperty, type Property, type TReadOnlyProperty } from "scenerys
 import { HBox, type Node, Rectangle, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { ComboBox } from "scenerystack/sun";
-import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../../ClassicalMechanicsNamespace.js";
+import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../../OscillationsAndChaosNamespace.js";
 import type { PlottableProperty } from "./PlottableProperty.js";
 
 export default class GraphControlsPanel {
@@ -55,7 +55,7 @@ export default class GraphControlsPanel {
       createNode: () =>
         new Text(prop.name, {
           font: new PhetFont({ size: 12 }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
       tandemName: this.sanitizeTandemName(prop.name) + "Item",
     }));
@@ -64,11 +64,11 @@ export default class GraphControlsPanel {
       cornerRadius: 5,
       xMargin: 6,
       yMargin: 3,
-      buttonFill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      buttonStroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-      listFill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      listStroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-      highlightFill: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      buttonFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      buttonStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      listFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      listStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      highlightFill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
     });
 
     const yItems = this.availableProperties.map((prop) => ({
@@ -76,7 +76,7 @@ export default class GraphControlsPanel {
       createNode: () =>
         new Text(prop.name, {
           font: new PhetFont({ size: 12 }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
       tandemName: this.sanitizeTandemName(prop.name) + "Item",
     }));
@@ -85,27 +85,27 @@ export default class GraphControlsPanel {
       cornerRadius: 5,
       xMargin: 6,
       yMargin: 3,
-      buttonFill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      buttonStroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-      listFill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      listStroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-      highlightFill: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      buttonFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      buttonStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      listFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      listStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      highlightFill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
     });
 
     // Create title in format "(Y vs X)"
     const leftParen = new Text("(", {
       font: new PhetFont({ size: 14 }),
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
     });
 
     const vsText = new Text(" vs ", {
       font: new PhetFont({ size: 14 }),
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
     });
 
     const rightParen = new Text(")", {
       font: new PhetFont({ size: 14 }),
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
     });
 
     // Arrange in horizontal layout: (Y vs X)
@@ -123,12 +123,12 @@ export default class GraphControlsPanel {
     // Create header bar with dynamic fill that darkens the control panel background
     const headerHeight = 30;
     const headerFillProperty = new DerivedProperty(
-      [ClassicalMechanicsColors.controlPanelBackgroundColorProperty],
+      [OscillationsAndChaosColors.controlPanelBackgroundColorProperty],
       (backgroundColor) => backgroundColor.colorUtilsDarker(0.1),
     );
     const headerBar = new Rectangle(0, -headerHeight, this.graphWidth, headerHeight, 5, 5, {
       fill: headerFillProperty,
-      stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       lineWidth: 2,
       cursor: "grab",
     });
@@ -145,4 +145,4 @@ export default class GraphControlsPanel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("GraphControlsPanel", GraphControlsPanel);
+oscillationsAndChaos.register("GraphControlsPanel", GraphControlsPanel);

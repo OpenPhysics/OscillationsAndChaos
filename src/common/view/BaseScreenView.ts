@@ -41,10 +41,10 @@ import {
 import type { DialogOptions } from "scenerystack/sim";
 import { Dialog, ScreenSummaryContent, ScreenView, type ScreenViewOptions } from "scenerystack/sim";
 import { ComboBox, Panel } from "scenerystack/sun";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.ts";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.ts";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import type { Preset } from "../model/Preset.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 import { GRAPH_LEFT_MARGIN, GRAPH_TO_VECTOR_PANEL_SPACING } from "./DialogAndPanelConstants.js";
@@ -199,8 +199,8 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       tipPositionProperty: tipPositionProperty,
       modelViewTransform: modelViewTransform,
       dragBounds: modelDragBounds,
-      textColor: ClassicalMechanicsColors.measuringTapeTextColorProperty,
-      textBackgroundColor: ClassicalMechanicsColors.measuringTapeTextBackgroundColorProperty,
+      textColor: OscillationsAndChaosColors.measuringTapeTextColorProperty,
+      textBackgroundColor: OscillationsAndChaosColors.measuringTapeTextBackgroundColorProperty,
       significantFigures: 2,
       visibleProperty: this.showDistanceToolProperty,
     });
@@ -407,7 +407,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       speedRadioButtonGroupPlacement: "left",
       speedRadioButtonGroupOptions: {
         labelOptions: {
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         },
       },
     });
@@ -432,8 +432,8 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
     const infoContent = this.createInfoDialogContent();
 
     const dialogOptions: DialogOptions = {
-      fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       lineWidth: 2,
       xSpacing: 20,
       ySpacing: 15,
@@ -448,7 +448,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
     // this.addChild(this.infoDialog);
 
     const infoButton = new InfoButton({
-      iconFill: ClassicalMechanicsColors.infoButtonIconColorProperty,
+      iconFill: OscillationsAndChaosColors.infoButtonIconColorProperty,
       scale: 0.5,
       listener: () => {
         if (this.infoDialog!.isShowingProperty.value) {
@@ -503,7 +503,10 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
     const handleVisibilityChange = () => {
       if (document.hidden) {
         // Tab became hidden
-        if (ClassicalMechanicsPreferences.autoPauseWhenTabHiddenProperty.value && this.model.isPlayingProperty.value) {
+        if (
+          OscillationsAndChaosPreferences.autoPauseWhenTabHiddenProperty.value &&
+          this.model.isPlayingProperty.value
+        ) {
           // Store that we were playing before hiding
           this.wasPlayingBeforeHidden = true;
           // Pause the simulation
@@ -511,7 +514,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
         }
       } else {
         // Tab became visible
-        if (ClassicalMechanicsPreferences.autoPauseWhenTabHiddenProperty.value && this.wasPlayingBeforeHidden) {
+        if (OscillationsAndChaosPreferences.autoPauseWhenTabHiddenProperty.value && this.wasPlayingBeforeHidden) {
           // Restore playing state
           this.model.isPlayingProperty.value = true;
           this.wasPlayingBeforeHidden = false;
@@ -616,7 +619,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
         createNode: () =>
           new Text(presetLabels.customStringProperty, {
             font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
           }),
         tandemName: "customPresetItem",
       },
@@ -626,7 +629,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
         createNode: () =>
           new Text(preset.nameProperty, {
             font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
           }),
         tandemName: `preset${index}Item`,
       })),
@@ -636,16 +639,16 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       cornerRadius: 5,
       xMargin: 8,
       yMargin: 4,
-      buttonFill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      buttonStroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-      listFill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      listStroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-      highlightFill: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      buttonFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      buttonStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      listFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      listStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      highlightFill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
     });
 
     const presetLabel = new Text(presetLabels.labelStringProperty, {
       font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
     });
 
     return new HBox({
@@ -667,7 +670,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
         valuePattern: `{{value}} ${parameter.units}`,
       },
       titleNodeOptions: {
-        fill: ClassicalMechanicsColors.textColorProperty,
+        fill: OscillationsAndChaosColors.textColorProperty,
       },
       ...(parameter.thumbFill
         ? {
@@ -694,8 +697,8 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       {
         xMargin: PANEL_MARGIN_X,
         yMargin: PANEL_MARGIN_Y,
-        fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-        stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+        fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+        stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
         cornerRadius: 5,
       },
     );
@@ -872,4 +875,4 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("BaseScreenView", BaseScreenView);
+oscillationsAndChaos.register("BaseScreenView", BaseScreenView);

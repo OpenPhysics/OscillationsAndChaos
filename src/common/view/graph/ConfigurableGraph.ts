@@ -10,9 +10,9 @@ import { Shape } from "scenerystack/kite";
 import { Orientation } from "scenerystack/phet-core";
 import { FireListener, HBox, Node, Rectangle, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
-import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../../ClassicalMechanicsNamespace.js";
 import { StringManager } from "../../../i18n/StringManager.js";
+import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../../OscillationsAndChaosNamespace.js";
 import SimulationAnnouncer from "../../util/SimulationAnnouncer.js";
 import GraphControlsPanel from "./GraphControlsPanel.js";
 import GraphDataManager from "./GraphDataManager.js";
@@ -121,8 +121,8 @@ export default class ConfigurableGraph extends Node {
 
     // Create chart background
     this.chartRectangle = new ChartRectangle(this.chartTransform, {
-      fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
     });
     this.graphContentNode.addChild(this.chartRectangle);
 
@@ -130,13 +130,13 @@ export default class ConfigurableGraph extends Node {
     const initialSpacing = GraphDataManager.calculateTickSpacing(initialRange.getLength());
 
     this.verticalGridLineSet = new GridLineSet(this.chartTransform, Orientation.VERTICAL, initialSpacing, {
-      stroke: ClassicalMechanicsColors.graphGridColorProperty,
+      stroke: OscillationsAndChaosColors.graphGridColorProperty,
       lineWidth: 0.5,
     });
     this.graphContentNode.addChild(this.verticalGridLineSet);
 
     this.horizontalGridLineSet = new GridLineSet(this.chartTransform, Orientation.HORIZONTAL, initialSpacing, {
-      stroke: ClassicalMechanicsColors.graphGridColorProperty,
+      stroke: OscillationsAndChaosColors.graphGridColorProperty,
       lineWidth: 0.5,
     });
     this.graphContentNode.addChild(this.horizontalGridLineSet);
@@ -144,14 +144,14 @@ export default class ConfigurableGraph extends Node {
     this.xTickMarkSet = new TickMarkSet(this.chartTransform, Orientation.HORIZONTAL, initialSpacing, {
       edge: "min",
       extent: 8,
-      stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
     });
     this.graphContentNode.addChild(this.xTickMarkSet);
 
     this.yTickMarkSet = new TickMarkSet(this.chartTransform, Orientation.VERTICAL, initialSpacing, {
       edge: "min",
       extent: 8,
-      stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
     });
     this.graphContentNode.addChild(this.yTickMarkSet);
 
@@ -160,7 +160,7 @@ export default class ConfigurableGraph extends Node {
       createLabel: (value: number) =>
         new Text(value.toFixed(2), {
           font: new PhetFont({ size: 10 }),
-          fill: ClassicalMechanicsColors.graphLabelColorProperty,
+          fill: OscillationsAndChaosColors.graphLabelColorProperty,
         }),
     });
     this.graphContentNode.addChild(this.xTickLabelSet);
@@ -170,7 +170,7 @@ export default class ConfigurableGraph extends Node {
       createLabel: (value: number) =>
         new Text(value.toFixed(2), {
           font: new PhetFont({ size: 10 }),
-          fill: ClassicalMechanicsColors.graphLabelColorProperty,
+          fill: OscillationsAndChaosColors.graphLabelColorProperty,
         }),
     });
     this.graphContentNode.addChild(this.yTickLabelSet);
@@ -197,7 +197,7 @@ export default class ConfigurableGraph extends Node {
 
     // Create line plot
     this.linePlot = new LinePlot(this.chartTransform, [], {
-      stroke: ClassicalMechanicsColors.graphLine1ColorProperty,
+      stroke: OscillationsAndChaosColors.graphLine1ColorProperty,
       lineWidth: 2,
     });
 
@@ -214,7 +214,7 @@ export default class ConfigurableGraph extends Node {
     // Create axis labels
     this.xAxisLabelNode = new Text(this.formatAxisLabel(initialXProperty), {
       font: new PhetFont({ size: 12 }),
-      fill: ClassicalMechanicsColors.graphLabelColorProperty,
+      fill: OscillationsAndChaosColors.graphLabelColorProperty,
       centerX: this.graphWidth / 2,
       top: this.graphHeight + 35,
     });
@@ -222,7 +222,7 @@ export default class ConfigurableGraph extends Node {
 
     this.yAxisLabelNode = new Text(this.formatAxisLabel(initialYProperty), {
       font: new PhetFont({ size: 12 }),
-      fill: ClassicalMechanicsColors.graphLabelColorProperty,
+      fill: OscillationsAndChaosColors.graphLabelColorProperty,
       rotation: -Math.PI / 2,
       centerY: this.graphHeight / 2,
       right: -35,
@@ -262,12 +262,12 @@ export default class ConfigurableGraph extends Node {
     const createButton = (label: string, onClick: () => void): Node => {
       const buttonText = new Text(label, {
         font: new PhetFont({ size: 14, weight: "bold" }),
-        fill: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+        fill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       });
 
       const buttonBackground = new Rectangle(0, 0, buttonSize, buttonSize, 3, 3, {
-        fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-        stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+        fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+        stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
         cursor: "pointer",
       });
 
@@ -551,4 +551,4 @@ export default class ConfigurableGraph extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("ConfigurableGraph", ConfigurableGraph);
+oscillationsAndChaos.register("ConfigurableGraph", ConfigurableGraph);

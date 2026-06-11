@@ -5,7 +5,7 @@
 
 import { Circle, Line, Node, Rectangle } from "scenerystack/scenery";
 import { ScreenIcon } from "scenerystack/sim";
-import classicalMechanics from "../ClassicalMechanicsNamespace.js";
+import oscillationsAndChaos from "../OscillationsAndChaosNamespace.js";
 
 export class PendulumScreenIcon extends ScreenIcon {
   public constructor() {
@@ -82,4 +82,4 @@ export class PendulumScreenIcon extends ScreenIcon {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("PendulumScreenIcon", PendulumScreenIcon);
+oscillationsAndChaos.register("PendulumScreenIcon", PendulumScreenIcon);

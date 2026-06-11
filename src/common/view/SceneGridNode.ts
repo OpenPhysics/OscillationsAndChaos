@@ -15,8 +15,8 @@ import { Shape } from "scenerystack/kite";
 import type { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Node, type NodeOptions, Path, Text } from "scenerystack/scenery";
 import { ArrowNode } from "scenerystack/scenery-phet";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 type SceneGridNodeOptions = NodeOptions & {
   gridSpacing?: number; // spacing in model coordinates (meters)
@@ -45,13 +45,13 @@ export class SceneGridNode extends Node {
 
     // Grid lines (regular grid)
     this.gridPath = new Path(null, {
-      stroke: ClassicalMechanicsColors.sceneGridColorProperty,
+      stroke: OscillationsAndChaosColors.sceneGridColorProperty,
     });
     this.addChild(this.gridPath);
 
     // Origin axes (x=0 and y=0)
     this.originPath = new Path(null, {
-      stroke: ClassicalMechanicsColors.sceneGridOriginColorProperty,
+      stroke: OscillationsAndChaosColors.sceneGridOriginColorProperty,
       lineWidth: 2,
     });
     this.addChild(this.originPath);
@@ -94,15 +94,15 @@ export class SceneGridNode extends Node {
       headHeight: 8,
       headWidth: 8,
       tailWidth: 2,
-      fill: ClassicalMechanicsColors.textColorProperty,
-      stroke: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
+      stroke: OscillationsAndChaosColors.textColorProperty,
     });
     indicatorNode.addChild(arrow);
 
     // Label below the arrow
     const label = new Text(scaleLabelProperty, {
       font: new PhetFont({ size: 14 }),
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
       centerX: (viewStartX + viewEndX) / 2,
       top: viewStartY + 5,
     });
@@ -168,4 +168,4 @@ export class SceneGridNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("SceneGridNode", SceneGridNode);
+oscillationsAndChaos.register("SceneGridNode", SceneGridNode);

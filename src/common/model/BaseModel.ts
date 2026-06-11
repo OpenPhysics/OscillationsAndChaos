@@ -15,8 +15,8 @@
 import { assert } from "scenerystack";
 import { BooleanProperty, EnumerationProperty, NumberProperty } from "scenerystack/axon";
 import { TimeSpeed } from "scenerystack/scenery-phet";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import { AdaptiveRK45Solver } from "./AdaptiveRK45Solver.js";
 import { DormandPrince87Solver } from "./DormandPrince87Solver.js";
 import { ForestRuthPEFRLSolver } from "./ForestRuthPEFRLSolver.js";
@@ -47,15 +47,15 @@ export abstract class BaseModel {
     this.timeSpeedProperty = new EnumerationProperty(TimeSpeed.NORMAL);
 
     // Create initial physics solver based on preference
-    this.solver = this.createSolver(ClassicalMechanicsPreferences.solverTypeProperty.value);
+    this.solver = this.createSolver(OscillationsAndChaosPreferences.solverTypeProperty.value);
 
     // Listen for solver type changes and recreate solver
-    ClassicalMechanicsPreferences.solverTypeProperty.link((solverType: SolverType) => {
+    OscillationsAndChaosPreferences.solverTypeProperty.link((solverType: SolverType) => {
       this.solver = this.createSolver(solverType);
     });
 
     // Listen for nominal time step changes and update the solver
-    ClassicalMechanicsPreferences.nominalTimeStepProperty.link((nominalTimeStep: NominalTimeStep) => {
+    OscillationsAndChaosPreferences.nominalTimeStepProperty.link((nominalTimeStep: NominalTimeStep) => {
       this.solver.setFixedTimeStep(nominalTimeStep.value);
     });
   }
@@ -80,7 +80,7 @@ export abstract class BaseModel {
     }
 
     // Apply the current nominal time step preference
-    solver.setFixedTimeStep(ClassicalMechanicsPreferences.nominalTimeStepProperty.value.value);
+    solver.setFixedTimeStep(OscillationsAndChaosPreferences.nominalTimeStepProperty.value.value);
 
     return solver;
   }
@@ -193,4 +193,4 @@ export abstract class BaseModel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("BaseModel", BaseModel);
+oscillationsAndChaos.register("BaseModel", BaseModel);

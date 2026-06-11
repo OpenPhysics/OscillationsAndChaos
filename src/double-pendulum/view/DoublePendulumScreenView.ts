@@ -11,8 +11,6 @@ import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Circle, DragListener, KeyboardListener, Line, Node, Path, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
 import type { ScreenViewOptions } from "scenerystack/sim";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -29,6 +27,8 @@ import { SPACING_LARGE } from "../../common/view/UILayoutConstants.js";
 import type { VectorNode } from "../../common/view/VectorNode.js";
 import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 import type { DoublePendulumModel } from "../model/DoublePendulumModel.js";
 import { DoublePendulumPresets } from "../model/DoublePendulumPresets.js";
 
@@ -109,7 +109,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
       {
         angleProperty: this.model.angle1Property,
         isDraggingProperty: this.isDraggingProperty,
-        color: ClassicalMechanicsColors.mass1FillColorProperty.value.toCSS(),
+        color: OscillationsAndChaosColors.mass1FillColorProperty.value.toCSS(),
         lengthProperty: this.model.length1Property,
       },
       this.modelViewTransform,
@@ -124,7 +124,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Trail for chaotic motion visualization
     this.trailPath = new Path(null, {
-      stroke: ClassicalMechanicsColors.mass2FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass2FillColorProperty,
       lineWidth: 2,
       opacity: 0.3,
     });
@@ -138,8 +138,8 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Pivot
     this.pivotNode = new Circle(8, {
-      fill: ClassicalMechanicsColors.pivotFillColorProperty,
-      stroke: ClassicalMechanicsColors.pivotStrokeColorProperty,
+      fill: OscillationsAndChaosColors.pivotFillColorProperty,
+      stroke: OscillationsAndChaosColors.pivotStrokeColorProperty,
       lineWidth: 2,
     });
     this.pivotNode.center = this.pivotPoint;
@@ -147,7 +147,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Rod 1
     this.rod1Node = new Line(0, 0, 0, 0, {
-      stroke: ClassicalMechanicsColors.mass1FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass1FillColorProperty,
       lineWidth: 4,
       lineCap: "round",
     });
@@ -155,7 +155,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Rod 2
     this.rod2Node = new Line(0, 0, 0, 0, {
-      stroke: ClassicalMechanicsColors.mass2FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass2FillColorProperty,
       lineWidth: 4,
       lineCap: "round",
     });
@@ -164,8 +164,8 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Bob 1 (size will be updated based on mass value)
     // pdom - Will be added to playAreaNode later for proper PDOM structure
     this.bob1Node = new Circle(15, {
-      fill: ClassicalMechanicsColors.mass1FillColorProperty,
-      stroke: ClassicalMechanicsColors.mass1StrokeColorProperty,
+      fill: OscillationsAndChaosColors.mass1FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass1StrokeColorProperty,
       lineWidth: 2,
       cursor: "pointer",
       // pdom - Add PDOM properties for Interactive Description
@@ -179,7 +179,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Center of mass reference dot for bob 1 (small circle at center of bob)
     this.bob1ReferenceDot = new Circle(3, {
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
       stroke: "white",
     });
     this.addChild(this.bob1ReferenceDot);
@@ -187,8 +187,8 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Bob 2 (size will be updated based on mass value)
     // pdom - Will be added to playAreaNode later for proper PDOM structure
     this.bob2Node = new Circle(15, {
-      fill: ClassicalMechanicsColors.mass2FillColorProperty,
-      stroke: ClassicalMechanicsColors.mass2StrokeColorProperty,
+      fill: OscillationsAndChaosColors.mass2FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass2StrokeColorProperty,
       lineWidth: 2,
       cursor: "pointer",
       // pdom - Add PDOM properties for Interactive Description
@@ -202,7 +202,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Center of mass reference dot for bob 2 (small circle at center of bob)
     this.bob2ReferenceDot = new Circle(3, {
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
       stroke: "white",
     });
     this.addChild(this.bob2ReferenceDot);
@@ -523,7 +523,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
           delta: 0.1,
           decimalPlaces: 1,
           unit: "m",
-          thumbFill: ClassicalMechanicsColors.mass1FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass1FillColorProperty,
         },
         {
           labelProperty: controlLabels.length2StringProperty,
@@ -532,7 +532,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
           delta: 0.1,
           decimalPlaces: 1,
           unit: "m",
-          thumbFill: ClassicalMechanicsColors.mass2FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass2FillColorProperty,
         },
         {
           labelProperty: controlLabels.mass1StringProperty,
@@ -541,7 +541,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
           delta: 0.1,
           decimalPlaces: 1,
           unit: "kg",
-          thumbFill: ClassicalMechanicsColors.mass1FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass1FillColorProperty,
         },
         {
           labelProperty: controlLabels.mass2StringProperty,
@@ -550,7 +550,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
           delta: 0.1,
           decimalPlaces: 1,
           unit: "kg",
-          thumbFill: ClassicalMechanicsColors.mass2FillColorProperty,
+          thumbFill: OscillationsAndChaosColors.mass2FillColorProperty,
         },
         {
           labelProperty: controlLabels.gravityStringProperty,
@@ -636,7 +636,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Link text color property to formula nodes
     // FormulaNode extends DOM, so we need to set the color via CSS
-    ClassicalMechanicsColors.textColorProperty.link((color) => {
+    OscillationsAndChaosColors.textColorProperty.link((color) => {
       equation1.element.style.color = color.toCSS();
       equation2.element.style.color = color.toCSS();
       variablesList.element.style.color = color.toCSS();
@@ -648,19 +648,19 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
       children: [
         new Text("Double Pendulum", {
           font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         new RichText(
           "This simulation models a double pendulum system, which exhibits rich dynamics including periodic motion and deterministic chaos depending on initial conditions and energy.",
           {
             font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
             maxWidth: 700,
           },
         ),
         new Text("Equations of Motion:", {
           font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         new VBox({
           spacing: 12,
@@ -669,7 +669,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
         }),
         new Text("Where:", {
           font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         variablesList,
       ],
@@ -945,4 +945,4 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("DoublePendulumScreenView", DoublePendulumScreenView);
+oscillationsAndChaos.register("DoublePendulumScreenView", DoublePendulumScreenView);

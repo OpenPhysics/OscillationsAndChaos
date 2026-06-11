@@ -17,8 +17,8 @@ import type { Color, ReadOnlyProperty } from "scenerystack";
 import { Vector2 } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
 import { LinearGradient, Node, type NodeOptions, Path } from "scenerystack/scenery";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 type ParametricSpringNodeOptions = NodeOptions & {
   frontColorProperty?: ReadOnlyProperty<Color>;
@@ -73,9 +73,9 @@ export class ParametricSpringNode extends Node {
     this.leftEndLength = options?.leftEndLength ?? 15;
     this.rightEndLength = options?.rightEndLength ?? 25;
 
-    this.frontColorProperty = options?.frontColorProperty ?? ClassicalMechanicsColors.springFrontColorProperty;
-    this.middleColorProperty = options?.middleColorProperty ?? ClassicalMechanicsColors.springFrontColorProperty;
-    this.backColorProperty = options?.backColorProperty ?? ClassicalMechanicsColors.springBackColorProperty;
+    this.frontColorProperty = options?.frontColorProperty ?? OscillationsAndChaosColors.springFrontColorProperty;
+    this.middleColorProperty = options?.middleColorProperty ?? OscillationsAndChaosColors.springFrontColorProperty;
+    this.backColorProperty = options?.backColorProperty ?? OscillationsAndChaosColors.springBackColorProperty;
 
     // Back part of spring (goes behind)
     this.backPath = new Path(null, {
@@ -309,4 +309,4 @@ export class ParametricSpringNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("ParametricSpringNode", ParametricSpringNode);
+oscillationsAndChaos.register("ParametricSpringNode", ParametricSpringNode);

@@ -12,8 +12,8 @@ import { Vector2 } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
 import type { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Circle, Line, Node, Path, Text } from "scenerystack/scenery";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 // Constants for protractor appearance
 const LINE_LENGTH_DEFAULT = 3.6;
@@ -48,7 +48,7 @@ export class PendulumLabProtractorNode extends Node {
     options?: PendulumLabProtractorNodeOptions,
   ) {
     // Use color property for pendulum-specific elements
-    const pendulumColorProperty = ClassicalMechanicsColors.mass1FillColorProperty;
+    const pendulumColorProperty = OscillationsAndChaosColors.mass1FillColorProperty;
 
     // Central dashed reference line (vertical line from pivot)
     const maxLength = modelViewTransform.modelToViewDeltaX(pendulumData.lengthProperty.value * 1.2);
@@ -58,7 +58,7 @@ export class PendulumLabProtractorNode extends Node {
     });
 
     // Pivot visualization
-    const pivotDot = new Circle(2, { fill: ClassicalMechanicsColors.protractorPivotDotColorProperty });
+    const pivotDot = new Circle(2, { fill: OscillationsAndChaosColors.protractorPivotDotColorProperty });
     const pivotCircle = new Circle(5, { stroke: pendulumColorProperty });
 
     // Create background ticks for the protractor
@@ -84,7 +84,7 @@ export class PendulumLabProtractorNode extends Node {
     }
 
     const protractorPath = new Path(protractorShape, {
-      stroke: ClassicalMechanicsColors.protractorTicksColorProperty,
+      stroke: OscillationsAndChaosColors.protractorTicksColorProperty,
       lineWidth: 0.5,
     });
 
@@ -177,4 +177,4 @@ export class PendulumLabProtractorNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("PendulumLabProtractorNode", PendulumLabProtractorNode);
+oscillationsAndChaos.register("PendulumLabProtractorNode", PendulumLabProtractorNode);

@@ -3,9 +3,9 @@
  * Each preset demonstrates different aspects of coupled pendulum dynamics.
  */
 
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import type { Preset } from "../../common/model/Preset.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 export const DoublePendulumPresets = {
   getPresets(): Preset[] {
@@ -74,4 +74,4 @@ export const DoublePendulumPresets = {
 };
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("DoublePendulumPresets", DoublePendulumPresets);
+oscillationsAndChaos.register("DoublePendulumPresets", DoublePendulumPresets);

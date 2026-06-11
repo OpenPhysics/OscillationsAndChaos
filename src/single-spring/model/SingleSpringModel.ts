@@ -18,9 +18,9 @@
 
 import { DerivedProperty, NumberProperty, type TReadOnlyProperty } from "scenerystack/axon";
 import { Range } from "scenerystack/dot";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import { BaseModel } from "../../common/model/BaseModel.js";
 import { StatePropertyMapper } from "../../common/model/StatePropertyMapper.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 export class SingleSpringModel extends BaseModel {
   // State variables
@@ -174,4 +174,4 @@ export class SingleSpringModel extends BaseModel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("SingleSpringModel", SingleSpringModel);
+oscillationsAndChaos.register("SingleSpringModel", SingleSpringModel);

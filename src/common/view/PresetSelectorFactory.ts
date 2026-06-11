@@ -6,7 +6,7 @@ import type { Property, TReadOnlyProperty } from "scenerystack/axon";
 import { type Node, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { ComboBox } from "scenerystack/sun";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
 import type { Preset } from "../model/Preset.js";
 import { FONT_SIZE_PRESET_LABEL } from "./FontSizeConstants.js";
 
@@ -40,7 +40,7 @@ export function createPresetSelector(
       createNode: () =>
         new Text(customLabel, {
           font: new PhetFont({ size: FONT_SIZE_PRESET_LABEL }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
       tandemName: "customPresetItem",
     },
@@ -49,7 +49,7 @@ export function createPresetSelector(
       createNode: () =>
         new Text(preset.nameProperty, {
           font: new PhetFont({ size: FONT_SIZE_PRESET_LABEL }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
       tandemName: `preset${index}Item`,
     })),
@@ -59,10 +59,10 @@ export function createPresetSelector(
     cornerRadius: 5,
     xMargin: 8,
     yMargin: 4,
-    buttonFill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-    buttonStroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-    listFill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-    listStroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
-    highlightFill: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+    buttonFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+    buttonStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+    listFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+    listStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+    highlightFill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
   });
 }

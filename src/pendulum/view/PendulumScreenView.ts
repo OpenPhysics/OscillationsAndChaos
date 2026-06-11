@@ -10,8 +10,6 @@ import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Circle, DragListener, Line, Node, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode } from "scenerystack/scenery-phet";
 import type { ScreenViewOptions } from "scenerystack/sim";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -28,6 +26,8 @@ import { SPACING_LARGE } from "../../common/view/UILayoutConstants.js";
 import type { VectorNode } from "../../common/view/VectorNode.js";
 import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 import type { PendulumModel } from "../model/PendulumModel.js";
 import { PendulumPresets } from "../model/PendulumPresets.js";
 
@@ -97,7 +97,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
       {
         angleProperty: this.model.angleProperty,
         isDraggingProperty: this.isDraggingProperty,
-        color: ClassicalMechanicsColors.mass1FillColorProperty.value.toCSS(),
+        color: OscillationsAndChaosColors.mass1FillColorProperty.value.toCSS(),
         lengthProperty: this.model.lengthProperty,
       },
       this.modelViewTransform,
@@ -112,8 +112,8 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
 
     // Pivot
     this.pivotNode = new Circle(8, {
-      fill: ClassicalMechanicsColors.pivotFillColorProperty,
-      stroke: ClassicalMechanicsColors.pivotStrokeColorProperty,
+      fill: OscillationsAndChaosColors.pivotFillColorProperty,
+      stroke: OscillationsAndChaosColors.pivotStrokeColorProperty,
       lineWidth: 2,
     });
     this.pivotNode.center = this.pivotPoint;
@@ -121,7 +121,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
 
     // Rod
     this.rodNode = new Line(0, 0, 0, 0, {
-      stroke: ClassicalMechanicsColors.rodStrokeColorProperty,
+      stroke: OscillationsAndChaosColors.rodStrokeColorProperty,
       lineWidth: 4,
       lineCap: "round",
     });
@@ -130,8 +130,8 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     // Bob (size will be updated based on mass value)
     // pdom - Will be added to playAreaNode later for proper PDOM structure
     this.bobNode = new Circle(20, {
-      fill: ClassicalMechanicsColors.mass1FillColorProperty,
-      stroke: ClassicalMechanicsColors.mass1StrokeColorProperty,
+      fill: OscillationsAndChaosColors.mass1FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass1StrokeColorProperty,
       lineWidth: 2,
       cursor: "pointer",
       // pdom - Add PDOM properties for Interactive Description
@@ -145,7 +145,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
 
     // Center of mass reference dot (small circle at center of bob)
     this.bobReferenceDot = new Circle(3, {
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
       stroke: "white",
     });
     this.addChild(this.bobReferenceDot);
@@ -399,7 +399,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
 
     // Link text color property to formula nodes
     // FormulaNode extends DOM, so we need to set the color via CSS
-    ClassicalMechanicsColors.textColorProperty.link((color) => {
+    OscillationsAndChaosColors.textColorProperty.link((color) => {
       equation.element.style.color = color.toCSS();
       variablesList.element.style.color = color.toCSS();
     });
@@ -410,24 +410,24 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
       children: [
         new Text("Simple Pendulum", {
           font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         new RichText(
           "This simulation models a simple pendulum, demonstrating periodic motion and energy conservation. At small angles, the motion approximates simple harmonic motion.",
           {
             font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
             maxWidth: 700,
           },
         ),
         new Text("Equation of Motion:", {
           font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         equation,
         new Text("Where:", {
           font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         variablesList,
       ],
@@ -619,4 +619,4 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("PendulumScreenView", PendulumScreenView);
+oscillationsAndChaos.register("PendulumScreenView", PendulumScreenView);

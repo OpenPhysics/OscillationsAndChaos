@@ -6,8 +6,8 @@
 import type { ChartTransform, GridLineSet, LinePlot, TickLabelSet, TickMarkSet } from "scenerystack/bamboo";
 import { Range, Vector2 } from "scenerystack/dot";
 import { Circle, type Node } from "scenerystack/scenery";
-import ClassicalMechanicsColors from "../../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../../ClassicalMechanicsNamespace.js";
+import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../../OscillationsAndChaosNamespace.js";
 
 /**
  * Configuration for grid lines, tick marks, and tick labels
@@ -239,7 +239,7 @@ export default class GraphDataManager {
 
       // Create circle for this trail point
       const circle = new Circle(radius, {
-        fill: ClassicalMechanicsColors.graphLine1ColorProperty,
+        fill: OscillationsAndChaosColors.graphLine1ColorProperty,
         opacity: opacity,
         center: viewPosition,
       });
@@ -271,4 +271,4 @@ export default class GraphDataManager {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("GraphDataManager", GraphDataManager);
+oscillationsAndChaos.register("GraphDataManager", GraphDataManager);

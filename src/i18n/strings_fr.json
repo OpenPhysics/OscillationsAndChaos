@@ -112,6 +112,15 @@
     "springTypeDescriptions": {
       "classic": "Motif de spirale simple avec apparence 3D basique",
       "parametric": "Ressort 3D réaliste avec courbes lisses et ombrage dégradé"
+    },
+    "audio": {
+      "simVoicingOptions": "Options de voix de la simulation",
+      "announceParameterChanges": "Annoncer les changements de paramètres",
+      "parameterAnnouncementsDescription": "Entendre des annonces lors de la modification de la masse, de la constante de ressort, de l'amortissement et d'autres paramètres",
+      "announceStateChanges": "Annoncer les changements d'état",
+      "stateAnnouncementsDescription": "Entendre des annonces lors de la lecture, de la pause, de la réinitialisation ou du défilement de la simulation",
+      "announceDragInteractions": "Annoncer les interactions de glissement",
+      "dragAnnouncementsDescription": "Entendre des annonces lors du glissement de masses ou de pendules, y compris les informations de position"
     }
   },
   "presets": {

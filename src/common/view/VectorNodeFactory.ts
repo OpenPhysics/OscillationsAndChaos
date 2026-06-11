@@ -4,7 +4,7 @@
 
 import type { BooleanProperty } from "scenerystack/axon";
 import { PhetColorScheme } from "scenerystack/scenery-phet";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 import { VectorNode } from "./VectorNode.js";
 import {
   ACCELERATION_MIN_MAGNITUDE,
@@ -72,4 +72,4 @@ export const VectorNodeFactory = {
 };
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("VectorNodeFactory", VectorNodeFactory);
+oscillationsAndChaos.register("VectorNodeFactory", VectorNodeFactory);

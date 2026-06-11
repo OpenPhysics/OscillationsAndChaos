@@ -12,9 +12,9 @@ import type { BooleanProperty, ReadOnlyProperty } from "scenerystack/axon";
 import { HBox, Text, VBox } from "scenerystack/scenery";
 import { ArrowNode, PhetColorScheme } from "scenerystack/scenery-phet";
 import { Checkbox, Panel, type PanelOptions } from "scenerystack/sun";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 
 /**
@@ -56,7 +56,7 @@ export class VectorControlPanel extends Panel {
         children: [
           new Text(options.velocity.labelProperty, {
             font: new PhetFont({ size: 12 }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
           }),
           new ArrowNode(0, 0, 15, 0, {
             fill: PhetColorScheme.VELOCITY,
@@ -79,7 +79,7 @@ export class VectorControlPanel extends Panel {
         children: [
           new Text(options.force.labelProperty, {
             font: new PhetFont({ size: 12 }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
           }),
           new ArrowNode(0, 0, 15, 0, {
             fill: PhetColorScheme.APPLIED_FORCE,
@@ -102,7 +102,7 @@ export class VectorControlPanel extends Panel {
         children: [
           new Text(options.acceleration.labelProperty, {
             font: new PhetFont({ size: 12 }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
           }),
           new ArrowNode(0, 0, 15, 0, {
             fill: PhetColorScheme.ACCELERATION,
@@ -127,14 +127,14 @@ export class VectorControlPanel extends Panel {
     super(content, {
       xMargin: 10,
       yMargin: 8,
-      fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       cornerRadius: 5,
     });
 
     // Add accessibility announcements for vector visibility changes
     options.velocity.showProperty.lazyLink((showVelocity) => {
-      if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+      if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
         const announcement = showVelocity
           ? options.velocity.a11yStrings.shown.value
           : options.velocity.a11yStrings.hidden.value;
@@ -143,14 +143,14 @@ export class VectorControlPanel extends Panel {
     });
 
     options.force.showProperty.lazyLink((showForce) => {
-      if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+      if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
         const announcement = showForce ? options.force.a11yStrings.shown.value : options.force.a11yStrings.hidden.value;
         SimulationAnnouncer.announceSimulationState(announcement);
       }
     });
 
     options.acceleration.showProperty.lazyLink((showAcceleration) => {
-      if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+      if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
         const announcement = showAcceleration
           ? options.acceleration.a11yStrings.shown.value
           : options.acceleration.a11yStrings.hidden.value;
@@ -161,4 +161,4 @@ export class VectorControlPanel extends Panel {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("VectorControlPanel", VectorControlPanel);
+oscillationsAndChaos.register("VectorControlPanel", VectorControlPanel);

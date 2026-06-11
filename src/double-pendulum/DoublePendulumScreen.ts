@@ -3,7 +3,7 @@
  */
 
 import { Screen, type ScreenOptions } from "scenerystack/sim";
-import classicalMechanics from "../ClassicalMechanicsNamespace.js";
+import oscillationsAndChaos from "../OscillationsAndChaosNamespace.js";
 import { DoublePendulumModel } from "./model/DoublePendulumModel.js";
 import { DoublePendulumScreenView } from "./view/DoublePendulumScreenView.js";
 
@@ -18,4 +18,4 @@ export class DoublePendulumScreen extends Screen<DoublePendulumModel, DoublePend
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("DoublePendulumScreen", DoublePendulumScreen);
+oscillationsAndChaos.register("DoublePendulumScreen", DoublePendulumScreen);

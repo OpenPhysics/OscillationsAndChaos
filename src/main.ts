@@ -34,19 +34,19 @@ import { PhetFont } from "scenerystack/scenery-phet";
 import { onReadyToLaunch, PreferencesModel, Sim } from "scenerystack/sim";
 import { Checkbox, ComboBox, VerticalAquaRadioButtonGroup } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
-import ClassicalMechanicsColors from "./ClassicalMechanicsColors.js";
-import ClassicalMechanicsPreferences from "./ClassicalMechanicsPreferences.js";
 import NominalTimeStep from "./common/model/NominalTimeStep.js";
 import SolverType from "./common/model/SolverType.js";
 import SimulationAnnouncer from "./common/util/SimulationAnnouncer.js";
-import ClassicalMechanicsAudioPreferencesNode from "./common/view/ClassicalMechanicsAudioPreferencesNode.js";
 import { KeyboardShortcutsNode } from "./common/view/KeyboardShortcutsNode.js";
+import OscillationsAndChaosAudioPreferencesNode from "./common/view/OscillationsAndChaosAudioPreferencesNode.js";
 import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
 import { DoublePendulumScreen } from "./double-pendulum/DoublePendulumScreen.js";
 import { DoublePendulumScreenIcon } from "./double-pendulum/DoublePendulumScreenIcon.js";
 import { DoubleSpringScreen } from "./double-spring/DoubleSpringScreen.js";
 import { DoubleSpringScreenIcon } from "./double-spring/DoubleSpringScreenIcon.js";
 import { StringManager } from "./i18n/StringManager.js";
+import OscillationsAndChaosColors from "./OscillationsAndChaosColors.js";
+import OscillationsAndChaosPreferences from "./OscillationsAndChaosPreferences.js";
 import { PendulumScreen } from "./pendulum/PendulumScreen.js";
 import { PendulumScreenIcon } from "./pendulum/PendulumScreenIcon.js";
 import { SingleSpringScreen } from "./single-spring/SingleSpringScreen.js";
@@ -78,7 +78,7 @@ onReadyToLaunch(() => {
         customPreferences: [
           {
             createContent: (tandem: Tandem) => {
-              return new ClassicalMechanicsAudioPreferencesNode(tandem);
+              return new OscillationsAndChaosAudioPreferencesNode(tandem);
             },
             column: "right",
           },
@@ -94,7 +94,7 @@ onReadyToLaunch(() => {
                 spacing: 8,
                 children: [
                   new Checkbox(
-                    ClassicalMechanicsPreferences.autoPauseWhenTabHiddenProperty,
+                    OscillationsAndChaosPreferences.autoPauseWhenTabHiddenProperty,
                     new Text(preferencesLabels.autoPauseWhenTabHiddenStringProperty, {
                       font: new PhetFont(16),
                     }),
@@ -157,7 +157,7 @@ onReadyToLaunch(() => {
               ];
 
               const timeStepComboBox = new ComboBox(
-                ClassicalMechanicsPreferences.nominalTimeStepProperty,
+                OscillationsAndChaosPreferences.nominalTimeStepProperty,
                 timeStepComboBoxItems,
                 comboBoxListParent,
                 {
@@ -193,7 +193,7 @@ onReadyToLaunch(() => {
                     font: new PhetFont({ size: 14, weight: "bold" }),
                   }),
                   new VerticalAquaRadioButtonGroup(
-                    ClassicalMechanicsPreferences.solverTypeProperty,
+                    OscillationsAndChaosPreferences.solverTypeProperty,
                     [
                       {
                         value: SolverType.RK4,
@@ -302,7 +302,7 @@ onReadyToLaunch(() => {
 
               // Spring visualization preference
               const springVisualizationRadioButtonGroup = new VerticalAquaRadioButtonGroup(
-                ClassicalMechanicsPreferences.springVisualizationTypeProperty,
+                OscillationsAndChaosPreferences.springVisualizationTypeProperty,
                 [
                   {
                     value: SpringVisualizationType.CLASSIC,
@@ -386,8 +386,8 @@ onReadyToLaunch(() => {
   // Add accessibility announcements for preference changes
   const a11yStrings = stringManager.getAccessibilityStrings();
 
-  ClassicalMechanicsPreferences.solverTypeProperty.lazyLink((solverType) => {
-    if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+  OscillationsAndChaosPreferences.solverTypeProperty.lazyLink((solverType) => {
+    if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
       let solverName = "";
       switch (solverType) {
         case SolverType.RK4:
@@ -409,8 +409,8 @@ onReadyToLaunch(() => {
     }
   });
 
-  ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
-    if (ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+  OscillationsAndChaosPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
+    if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
       const springTypeName =
         springType === SpringVisualizationType.CLASSIC
           ? springTypeNames.classicStringProperty.value
@@ -427,7 +427,7 @@ onReadyToLaunch(() => {
     new SingleSpringScreen({
       name: screenNames.singleSpringStringProperty,
       tandem: Tandem.ROOT.createTandem("singleSpringScreen"),
-      backgroundColorProperty: ClassicalMechanicsColors.backgroundColorProperty,
+      backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
       homeScreenIcon: new SingleSpringScreenIcon(),
       createKeyboardHelpNode: () => {
         return keyboardHelpNode;
@@ -436,7 +436,7 @@ onReadyToLaunch(() => {
     new DoubleSpringScreen({
       name: screenNames.doubleSpringStringProperty,
       tandem: Tandem.ROOT.createTandem("doubleSpringScreen"),
-      backgroundColorProperty: ClassicalMechanicsColors.backgroundColorProperty,
+      backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
       homeScreenIcon: new DoubleSpringScreenIcon(),
       createKeyboardHelpNode: () => {
         return keyboardHelpNode;
@@ -445,7 +445,7 @@ onReadyToLaunch(() => {
     new PendulumScreen({
       name: screenNames.pendulumStringProperty,
       tandem: Tandem.ROOT.createTandem("pendulumScreen"),
-      backgroundColorProperty: ClassicalMechanicsColors.backgroundColorProperty,
+      backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
       homeScreenIcon: new PendulumScreenIcon(),
       createKeyboardHelpNode: () => {
         return keyboardHelpNode;
@@ -454,7 +454,7 @@ onReadyToLaunch(() => {
     new DoublePendulumScreen({
       name: screenNames.doublePendulumStringProperty,
       tandem: Tandem.ROOT.createTandem("doublePendulumScreen"),
-      backgroundColorProperty: ClassicalMechanicsColors.backgroundColorProperty,
+      backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
       homeScreenIcon: new DoublePendulumScreenIcon(),
       createKeyboardHelpNode: () => {
         return keyboardHelpNode;

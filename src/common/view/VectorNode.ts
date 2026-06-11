@@ -14,7 +14,7 @@ import type { TReadOnlyProperty } from "scenerystack/axon";
 import { Vector2 } from "scenerystack/dot";
 import { Node, type NodeOptions, type TColor, Text } from "scenerystack/scenery";
 import { ArrowNode } from "scenerystack/scenery-phet";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 /**
  * Self options for VectorNode - options specific to vector visualization.
@@ -152,4 +152,4 @@ export class VectorNode extends Node {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("VectorNode", VectorNode);
+oscillationsAndChaos.register("VectorNode", VectorNode);

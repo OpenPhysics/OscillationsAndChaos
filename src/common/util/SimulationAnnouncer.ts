@@ -9,8 +9,8 @@
 
 import { voicingUtteranceQueue } from "scenerystack/scenery";
 import { Utterance } from "scenerystack/utterance-queue";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import { GRAPH_CHANGE_ANNOUNCEMENT_DELAY, PARAMETER_CHANGE_ANNOUNCEMENT_DELAY } from "./AccessibilityDelayConstants.js";
 
 /**
@@ -74,7 +74,7 @@ class SimulationAnnouncer {
    * Announce simulation state changes (play/pause/step)
    */
   public announceSimulationState(message: string): void {
-    if (!ClassicalMechanicsPreferences.announceStateChangesProperty.value) {
+    if (!OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
       return;
     }
     this.simulationStateUtterance.alert = message;
@@ -85,7 +85,7 @@ class SimulationAnnouncer {
    * Announce parameter changes (mass, spring constant, damping, etc.)
    */
   public announceParameterChange(message: string): void {
-    if (!ClassicalMechanicsPreferences.announceParameterChangesProperty.value) {
+    if (!OscillationsAndChaosPreferences.announceParameterChangesProperty.value) {
       return;
     }
     this.parameterChangeUtterance.alert = message;
@@ -104,7 +104,7 @@ class SimulationAnnouncer {
    * Announce drag interactions (start, end, position changes)
    */
   public announceDragInteraction(message: string): void {
-    if (!ClassicalMechanicsPreferences.announceDragInteractionsProperty.value) {
+    if (!OscillationsAndChaosPreferences.announceDragInteractionsProperty.value) {
       return;
     }
     this.dragInteractionUtterance.alert = message;
@@ -127,7 +127,7 @@ class SimulationAnnouncer {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("SimulationAnnouncer", SimulationAnnouncer);
+oscillationsAndChaos.register("SimulationAnnouncer", SimulationAnnouncer);
 
 // Export singleton instance for convenience
 export default SimulationAnnouncer.getInstance();

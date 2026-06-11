@@ -3,9 +3,9 @@
  * Each preset demonstrates interesting physics phenomena.
  */
 
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import type { Preset } from "../../common/model/Preset.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 export const SingleSpringPresets = {
   getPresets(): Preset[] {
@@ -68,4 +68,4 @@ export const SingleSpringPresets = {
 };
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("SingleSpringPresets", SingleSpringPresets);
+oscillationsAndChaos.register("SingleSpringPresets", SingleSpringPresets);

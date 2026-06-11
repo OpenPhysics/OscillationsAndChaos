@@ -5,7 +5,7 @@ This document provides an overview of the Classical Mechanics Simulations projec
 ## Root Directory
 
 ```
-classicalMechanicsSimulations/
+oscillationsAndChaosSimulations/
 ├── src/                          # Source code
 ├── doc/                          # Documentation
 ├── dist/                         # Build output (generated)
@@ -37,9 +37,9 @@ src/
 ├── brand.ts                      # Branding configuration
 ├── splash.ts                     # Splash screen
 ├── assert.ts                     # Assertion utilities
-├── ClassicalMechanicsNamespace.ts
-├── ClassicalMechanicsColors.ts   # Color scheme definitions
-├── ClassicalMechanicsPreferences.ts # User preferences management
+├── OscillationsAndChaosNamespace.ts
+├── OscillationsAndChaosColors.ts   # Color scheme definitions
+├── OscillationsAndChaosPreferences.ts # User preferences management
 ├── assets/                       # Images and static assets
 ├── i18n/                         # Internationalization
 ├── common/                       # Shared code across simulations
@@ -98,7 +98,7 @@ view/
 ├── PendulumLabProtractorNode.ts  # Angle measurement tool
 ├── SceneGridNode.ts              # Background grid
 ├── KeyboardShortcutsNode.ts      # Keyboard help display
-├── ClassicalMechanicsAudioPreferencesNode.ts # Audio settings UI
+├── OscillationsAndChaosAudioPreferencesNode.ts # Audio settings UI
 ├── ControlLayoutConstants.ts     # Layout constants for controls
 ├── DialogAndPanelConstants.ts    # Dialog styling constants
 ├── FontSizeConstants.ts          # Font size definitions

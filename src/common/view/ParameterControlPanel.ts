@@ -11,8 +11,8 @@ import type { Range } from "scenerystack/dot";
 import { HBox, type Node, type TColor, Text, VBox } from "scenerystack/scenery";
 import { NumberControl, type NumberControlOptions, PhetFont } from "scenerystack/scenery-phet";
 import { Panel, type PanelOptions } from "scenerystack/sun";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 import type { Preset } from "../model/Preset.js";
 import { FONT_SIZE_SECONDARY_LABEL } from "./FontSizeConstants.js";
 import { createPresetSelector, type PresetOption } from "./PresetSelectorFactory.js";
@@ -78,7 +78,7 @@ export class ParameterControlPanel extends Panel {
 
     const presetLabel = new Text(options.presetLabelProperty, {
       font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-      fill: ClassicalMechanicsColors.textColorProperty,
+      fill: OscillationsAndChaosColors.textColorProperty,
     });
 
     const presetRow = new HBox({
@@ -95,7 +95,7 @@ export class ParameterControlPanel extends Panel {
           valuePattern: `{{value}} ${paramConfig.unit}`,
         },
         titleNodeOptions: {
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         },
       };
 
@@ -120,12 +120,12 @@ export class ParameterControlPanel extends Panel {
     super(content, {
       xMargin: PANEL_MARGIN_X,
       yMargin: PANEL_MARGIN_Y,
-      fill: ClassicalMechanicsColors.controlPanelBackgroundColorProperty,
-      stroke: ClassicalMechanicsColors.controlPanelStrokeColorProperty,
+      fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       cornerRadius: 5,
     });
   }
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("ParameterControlPanel", ParameterControlPanel);
+oscillationsAndChaos.register("ParameterControlPanel", ParameterControlPanel);

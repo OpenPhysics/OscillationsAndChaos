@@ -1,0 +1,322 @@
+{
+  "title": "Simulaciones de Mecánica Clásica",
+  "screens": {
+    "singleSpring": "Resorte simple",
+    "doubleSpring": "Resorte doble",
+    "pendulum": "Péndulo",
+    "doublePendulum": "Péndulo doble"
+  },
+  "controls": {
+    "mass": "Masa",
+    "mass1": "Masa 1",
+    "mass2": "Masa 2",
+    "springConstant": "Constante del resorte",
+    "springConstant1": "Resorte 1",
+    "springConstant2": "Resorte 2",
+    "damping": "Amortiguamiento",
+    "damping1": "Amortiguamiento 1",
+    "damping2": "Amortiguamiento 2",
+    "length": "Longitud",
+    "length1": "Longitud 1",
+    "length2": "Longitud 2",
+    "gravity": "Gravedad"
+  },
+  "units": {
+    "kilograms": "{{value}} kg",
+    "newtonsPerMeter": "{{value}} N/m",
+    "newtonSecondsPerMeter": "{{value}} N·s/m",
+    "newtonMeterSeconds": "{{value}} N·m·s",
+    "meters": "{{value}} m",
+    "metersPerSecondSquared": "{{value}} m/s²"
+  },
+  "graph": {
+    "showGraph": "Gráfica",
+    "xAxisLabel": "Eje X:",
+    "yAxisLabel": "Eje Y:",
+    "axis": {
+      "x": "X",
+      "y": "Y",
+      "time": "Tiempo (s)",
+      "value": "Valor"
+    },
+    "legend": {
+      "line1": "Línea 1",
+      "line2": "Línea 2",
+      "line3": "Línea 3"
+    },
+    "pendulum": {
+      "angleAndVelocity": "Ángulo (rad) / Velocidad angular (rad/s)"
+    },
+    "properties": {
+      "position": "Posición",
+      "position1": "Posición 1",
+      "position2": "Posición 2",
+      "velocity": "Velocidad",
+      "velocity1": "Velocidad 1",
+      "velocity2": "Velocidad 2",
+      "acceleration": "Aceleración",
+      "acceleration1": "Aceleración 1",
+      "acceleration2": "Aceleración 2",
+      "angle": "Ángulo",
+      "angularVelocity": "Velocidad angular",
+      "angle1": "Ángulo 1",
+      "angle2": "Ángulo 2",
+      "angularVelocity1": "Velocidad angular 1",
+      "angularVelocity2": "Velocidad angular 2",
+      "angularAcceleration": "Acel. angular",
+      "angularAcceleration1": "Acel. angular 1",
+      "angularAcceleration2": "Acel. angular 2",
+      "kineticEnergy": "Energía cinética",
+      "potentialEnergy": "Energía potencial",
+      "springPotentialEnergy": "Energía potencial (resorte)",
+      "gravitationalPotentialEnergy": "Energía potencial (gravedad)",
+      "totalEnergy": "Energía total",
+      "time": "Tiempo"
+    }
+  },
+  "timeControls": {
+    "autoPauseWhenTabHidden": "Pausar automáticamente cuando la pestaña está oculta"
+  },
+  "preferences": {
+    "autoPauseWhenTabHidden": "Pausar automáticamente cuando la pestaña está oculta",
+    "autoPauseDescription": "Pausar automáticamente la simulación cuando la pestaña del navegador está oculta",
+    "solverMethod": "Método de resolución",
+    "solverDescription": "Elige el método de integración numérica para resolver ecuaciones diferenciales",
+    "solvers": {
+      "rk4": "RK4 (Runge-Kutta de 4.º orden)",
+      "adaptiveRK45": "RK45 adaptativo",
+      "forestRuthPEFRL": "PEFRL (Forest-Ruth de 4.º orden)",
+      "dormandPrince87": "RK8(7) (Dormand-Prince de 8.º orden)"
+    },
+    "solverDescriptions": {
+      "rk4": "Método de 4.º orden con paso fijo. Preciso y estable para la mayoría de los problemas.",
+      "adaptiveRK45": "Método de 5.º orden con paso variable. Control automático de errores, ideal para sistemas complejos.",
+      "forestRuthPEFRL": "Método simpléctico de 4.º orden con paso fijo. Optimizado para minimizar el error de energía en sistemas conservativos.",
+      "dormandPrince87": "Método de 8.º orden con paso variable. Muy alta precisión para problemas suaves, requiere más cálculo."
+    },
+    "nominalTimeStep": "Paso de tiempo nominal",
+    "nominalTimeStepDescription": "Establece el paso de tiempo objetivo para la integración numérica. Valores más pequeños aumentan la precisión pero pueden ralentizar la simulación.",
+    "timeSteps": {
+      "finest": "0,01 ms",
+      "verySmall": "0,1 ms",
+      "small": "0,5 ms",
+      "default": "1 ms",
+      "medium": "5 ms"
+    },
+    "springVisualization": "Visualización del resorte",
+    "springVisualizationDescription": "Elige el estilo visual para representar los resortes en la simulación",
+    "springTypes": {
+      "classic": "Clásico",
+      "parametric": "Paramétrico"
+    },
+    "springTypeDescriptions": {
+      "classic": "Patrón de espiral simple con apariencia 3D básica",
+      "parametric": "Resorte 3D realista con curvas suaves y sombreado degradado"
+    },
+    "audio": {
+      "simVoicingOptions": "Opciones de voz de la simulación",
+      "announceParameterChanges": "Anunciar los cambios de parámetros",
+      "parameterAnnouncementsDescription": "Escuchar anuncios al cambiar la masa, la constante del resorte, el amortiguamiento y otros parámetros",
+      "announceStateChanges": "Anunciar los cambios de estado",
+      "stateAnnouncementsDescription": "Escuchar anuncios al reproducir, pausar, reiniciar o avanzar paso a paso por la simulación",
+      "announceDragInteractions": "Anunciar las interacciones de arrastre",
+      "dragAnnouncementsDescription": "Escuchar anuncios al arrastrar masas o péndulos, incluida la información de posición"
+    }
+  },
+  "presets": {
+    "label": "Preajuste:",
+    "custom": "Personalizado",
+    "singleSpring": {
+      "lightAndBouncy": "Ligero y elástico",
+      "lightAndBouncyDesc": "Masa baja con resorte rígido: oscilaciones rápidas",
+      "heavyAndSlow": "Pesado y lento",
+      "heavyAndSlowDesc": "Masa alta con resorte blando: oscilaciones lentas",
+      "criticallyDamped": "Amortiguamiento crítico",
+      "criticallyDampedDesc": "Vuelve al equilibrio sin oscilar",
+      "underdamped": "Subamortiguado",
+      "underdampedDesc": "Amortiguamiento ligero: decaimiento gradual de las oscilaciones",
+      "overdamped": "Sobreamortiguado",
+      "overdampedDesc": "Amortiguamiento fuerte: retorno lento al equilibrio"
+    },
+    "doubleSpring": {
+      "symmetric": "Modo simétrico",
+      "symmetricDesc": "Masas y resortes iguales: movimiento sincronizado",
+      "asymmetricMasses": "Masas asimétricas",
+      "asymmetricMassesDesc": "Masas diferentes crean patrones de batido interesantes",
+      "differentSprings": "Resortes diferentes",
+      "differentSpringsDesc": "Constantes de resorte desiguales producen transferencia de energía",
+      "coupledResonance": "Resonancia acoplada",
+      "coupledResonanceDesc": "Las masas intercambian energía de un lado a otro"
+    },
+    "pendulum": {
+      "shortAndFast": "Corto y rápido",
+      "shortAndFastDesc": "Péndulo corto con oscilaciones rápidas",
+      "longAndSlow": "Largo y lento",
+      "longAndSlowDesc": "Péndulo largo con balanceos lentos y elegantes",
+      "smallAngle": "Ángulo pequeño (MAS)",
+      "smallAngleDesc": "Demuestra la aproximación del movimiento armónico simple",
+      "largeAmplitude": "Amplitud grande",
+      "largeAmplitudeDesc": "Los efectos no lineales se hacen evidentes"
+    },
+    "doublePendulum": {
+      "synchronized": "Sincronizado",
+      "synchronizedDesc": "Ángulos pequeños, ambos péndulos se balancean juntos",
+      "chaoticDance": "Danza caótica",
+      "chaoticDanceDesc": "Los ángulos grandes crean un movimiento caótico impredecible",
+      "counterRotation": "Rotación opuesta",
+      "counterRotationDesc": "Los péndulos rotan en direcciones opuestas",
+      "energyTransfer": "Transferencia de energía",
+      "energyTransferDesc": "La energía fluye entre los dos péndulos"
+    }
+  },
+  "visualization": {
+    "showVectors": "Mostrar vectores",
+    "showEnergyChart": "Mostrar gráfico de energía",
+    "showGrid": "Cuadrícula",
+    "velocity": "Velocidad",
+    "acceleration": "Aceleración",
+    "force": "Fuerza neta",
+    "grid": {
+      "scaleLabel": "{{value}} m"
+    },
+    "energy": {
+      "kinetic": "Cinética",
+      "potential": "Potencial",
+      "total": "Total"
+    },
+    "tools": {
+      "showDistanceTool": "Herramienta de distancia",
+      "showProtractor": "Transportador",
+      "showStopwatch": "Cronómetro"
+    }
+  },
+  "accessibility": {
+    "simulation": {
+      "reset": "Simulación reiniciada",
+      "playing": "Simulación en reproducción",
+      "paused": "Simulación en pausa",
+      "started": "Simulación iniciada",
+      "steppedForward": "Avanzó un paso",
+      "steppedBackward": "Retrocedió un paso",
+      "speedChanged": "Velocidad cambiada a {{speed}}"
+    },
+    "drag": {
+      "draggingMass": "Arrastrando el bloque de masa",
+      "draggingMass1": "Arrastrando la masa 1",
+      "draggingMass2": "Arrastrando la masa 2",
+      "draggingBob": "Arrastrando la lenteja del péndulo",
+      "draggingUpperBob": "Arrastrando la lenteja superior del péndulo",
+      "draggingLowerBob": "Arrastrando la lenteja inferior del péndulo",
+      "massReleasedAt": "Masa soltada en la posición {{position}} metros",
+      "mass1ReleasedAt": "Masa 1 soltada en la posición {{position}} metros",
+      "mass2ReleasedAt": "Masa 2 soltada en la posición {{position}} metros",
+      "bobReleasedAt": "Lenteja del péndulo soltada a {{angle}} grados de la vertical",
+      "upperBobReleasedAt": "Lenteja superior soltada a {{angle}} grados",
+      "lowerBobReleasedAt": "Lenteja inferior soltada a {{angle}} grados"
+    },
+    "parameters": {
+      "massChanged": "Masa cambiada a {{value}} kilogramos",
+      "springConstantChanged": "Constante del resorte cambiada a {{value}} newtons por metro",
+      "dampingChanged": "Amortiguamiento cambiado a {{value}} newton segundos por metro",
+      "lengthChanged": "Longitud cambiada a {{value}} metros",
+      "gravityChanged": "Gravedad cambiada a {{value}} metros por segundo al cuadrado",
+      "presetApplied": "Preajuste aplicado: {{preset}}"
+    },
+    "graph": {
+      "shown": "Gráfica mostrada",
+      "hidden": "Gráfica oculta",
+      "xAxisChanged": "Eje X cambiado a {{property}}",
+      "yAxisChanged": "Eje Y cambiado a {{property}}"
+    },
+    "visualization": {
+      "velocityVectorsShown": "Vectores de velocidad mostrados",
+      "velocityVectorsHidden": "Vectores de velocidad ocultos",
+      "forceVectorsShown": "Vectores de fuerza mostrados",
+      "forceVectorsHidden": "Vectores de fuerza ocultos",
+      "accelerationVectorsShown": "Vectores de aceleración mostrados",
+      "accelerationVectorsHidden": "Vectores de aceleración ocultos"
+    },
+    "tools": {
+      "gridShown": "Cuadrícula mostrada",
+      "gridHidden": "Cuadrícula oculta",
+      "distanceToolShown": "Herramienta de distancia mostrada",
+      "distanceToolHidden": "Herramienta de distancia oculta",
+      "protractorShown": "Transportador mostrado",
+      "protractorHidden": "Transportador oculto",
+      "stopwatchShown": "Cronómetro mostrado",
+      "stopwatchHidden": "Cronómetro oculto"
+    },
+    "preferences": {
+      "solverChanged": "Solucionador cambiado a {{solver}}",
+      "springVisualizationChanged": "Visualización del resorte cambiada a {{type}}"
+    }
+  },
+  "keyboardShortcuts": {
+    "title": "Atajos de teclado",
+    "simulationControls": "Controles de simulación",
+    "graphInteractions": "Interacciones con la gráfica",
+    "playPauseSimulation": "Reproducir / Pausar la simulación",
+    "resetSimulation": "Reiniciar la simulación",
+    "stepBackward": "Retroceder un paso (en pausa)",
+    "stepForward": "Avanzar un paso (en pausa)",
+    "resetZoom": "Restablecer el zoom al escalado automático",
+    "zoomInOut": "Acercar/Alejar",
+    "panView": "Desplazar la vista"
+  },
+  "voicing": {
+    "singleSpring": {
+      "playArea": "Una masa unida a un resorte fijado a una pared. La masa oscila verticalmente cuando se desplaza del equilibrio.",
+      "controlArea": "Ajusta la masa, la constante del resorte, el amortiguamiento y la gravedad. Elige entre preajustes o crea configuraciones personalizadas. Visualiza gráficas de posición, velocidad y energía a lo largo del tiempo.",
+      "details": "Masa a {{position}} metros, velocidad {{velocity}} metros por segundo. Fuerza del resorte {{force}} newtons. Energía total {{energy}} julios.",
+      "hint": "Arrastra la masa hacia arriba o hacia abajo para iniciar la oscilación. Presiona reproducir para ver el movimiento. Prueba a cambiar los parámetros para ver cómo afectan a la oscilación."
+    },
+    "doubleSpring": {
+      "playArea": "Dos masas conectadas por resortes en serie. El sistema crea patrones de oscilación complejos, incluidos modos normales y figuras de Lissajous.",
+      "controlArea": "Ajusta las masas, las constantes de los resortes, el amortiguamiento y la gravedad para cada masa y resorte. Elige entre preajustes que demuestran diferentes modos de oscilación. Visualiza gráficas de posiciones, velocidades y energías.",
+      "details": "Masa 1 a {{position1}} metros, Masa 2 a {{position2}} metros. Las velocidades son {{velocity1}} y {{velocity2}} metros por segundo. Energía total {{energy}} julios.",
+      "hint": "Arrastra cualquiera de las masas para desplazarla. Prueba a arrastrarlas en la misma dirección para el modo simétrico, o en direcciones opuestas para el modo antisimétrico. Presiona reproducir para ver el movimiento resultante."
+    },
+    "pendulum": {
+      "playArea": "Un péndulo simple con una lenteja suspendida de un punto de pivote. El péndulo muestra un comportamiento no lineal en ángulos grandes, demostrando los límites de la aproximación de ángulo pequeño.",
+      "controlArea": "Ajusta la longitud del péndulo, la masa de la lenteja, el amortiguamiento y la gravedad. Elige entre preajustes que muestran diferentes regímenes de amortiguamiento. Visualiza gráficas de ángulo, velocidad angular y energía a lo largo del tiempo.",
+      "details": "Ángulo del péndulo {{angle}} grados desde la vertical, velocidad angular {{angularVelocity}} radianes por segundo. Energía potencial {{potentialEnergy}} julios, energía cinética {{kineticEnergy}} julios.",
+      "hint": "Arrastra la lenteja para cambiar el ángulo. Prueba ángulos pequeños para ver el movimiento armónico simple, o ángulos grandes para observar el comportamiento no lineal. Presiona reproducir para ver el balanceo del péndulo."
+    },
+    "doublePendulum": {
+      "playArea": "Un péndulo doble con dos lentejas. Este sistema caótico demuestra una dependencia sensible de las condiciones iniciales: pequeños cambios en la posición inicial conducen a movimientos drásticamente diferentes.",
+      "controlArea": "Ajusta las longitudes y las masas de ambos segmentos del péndulo, además del amortiguamiento y la gravedad. Elige entre preajustes que muestran la transferencia de energía y el movimiento caótico. La estela de movimiento visualiza la trayectoria caótica.",
+      "details": "Lenteja superior a {{angle1}} grados, lenteja inferior a {{angle2}} grados. Velocidades angulares {{angularVelocity1}} y {{angularVelocity2}} radianes por segundo. Energía total {{energy}} julios.",
+      "hint": "Arrastra cualquiera de las lentejas para establecer las condiciones iniciales. Incluso diferencias minúsculas crean resultados radicalmente distintos. Presiona reproducir y observa la danza caótica. Prueba la estela de movimiento para ver la trayectoria compleja."
+    }
+  },
+  "screenSummary": {
+    "singleSpring": {
+      "title": "Oscilador de resorte simple",
+      "overview": "Esta pantalla simula una masa unida a un resorte. La masa oscila hacia arriba y hacia abajo cuando se desplaza de la posición de equilibrio.",
+      "playAreaDescription": "El área de juego contiene un resorte vertical fijado a una pared en la parte superior, con un bloque de masa unido en la parte inferior. Puedes arrastrar la masa hacia arriba o hacia abajo para establecer la posición inicial.",
+      "controlAreaDescription": "El área de control contiene controles deslizantes para ajustar la masa, la constante del resorte, el coeficiente de amortiguamiento y la gravedad. También hay configuraciones predefinidas, controles de visualización de vectores, herramientas de medición y una gráfica configurable.",
+      "interactionHint": "Arrastra el bloque de masa para desplazarlo del equilibrio, luego presiona reproducir para ver la oscilación. Prueba diferentes parámetros para explorar oscilaciones amortiguadas y no amortiguadas."
+    },
+    "doubleSpring": {
+      "title": "Oscilador de resorte doble",
+      "overview": "Esta pantalla simula dos masas conectadas por resortes en una disposición vertical. El sistema muestra oscilaciones acopladas complejas y modos normales.",
+      "playAreaDescription": "El área de juego muestra dos sistemas de resorte-masa conectados verticalmente. El resorte superior está fijado a una pared, con la masa 1 unida. La masa 2 está conectada debajo de la masa 1 por un segundo resorte. Puedes arrastrar cualquiera de las masas para establecer las condiciones iniciales.",
+      "controlAreaDescription": "El área de control proporciona controles separados para cada masa y resorte, incluidos los valores de masa, las constantes de los resortes y los coeficientes de amortiguamiento. También hay preajustes que demuestran modos de oscilación simétricos y asimétricos, controles de visualización y opciones de gráficas.",
+      "interactionHint": "Arrastra las masas a diferentes posiciones para explorar el movimiento acoplado. Prueba a arrastrarlas en la misma dirección para el modo simétrico, o en direcciones opuestas para el modo antisimétrico."
+    },
+    "pendulum": {
+      "title": "Péndulo simple",
+      "overview": "Esta pantalla simula un péndulo simple que consiste en una lenteja suspendida de un punto de pivote fijo. El péndulo demuestra un movimiento periódico y un comportamiento no lineal en ángulos grandes.",
+      "playAreaDescription": "El área de juego muestra un péndulo con una varilla que conecta un punto de pivote en la parte superior con una lenteja que se balancea de un lado a otro. Puedes arrastrar la lenteja para cambiar el ángulo desde la vertical.",
+      "controlAreaDescription": "El área de control incluye controles deslizantes para la longitud del péndulo, la masa de la lenteja, el coeficiente de amortiguamiento y la aceleración gravitatoria. Hay preajustes que muestran diferentes comportamientos, herramientas que incluyen un transportador para medir el ángulo, y una gráfica para seguir el movimiento a lo largo del tiempo.",
+      "interactionHint": "Arrastra la lenteja del péndulo para establecer el ángulo inicial, luego presiona reproducir para verlo balancearse. Prueba ángulos pequeños para el movimiento armónico simple, o ángulos grandes para ver efectos no lineales."
+    },
+    "doublePendulum": {
+      "title": "Péndulo doble",
+      "overview": "Esta pantalla simula un péndulo doble: un sistema caótico donde dos segmentos de péndulo están conectados de extremo a extremo. Este sistema demuestra una dependencia sensible de las condiciones iniciales, donde pequeños cambios conducen a resultados drásticamente diferentes.",
+      "playAreaDescription": "El área de juego muestra dos segmentos de péndulo conectados. El segmento superior pivota desde un punto fijo en la parte superior. El segmento inferior pivota desde el extremo inferior del segmento superior. Puedes arrastrar cualquiera de las lentejas para establecer los ángulos iniciales.",
+      "controlAreaDescription": "El área de control tiene controles separados para cada segmento del péndulo, incluidos la longitud, la masa, el amortiguamiento y la gravedad. Los preajustes demuestran la transferencia de energía y el comportamiento caótico. Una opción de estela de movimiento visualiza la trayectoria compleja de la lenteja inferior.",
+      "interactionHint": "Arrastra cualquiera de las lentejas del péndulo para establecer las condiciones iniciales, luego presiona reproducir. Prueba a soltar desde casi la misma posición varias veces: verás movimientos radicalmente diferentes cada vez debido al caos."
+    }
+  }
+}

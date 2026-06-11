@@ -73,14 +73,14 @@ Most objects are created at startup and persist for the application's lifetime:
 Several query parameters are available for development and debugging:
 - `?ea` - Enable assertions (development mode)
 - `?locale=<code>` - Set language (e.g., `?locale=es` for Spanish)
-- Custom parameters can be added via `classicalMechanicsQueryParameters.ts`
+- Custom parameters can be added via `oscillationsAndChaosQueryParameters.ts`
 
 ### Logging and Debugging
 
 The codebase uses several debugging mechanisms:
 - `assert()` calls in development builds (stripped in production)
 - `console.log()` statements (should be removed before committing)
-- `ClassicalMechanicsNamespace` - Global namespace for accessing objects in browser console
+- `OscillationsAndChaosNamespace` - Global namespace for accessing objects in browser console
 - `phet.chipper.queryParameters` - Access runtime query parameters
 
 ---
@@ -117,16 +117,16 @@ The codebase employs several design patterns:
 
 6. **Singleton Pattern**
    - `StringManager` - Single instance for all localized strings
-   - `ClassicalMechanicsPreferences` - Global preferences accessible everywhere
+   - `OscillationsAndChaosPreferences` - Global preferences accessible everywhere
 
 ### Directory Structure
 
 ```
 src/
 ├── main.ts                              # Application entry point
-├── ClassicalMechanicsColors.ts          # Centralized color palette
-├── ClassicalMechanicsPreferences.ts     # Global preferences
-├── ClassicalMechanicsNamespace.ts       # Debugging namespace
+├── OscillationsAndChaosColors.ts          # Centralized color palette
+├── OscillationsAndChaosPreferences.ts     # Global preferences
+├── OscillationsAndChaosNamespace.ts       # Debugging namespace
 │
 ├── common/                              # Shared across all screens
 │   ├── model/                           # Physics and numerical methods
@@ -713,11 +713,11 @@ Run with `?ea` query parameter to enable assertions.
 
 ### Console Access
 
-Objects are exposed via `ClassicalMechanicsNamespace` for debugging:
+Objects are exposed via `OscillationsAndChaosNamespace` for debugging:
 ```typescript
 // In browser console:
-phet.classicalMechanics.singleSpringScreen.model.massProperty.value = 3.0;
-phet.classicalMechanics.singleSpringScreen.model.reset();
+phet.oscillationsAndChaos.singleSpringScreen.model.massProperty.value = 3.0;
+phet.oscillationsAndChaos.singleSpringScreen.model.reset();
 ```
 
 ### Unit Tests

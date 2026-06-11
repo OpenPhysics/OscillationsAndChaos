@@ -9,8 +9,8 @@ import {
   TextKeyNode,
   TwoColumnKeyboardHelpContent,
 } from "scenerystack/scenery-phet";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
   public constructor() {
@@ -62,4 +62,4 @@ export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("KeyboardShortcutsNode", KeyboardShortcutsNode);
+oscillationsAndChaos.register("KeyboardShortcutsNode", KeyboardShortcutsNode);

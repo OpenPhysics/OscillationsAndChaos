@@ -10,9 +10,6 @@ import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { DragListener, Line, Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
 import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
-import ClassicalMechanicsColors from "../../ClassicalMechanicsColors.js";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
-import ClassicalMechanicsPreferences from "../../ClassicalMechanicsPreferences.js";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -38,6 +35,9 @@ import { SPACING_LARGE } from "../../common/view/UILayoutConstants.js";
 import type { VectorNode } from "../../common/view/VectorNode.js";
 import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import type { SingleSpringModel } from "../model/SingleSpringModel.js";
 import { SingleSpringPresets } from "../model/SingleSpringPresets.js";
 
@@ -124,7 +124,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Wall visualization (horizontal bar at top)
     const wall = new Line(this.layoutBounds.centerX - 20, wallY, this.layoutBounds.centerX + 20, wallY, {
-      stroke: ClassicalMechanicsColors.rodStrokeColorProperty,
+      stroke: OscillationsAndChaosColors.rodStrokeColorProperty,
       lineWidth: 4,
     });
     this.addChild(wall);
@@ -148,7 +148,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Set initial spring node based on preference
     this.currentSpringNode =
-      ClassicalMechanicsPreferences.springVisualizationTypeProperty.value === SpringVisualizationType.PARAMETRIC
+      OscillationsAndChaosPreferences.springVisualizationTypeProperty.value === SpringVisualizationType.PARAMETRIC
         ? this.parametricSpringNode
         : this.classicSpringNode;
 
@@ -162,8 +162,8 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     // Mass block (size will be updated based on mass value)
     // pdom - Will be added to playAreaNode later for proper PDOM structure
     this.massNode = new Rectangle(-25, -25, 50, 50, {
-      fill: ClassicalMechanicsColors.mass1FillColorProperty,
-      stroke: ClassicalMechanicsColors.mass1StrokeColorProperty,
+      fill: OscillationsAndChaosColors.mass1FillColorProperty,
+      stroke: OscillationsAndChaosColors.mass1StrokeColorProperty,
       lineWidth: 2,
       cornerRadius: 3,
       cursor: "pointer",
@@ -178,7 +178,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Center of mass reference line (horizontal line across mass)
     this.massReferenceLine = new Line(0, 0, 0, 0, {
-      stroke: ClassicalMechanicsColors.textColorProperty,
+      stroke: OscillationsAndChaosColors.textColorProperty,
       lineWidth: 2,
       lineDash: [5, 3],
     });
@@ -226,7 +226,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Listen to spring visualization preference changes
     // Using lazyLink to avoid triggering during initialization
-    ClassicalMechanicsPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
+    OscillationsAndChaosPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
       this.switchSpringVisualization(springType);
     });
 
@@ -503,7 +503,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Link text color property to formula nodes
     // FormulaNode extends DOM, so we need to set the color via CSS
-    ClassicalMechanicsColors.textColorProperty.link((color) => {
+    OscillationsAndChaosColors.textColorProperty.link((color) => {
       equation.element.style.color = color.toCSS();
       variablesList.element.style.color = color.toCSS();
     });
@@ -514,24 +514,24 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       children: [
         new Text("Single Spring System", {
           font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         new RichText(
           "This simulation models a mass attached to a spring, demonstrating simple harmonic motion with optional damping.",
           {
             font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-            fill: ClassicalMechanicsColors.textColorProperty,
+            fill: OscillationsAndChaosColors.textColorProperty,
             maxWidth: 700,
           },
         ),
         new Text("Equation of Motion:", {
           font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         equation,
         new Text("Where:", {
           font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
-          fill: ClassicalMechanicsColors.textColorProperty,
+          fill: OscillationsAndChaosColors.textColorProperty,
         }),
         variablesList,
       ],
@@ -705,4 +705,4 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("SingleSpringScreenView", SingleSpringScreenView);
+oscillationsAndChaos.register("SingleSpringScreenView", SingleSpringScreenView);

@@ -1,21 +1,21 @@
 /**
- * ClassicalMechanicsPreferences.ts
+ * OscillationsAndChaosPreferences.ts
  *
- * Global preferences for the Classical Mechanics Simulations.
+ * Global preferences for Oscillations And Chaos.
  * Contains simulation-wide settings that users can configure.
  */
 
 import { BooleanProperty, EnumerationProperty } from "scenerystack/axon";
 import { Tandem } from "scenerystack/tandem";
-import classicalMechanics from "./ClassicalMechanicsNamespace.js";
 import NominalTimeStep from "./common/model/NominalTimeStep.js";
 import SolverType from "./common/model/SolverType.js";
 import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
+import oscillationsAndChaos from "./OscillationsAndChaosNamespace.js";
 
 /**
- * Preferences for the Classical Mechanics Simulations
+ * Preferences for Oscillations And Chaos.
  */
-const ClassicalMechanicsPreferences = {
+const OscillationsAndChaosPreferences = {
   /**
    * Whether to automatically pause the simulation when the browser tab is hidden.
    * When enabled, the simulation will pause when switching tabs or minimizing the browser,
@@ -118,6 +118,6 @@ const ClassicalMechanicsPreferences = {
 };
 
 // Register the namespace
-classicalMechanics.register("ClassicalMechanicsPreferences", ClassicalMechanicsPreferences);
+oscillationsAndChaos.register("OscillationsAndChaosPreferences", OscillationsAndChaosPreferences);
 
-export default ClassicalMechanicsPreferences;
+export default OscillationsAndChaosPreferences;

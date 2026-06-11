@@ -4,7 +4,7 @@
  */
 
 import type { NumberProperty } from "scenerystack/axon";
-import classicalMechanics from "../../ClassicalMechanicsNamespace.js";
+import oscillationsAndChaos from "../../OscillationsAndChaosNamespace.js";
 
 /**
  * Maps between property values and state vectors, providing:
@@ -64,4 +64,4 @@ export class StatePropertyMapper {
 }
 
 // Register with namespace for debugging accessibility
-classicalMechanics.register("StatePropertyMapper", StatePropertyMapper);
+oscillationsAndChaos.register("StatePropertyMapper", StatePropertyMapper);
