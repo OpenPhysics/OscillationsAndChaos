@@ -37,7 +37,6 @@ import { Tandem } from "scenerystack/tandem";
 import NominalTimeStep from "./common/model/NominalTimeStep.js";
 import SolverType from "./common/model/SolverType.js";
 import SimulationAnnouncer from "./common/util/SimulationAnnouncer.js";
-import { KeyboardShortcutsNode } from "./common/view/KeyboardShortcutsNode.js";
 import OscillationsAndChaosAudioPreferencesNode from "./common/view/OscillationsAndChaosAudioPreferencesNode.js";
 import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
 import { DoublePendulumScreen } from "./double-pendulum/DoublePendulumScreen.js";
@@ -421,44 +420,30 @@ onReadyToLaunch(() => {
     }
   });
 
-  const keyboardHelpNode = new KeyboardShortcutsNode();
-
   const screens = [
     new SingleSpringScreen({
       name: screenNames.singleSpringStringProperty,
       tandem: Tandem.ROOT.createTandem("singleSpringScreen"),
       backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
       homeScreenIcon: new SingleSpringScreenIcon(),
-      createKeyboardHelpNode: () => {
-        return keyboardHelpNode;
-      },
     }),
     new DoubleSpringScreen({
       name: screenNames.doubleSpringStringProperty,
       tandem: Tandem.ROOT.createTandem("doubleSpringScreen"),
       backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
       homeScreenIcon: new DoubleSpringScreenIcon(),
-      createKeyboardHelpNode: () => {
-        return keyboardHelpNode;
-      },
     }),
     new PendulumScreen({
       name: screenNames.pendulumStringProperty,
       tandem: Tandem.ROOT.createTandem("pendulumScreen"),
       backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
       homeScreenIcon: new PendulumScreenIcon(),
-      createKeyboardHelpNode: () => {
-        return keyboardHelpNode;
-      },
     }),
     new DoublePendulumScreen({
       name: screenNames.doublePendulumStringProperty,
       tandem: Tandem.ROOT.createTandem("doublePendulumScreen"),
       backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
       homeScreenIcon: new DoublePendulumScreenIcon(),
-      createKeyboardHelpNode: () => {
-        return keyboardHelpNode;
-      },
     }),
   ];
 

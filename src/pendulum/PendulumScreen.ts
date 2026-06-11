@@ -3,6 +3,7 @@
  */
 
 import { Screen, type ScreenOptions } from "scenerystack/sim";
+import { OscillationsAndChaosKeyboardHelpContent } from "../common/view/OscillationsAndChaosKeyboardHelpContent.js";
 import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
 import { PendulumModel } from "./model/PendulumModel.js";
 import { PendulumScreenView } from "./view/PendulumScreenView.js";
@@ -12,7 +13,10 @@ export class PendulumScreen extends Screen<PendulumModel, PendulumScreenView> {
     super(
       () => new PendulumModel(),
       (model) => new PendulumScreenView(model),
-      options,
+      {
+        ...options,
+        createKeyboardHelpNode: () => new OscillationsAndChaosKeyboardHelpContent(),
+      },
     );
   }
 }

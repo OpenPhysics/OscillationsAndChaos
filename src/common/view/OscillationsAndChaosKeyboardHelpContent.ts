@@ -12,7 +12,7 @@ import {
 import { StringManager } from "../../i18n/StringManager.js";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 
-export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
+export class OscillationsAndChaosKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   public constructor() {
     const stringManager = StringManager.getInstance();
     const keyboardShortcutsStrings = stringManager.getKeyboardShortcutsStrings();
@@ -62,4 +62,7 @@ export class KeyboardShortcutsNode extends TwoColumnKeyboardHelpContent {
 }
 
 // Register with namespace for debugging accessibility
-OscillationsAndChaosNamespace.register("KeyboardShortcutsNode", KeyboardShortcutsNode);
+OscillationsAndChaosNamespace.register(
+  "OscillationsAndChaosKeyboardHelpContent",
+  OscillationsAndChaosKeyboardHelpContent,
+);

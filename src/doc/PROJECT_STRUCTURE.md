@@ -97,7 +97,7 @@ view/
 ├── VectorScaleConstants.ts       # Vector scaling constants
 ├── PendulumLabProtractorNode.ts  # Angle measurement tool
 ├── SceneGridNode.ts              # Background grid
-├── KeyboardShortcutsNode.ts      # Keyboard help display
+├── OscillationsAndChaosKeyboardHelpContent.ts # Keyboard help display
 ├── OscillationsAndChaosAudioPreferencesNode.ts # Audio settings UI
 ├── ControlLayoutConstants.ts     # Layout constants for controls
 ├── DialogAndPanelConstants.ts    # Dialog styling constants
