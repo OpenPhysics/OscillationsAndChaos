@@ -1,6 +1,6 @@
-# Classical Mechanics Simulations - Implementation Notes
+# Implementation Notes - Oscillations and Chaos Simulation
 
-This document provides technical details for developers and maintainers of the Classical Mechanics Simulations codebase. It covers architecture decisions, code organization, design patterns, and implementation considerations.
+This document provides technical details for developers and maintainers of the Oscillations and Chaos simulation codebase. It covers architecture decisions, code organization, design patterns, and implementation considerations.
 
 ## Table of Contents
 
