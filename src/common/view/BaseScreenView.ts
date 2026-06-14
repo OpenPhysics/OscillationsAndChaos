@@ -39,7 +39,7 @@ import {
   type TimeSpeed,
 } from "scenerystack/scenery-phet";
 import type { DialogOptions } from "scenerystack/sim";
-import { Dialog, ScreenSummaryContent, ScreenView, type ScreenViewOptions } from "scenerystack/sim";
+import { Dialog, type ScreenSummaryContent, ScreenView, type ScreenViewOptions } from "scenerystack/sim";
 import { ComboBox, Panel } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.ts";
@@ -354,18 +354,18 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
    * This content appears in the Screen Summary section for screen readers.
    * @returns A Node containing the summary description (typically a VBox with Text nodes)
    */
-  protected abstract createScreenSummaryContent(): Node;
+  protected abstract createScreenSummaryContent(): ScreenSummaryContent;
 
   /**
    * Sets up the screen summary content for accessibility.
    * Call this early in the subclass constructor after the screen-specific setup.
+   *
+   * Each screen returns a structured ScreenSummaryContent (play-area / control-area
+   * / current-details / interaction-hint regions) following the shared OpenPhysics
+   * accessibility convention; see TemplateSingleSim/SimScreenSummaryContent.ts.
    */
   protected setupScreenSummary(): void {
-    const contentNode = this.createScreenSummaryContent();
-    // Wrap the Node in a ScreenSummaryContent instance
-    const screenSummaryContent = new ScreenSummaryContent({});
-    screenSummaryContent.addChild(contentNode);
-    this.setScreenSummaryContent(screenSummaryContent);
+    this.setScreenSummaryContent(this.createScreenSummaryContent());
   }
 
   /**

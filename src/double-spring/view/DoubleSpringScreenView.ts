@@ -7,9 +7,9 @@ import { StringUtils } from "scenerystack";
 import { Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { DragListener, Line, Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
+import { DragListener, Line, type Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
-import type { ScreenViewOptions } from "scenerystack/sim";
+import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -602,30 +602,13 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   /**
    * pdom - Create the screen summary content for accessibility
    */
-  protected createScreenSummaryContent(): Node {
-    const stringManager = StringManager.getInstance();
-    const summaryStrings = stringManager.getDoubleSpringScreenSummaryStrings();
-
-    // pdom - Create screen summary structure
-    return new Node({
-      children: [
-        new Node({
-          tagName: "p",
-          innerContent: summaryStrings.overviewStringProperty,
-        }),
-        new Node({
-          tagName: "p",
-          innerContent: summaryStrings.playAreaDescriptionStringProperty,
-        }),
-        new Node({
-          tagName: "p",
-          innerContent: summaryStrings.controlAreaDescriptionStringProperty,
-        }),
-        new Node({
-          tagName: "p",
-          innerContent: summaryStrings.interactionHintStringProperty,
-        }),
-      ],
+  protected createScreenSummaryContent(): ScreenSummaryContent {
+    const summaryStrings = StringManager.getInstance().getDoubleSpringScreenSummaryStrings();
+    return new ScreenSummaryContent({
+      playAreaContent: summaryStrings.playAreaDescriptionStringProperty,
+      controlAreaContent: summaryStrings.controlAreaDescriptionStringProperty,
+      currentDetailsContent: summaryStrings.overviewStringProperty,
+      interactionHintContent: summaryStrings.interactionHintStringProperty,
     });
   }
 

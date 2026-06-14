@@ -31,6 +31,16 @@ Configurable in preferences — RK4, adaptive RK45, Forest-Ruth PEFRL (symplecti
 
 Top-level shared files should use the repo-named `OscillationsAndChaos` prefix.
 
+## Accessibility
+
+Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/OpenPhysics/blob/main/ACCESSIBILITY.md).
+Each screen's `createScreenSummaryContent()` returns a structured `ScreenSummaryContent`
+(play-area / control-area / current-details / interaction-hint regions); `BaseScreenView.setupScreenSummary()`
+registers it via `setScreenSummaryContent`. PDOM order uses the idiomatic `pdomPlayAreaNode`
+(interactive masses/bobs are added to it). A11y strings live under `accessibility` / `screenSummary`
+in each locale JSON, via `StringManager.getAccessibilityStrings()` and the per-screen
+`get*ScreenSummaryStrings()` accessors.
+
 ## Sim-specific commands
 
 ```bash
