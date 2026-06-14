@@ -137,7 +137,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
       // pdom - Add PDOM properties for Interactive Description
       tagName: "div",
       ariaRole: "application",
-      accessibleName: "Pendulum Bob",
+      accessibleName: StringManager.getInstance().getControlAccessibleNames().pendulumBobStringProperty,
       focusable: true,
       focusHighlight: "invisible",
     });

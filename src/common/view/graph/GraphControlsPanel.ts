@@ -8,6 +8,7 @@ import { DerivedProperty, type Property, type TReadOnlyProperty } from "scenerys
 import { HBox, type Node, Rectangle, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { ComboBox } from "scenerystack/sun";
+import { StringManager } from "../../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../../OscillationsAndChaosColors.js";
 import OscillationsAndChaosNamespace from "../../../OscillationsAndChaosNamespace.js";
 import type { PlottableProperty } from "./PlottableProperty.js";
@@ -60,6 +61,7 @@ export default class GraphControlsPanel {
       tandemName: this.sanitizeTandemName(prop.name) + "Item",
     }));
 
+    const controlNames = StringManager.getInstance().getControlAccessibleNames();
     const xComboBox = new ComboBox(this.xPropertyProperty, xItems, listParent, {
       cornerRadius: 5,
       xMargin: 6,
@@ -69,6 +71,7 @@ export default class GraphControlsPanel {
       listFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       listStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       highlightFill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      accessibleName: controlNames.xAxisStringProperty,
     });
 
     const yItems = this.availableProperties.map((prop) => ({
@@ -90,6 +93,7 @@ export default class GraphControlsPanel {
       listFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       listStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       highlightFill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      accessibleName: controlNames.yAxisStringProperty,
     });
 
     // Create title in format "(Y vs X)"

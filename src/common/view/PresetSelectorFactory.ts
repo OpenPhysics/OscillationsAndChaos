@@ -6,6 +6,7 @@ import type { Property, TReadOnlyProperty } from "scenerystack/axon";
 import { type Node, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { ComboBox } from "scenerystack/sun";
+import { StringManager } from "../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
 import type { Preset } from "../model/Preset.js";
 import { FONT_SIZE_PRESET_LABEL } from "./FontSizeConstants.js";
@@ -64,5 +65,6 @@ export function createPresetSelector(
     listFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
     listStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
     highlightFill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+    accessibleName: StringManager.getInstance().getControlAccessibleNames().presetStringProperty,
   });
 }

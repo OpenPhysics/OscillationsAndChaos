@@ -170,7 +170,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       // pdom - Add PDOM properties for Interactive Description
       tagName: "div",
       ariaRole: "application",
-      accessibleName: "Mass Block",
+      accessibleName: StringManager.getInstance().getControlAccessibleNames().massStringProperty,
       focusable: true,
       focusHighlight: "invisible",
     });

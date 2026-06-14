@@ -178,7 +178,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
       // pdom - Add PDOM properties for Interactive Description
       tagName: "div",
       ariaRole: "application",
-      accessibleName: "Mass 1",
+      accessibleName: StringManager.getInstance().getControlAccessibleNames().mass1StringProperty,
       focusable: true,
       focusHighlight: "invisible",
     });
@@ -203,7 +203,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
       // pdom - Add PDOM properties for Interactive Description
       tagName: "div",
       ariaRole: "application",
-      accessibleName: "Mass 2",
+      accessibleName: StringManager.getInstance().getControlAccessibleNames().mass2StringProperty,
       focusable: true,
       focusHighlight: "invisible",
     });

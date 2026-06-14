@@ -43,6 +43,15 @@ export class StringManager {
     return stringProperties.titleStringProperty;
   }
 
+  /**
+   * Accessible names for interactive controls (draggable bodies, graph
+   * pan/zoom buttons, axis/preset selectors). See the shared OpenPhysics
+   * ACCESSIBILITY.md convention.
+   */
+  public getControlAccessibleNames() {
+    return stringProperties.accessibility.controlNames;
+  }
+
   public getScreenNames(): {
     singleSpringStringProperty: ReadOnlyProperty<string>;
     doubleSpringStringProperty: ReadOnlyProperty<string>;

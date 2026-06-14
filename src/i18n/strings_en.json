@@ -249,6 +249,25 @@
     "preferences": {
       "solverChanged": "Solver changed to {{solver}}",
       "springVisualizationChanged": "Spring visualization changed to {{type}}"
+    },
+    "controlNames": {
+      "pendulumBob": "Pendulum bob",
+      "upperBob": "Upper pendulum bob",
+      "lowerBob": "Lower pendulum bob",
+      "mass": "Mass block",
+      "mass1": "Mass 1",
+      "mass2": "Mass 2",
+      "rescale": "Rescale graph to fit",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "panLeft": "Pan left",
+      "panRight": "Pan right",
+      "panUp": "Pan up",
+      "panDown": "Pan down",
+      "xAxis": "X-axis quantity",
+      "yAxis": "Y-axis quantity",
+      "preset": "Preset configuration",
+      "timeStep": "Time step"
     }
   },
   "keyboardShortcuts": {

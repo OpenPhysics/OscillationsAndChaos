@@ -644,6 +644,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       listFill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       listStroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
       highlightFill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+      accessibleName: StringManager.getInstance().getControlAccessibleNames().presetStringProperty,
     });
 
     const presetLabel = new Text(presetLabels.labelStringProperty, {

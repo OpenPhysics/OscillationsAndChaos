@@ -249,6 +249,25 @@
     "preferences": {
       "solverChanged": "Solveur changé à {{solver}}",
       "springVisualizationChanged": "Visualisation du ressort changée à {{type}}"
+    },
+    "controlNames": {
+      "pendulumBob": "Masse du pendule",
+      "upperBob": "Masse supérieure du pendule",
+      "lowerBob": "Masse inférieure du pendule",
+      "mass": "Bloc de masse",
+      "mass1": "Masse 1",
+      "mass2": "Masse 2",
+      "rescale": "Réajuster le graphique",
+      "zoomIn": "Zoom avant",
+      "zoomOut": "Zoom arrière",
+      "panLeft": "Défiler à gauche",
+      "panRight": "Défiler à droite",
+      "panUp": "Défiler vers le haut",
+      "panDown": "Défiler vers le bas",
+      "xAxis": "Grandeur de l'axe X",
+      "yAxis": "Grandeur de l'axe Y",
+      "preset": "Configuration prédéfinie",
+      "timeStep": "Pas de temps"
     }
   },
   "keyboardShortcuts": {

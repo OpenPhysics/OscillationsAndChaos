@@ -259,7 +259,8 @@ export default class ConfigurableGraph extends Node {
     const buttonSpacing = 2;
 
     // Helper function to create a button
-    const createButton = (label: string, onClick: () => void): Node => {
+    const buttonNames = StringManager.getInstance().getControlAccessibleNames();
+    const createButton = (label: string, onClick: () => void, accessibleName: TReadOnlyProperty<string>): Node => {
       const buttonText = new Text(label, {
         font: new PhetFont({ size: 14, weight: "bold" }),
         fill: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
@@ -273,6 +274,8 @@ export default class ConfigurableGraph extends Node {
 
       const button = new Node({
         children: [buttonBackground, buttonText],
+        tagName: "button",
+        accessibleName,
       });
 
       // Center the text in the button
@@ -299,37 +302,65 @@ export default class ConfigurableGraph extends Node {
     };
 
     // Create rescale button
-    this.rescaleButton = createButton("↻", () => {
-      // Reset manual zoom flag and rescale to fit data
-      this.dataManager.setManuallyZoomed(false);
-      this.dataManager.updateAxisRanges();
-    });
+    this.rescaleButton = createButton(
+      "↻",
+      () => {
+        // Reset manual zoom flag and rescale to fit data
+        this.dataManager.setManuallyZoomed(false);
+        this.dataManager.updateAxisRanges();
+      },
+      buttonNames.rescaleStringProperty,
+    );
 
     // Create zoom buttons (will be wired up after interactionHandler is created)
-    const zoomInButton = createButton("+", () => {
-      this.interactionHandler.zoomIn();
-    });
+    const zoomInButton = createButton(
+      "+",
+      () => {
+        this.interactionHandler.zoomIn();
+      },
+      buttonNames.zoomInStringProperty,
+    );
 
-    const zoomOutButton = createButton("−", () => {
-      this.interactionHandler.zoomOut();
-    });
+    const zoomOutButton = createButton(
+      "−",
+      () => {
+        this.interactionHandler.zoomOut();
+      },
+      buttonNames.zoomOutStringProperty,
+    );
 
     // Create pan buttons (will be wired up after interactionHandler is created)
-    const panLeftButton = createButton("←", () => {
-      this.interactionHandler.pan("left");
-    });
+    const panLeftButton = createButton(
+      "←",
+      () => {
+        this.interactionHandler.pan("left");
+      },
+      buttonNames.panLeftStringProperty,
+    );
 
-    const panRightButton = createButton("→", () => {
-      this.interactionHandler.pan("right");
-    });
+    const panRightButton = createButton(
+      "→",
+      () => {
+        this.interactionHandler.pan("right");
+      },
+      buttonNames.panRightStringProperty,
+    );
 
-    const panUpButton = createButton("↑", () => {
-      this.interactionHandler.pan("up");
-    });
+    const panUpButton = createButton(
+      "↑",
+      () => {
+        this.interactionHandler.pan("up");
+      },
+      buttonNames.panUpStringProperty,
+    );
 
-    const panDownButton = createButton("↓", () => {
-      this.interactionHandler.pan("down");
-    });
+    const panDownButton = createButton(
+      "↓",
+      () => {
+        this.interactionHandler.pan("down");
+      },
+      buttonNames.panDownStringProperty,
+    );
 
     // Create HBox to hold all buttons
     this.controlButtonsPanel = new HBox({

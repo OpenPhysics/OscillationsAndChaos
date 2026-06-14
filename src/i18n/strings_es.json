@@ -249,6 +249,25 @@
     "preferences": {
       "solverChanged": "Solucionador cambiado a {{solver}}",
       "springVisualizationChanged": "Visualización del resorte cambiada a {{type}}"
+    },
+    "controlNames": {
+      "pendulumBob": "Masa del péndulo",
+      "upperBob": "Masa superior del péndulo",
+      "lowerBob": "Masa inferior del péndulo",
+      "mass": "Bloque de masa",
+      "mass1": "Masa 1",
+      "mass2": "Masa 2",
+      "rescale": "Reajustar el gráfico",
+      "zoomIn": "Acercar",
+      "zoomOut": "Alejar",
+      "panLeft": "Desplazar a la izquierda",
+      "panRight": "Desplazar a la derecha",
+      "panUp": "Desplazar hacia arriba",
+      "panDown": "Desplazar hacia abajo",
+      "xAxis": "Magnitud del eje X",
+      "yAxis": "Magnitud del eje Y",
+      "preset": "Configuración predefinida",
+      "timeStep": "Paso de tiempo"
     }
   },
   "keyboardShortcuts": {

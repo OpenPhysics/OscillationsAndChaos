@@ -181,7 +181,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
       // pdom - Add PDOM properties for Interactive Description
       tagName: "div",
       ariaRole: "application",
-      accessibleName: "Upper Pendulum Bob",
+      accessibleName: StringManager.getInstance().getControlAccessibleNames().upperBobStringProperty,
       focusable: true,
       focusHighlight: "invisible",
     });
@@ -204,7 +204,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
       // pdom - Add PDOM properties for Interactive Description
       tagName: "div",
       ariaRole: "application",
-      accessibleName: "Lower Pendulum Bob",
+      accessibleName: StringManager.getInstance().getControlAccessibleNames().lowerBobStringProperty,
       focusable: true,
       focusHighlight: "invisible",
     });
