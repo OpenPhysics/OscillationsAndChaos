@@ -13,6 +13,7 @@ import { PhetFont } from "scenerystack/scenery-phet";
 import { Checkbox } from "scenerystack/sun";
 import type { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
+import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 
@@ -49,7 +50,7 @@ export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
     // Description for parameter announcements
     const parameterDescription = new Text(audioStrings.parameterAnnouncementsDescriptionStringProperty, {
       font: new PhetFont(12),
-      fill: "rgb(80,80,80)",
+      fill: OscillationsAndChaosColors.descriptionTextColorProperty,
       maxWidth: 350,
     });
 
@@ -69,7 +70,7 @@ export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
     // Description for state announcements
     const stateDescription = new Text(audioStrings.stateAnnouncementsDescriptionStringProperty, {
       font: new PhetFont(12),
-      fill: "rgb(80,80,80)",
+      fill: OscillationsAndChaosColors.descriptionTextColorProperty,
       maxWidth: 350,
     });
 
@@ -89,7 +90,7 @@ export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
     // Description for drag announcements
     const dragDescription = new Text(audioStrings.dragAnnouncementsDescriptionStringProperty, {
       font: new PhetFont(12),
-      fill: "rgb(80,80,80)",
+      fill: OscillationsAndChaosColors.descriptionTextColorProperty,
       maxWidth: 350,
     });
 

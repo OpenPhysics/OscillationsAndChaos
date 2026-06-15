@@ -176,7 +176,7 @@ onReadyToLaunch(() => {
                   }),
                   new Text(preferencesLabels.nominalTimeStepDescriptionStringProperty, {
                     font: new PhetFont(11),
-                    fill: "rgb(80,80,80)",
+                    fill: OscillationsAndChaosColors.descriptionTextColorProperty,
                     maxWidth: 280,
                   }),
                   timeStepComboBox,
@@ -206,7 +206,7 @@ onReadyToLaunch(() => {
                               }),
                               new Text(solverDescriptions.rk4StringProperty, {
                                 font: new PhetFont(11),
-                                fill: "rgb(80,80,80)",
+                                fill: OscillationsAndChaosColors.descriptionTextColorProperty,
                                 maxWidth: 280,
                               }),
                             ],
@@ -225,7 +225,7 @@ onReadyToLaunch(() => {
                               }),
                               new Text(solverDescriptions.adaptiveRK45StringProperty, {
                                 font: new PhetFont(11),
-                                fill: "rgb(80,80,80)",
+                                fill: OscillationsAndChaosColors.descriptionTextColorProperty,
                                 maxWidth: 280,
                               }),
                             ],
@@ -244,7 +244,7 @@ onReadyToLaunch(() => {
                               }),
                               new Text(solverDescriptions.forestRuthPEFRLStringProperty, {
                                 font: new PhetFont(11),
-                                fill: "rgb(80,80,80)",
+                                fill: OscillationsAndChaosColors.descriptionTextColorProperty,
                                 maxWidth: 280,
                               }),
                             ],
@@ -263,7 +263,7 @@ onReadyToLaunch(() => {
                               }),
                               new Text(solverDescriptions.dormandPrince87StringProperty, {
                                 font: new PhetFont(11),
-                                fill: "rgb(80,80,80)",
+                                fill: OscillationsAndChaosColors.descriptionTextColorProperty,
                                 maxWidth: 280,
                               }),
                             ],
@@ -315,7 +315,7 @@ onReadyToLaunch(() => {
                           }),
                           new Text(springTypeDescriptions.classicStringProperty, {
                             font: new PhetFont(11),
-                            fill: "rgb(80,80,80)",
+                            fill: OscillationsAndChaosColors.descriptionTextColorProperty,
                             maxWidth: 550,
                           }),
                         ],
@@ -334,7 +334,7 @@ onReadyToLaunch(() => {
                           }),
                           new Text(springTypeDescriptions.parametricStringProperty, {
                             font: new PhetFont(11),
-                            fill: "rgb(80,80,80)",
+                            fill: OscillationsAndChaosColors.descriptionTextColorProperty,
                             maxWidth: 550,
                           }),
                         ],

@@ -20,6 +20,8 @@ const OscillationsAndChaosColors = {
   backgroundColorProperty: profileColor("backgroundColor", BLACK, WHITE),
   textColorProperty: profileColor("textColor", WHITE, BLACK),
   disabledTextColorProperty: profileColor("disabledTextColor", new Color(80, 80, 80), new Color(120, 120, 120)),
+  // Muted gray for secondary/description text (e.g. preference-control descriptions).
+  descriptionTextColorProperty: profileColor("descriptionTextColor", new Color(80, 80, 80), new Color(80, 80, 80)),
 
   // Graph
   graphBackgroundColorProperty: profileColor("graphBackgroundColor", new Color(25, 25, 25), WHITE),
