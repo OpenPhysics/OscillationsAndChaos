@@ -5,7 +5,7 @@
 
 import { StringUtils } from "scenerystack";
 import { Property } from "scenerystack/axon";
-import { Range, Vector2 } from "scenerystack/dot";
+import { Range, toFixed, Vector2 } from "scenerystack/dot";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { DragListener, Line, type Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
@@ -252,7 +252,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           this.model.velocity1Property.value = 0;
         },
         end: () => {
-          const position = this.model.position1Property.value.toFixed(2);
+          const position = toFixed(this.model.position1Property.value, 2);
           const template = this.a11yStrings.mass1ReleasedAtStringProperty.value;
           const announcement = template.replace("{{position}}", position);
           SimulationAnnouncer.announceDragInteraction(announcement);
@@ -280,7 +280,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           this.model.velocity2Property.value = 0;
         },
         end: () => {
-          const position = this.model.position2Property.value.toFixed(2);
+          const position = toFixed(this.model.position2Property.value, 2);
           const template = this.a11yStrings.mass2ReleasedAtStringProperty.value;
           const announcement = template.replace("{{position}}", position);
           SimulationAnnouncer.announceDragInteraction(announcement);

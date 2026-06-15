@@ -3,6 +3,7 @@
  */
 
 import type { Property, TReadOnlyProperty } from "scenerystack/axon";
+import { toFixed } from "scenerystack/dot";
 import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
 import SimulationAnnouncer from "./SimulationAnnouncer.js";
 
@@ -16,7 +17,7 @@ import SimulationAnnouncer from "./SimulationAnnouncer.js";
 export function createParameterChangeListener(
   property: Property<number>,
   announcementTemplate: TReadOnlyProperty<string>,
-  formatValue: (value: number) => string = (v) => v.toFixed(1),
+  formatValue: (value: number) => string = (v) => toFixed(v, 1),
 ): void {
   property.lazyLink((value) => {
     if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {

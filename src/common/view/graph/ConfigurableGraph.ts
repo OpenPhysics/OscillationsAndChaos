@@ -5,7 +5,7 @@
 
 import { BooleanProperty, Property, type TReadOnlyProperty } from "scenerystack/axon";
 import { ChartRectangle, ChartTransform, GridLineSet, LinePlot, TickLabelSet, TickMarkSet } from "scenerystack/bamboo";
-import { Range } from "scenerystack/dot";
+import { Range, toFixed } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
 import { Orientation } from "scenerystack/phet-core";
 import { FireListener, HBox, Node, Rectangle, Text } from "scenerystack/scenery";
@@ -158,7 +158,7 @@ export default class ConfigurableGraph extends Node {
     this.xTickLabelSet = new TickLabelSet(this.chartTransform, Orientation.HORIZONTAL, initialSpacing, {
       edge: "min",
       createLabel: (value: number) =>
-        new Text(value.toFixed(2), {
+        new Text(toFixed(value, 2), {
           font: new PhetFont({ size: 10 }),
           fill: OscillationsAndChaosColors.graphLabelColorProperty,
         }),
@@ -168,7 +168,7 @@ export default class ConfigurableGraph extends Node {
     this.yTickLabelSet = new TickLabelSet(this.chartTransform, Orientation.VERTICAL, initialSpacing, {
       edge: "min",
       createLabel: (value: number) =>
-        new Text(value.toFixed(2), {
+        new Text(toFixed(value, 2), {
           font: new PhetFont({ size: 10 }),
           fill: OscillationsAndChaosColors.graphLabelColorProperty,
         }),
