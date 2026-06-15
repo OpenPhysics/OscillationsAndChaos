@@ -13,10 +13,10 @@
 
 import { logGlobal } from "scenerystack/phet-core";
 import { QueryStringMachine } from "scenerystack/query-string-machine";
-import NominalTimeStep from "./common/model/NominalTimeStep.js";
-import SolverType from "./common/model/SolverType.js";
-import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
-import OscillationsAndChaosNamespace from "./OscillationsAndChaosNamespace.js";
+import NominalTimeStep from "../common/model/NominalTimeStep.js";
+import SolverType from "../common/model/SolverType.js";
+import SpringVisualizationType from "../common/view/SpringVisualizationType.js";
+import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
 
 const oscillationsAndChaosQueryParameters = QueryStringMachine.getAll({
   /** Automatically pause the simulation when the browser tab is hidden. */

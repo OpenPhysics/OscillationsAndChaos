@@ -12,10 +12,10 @@ import { Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { Checkbox } from "scenerystack/sun";
 import type { Tandem } from "scenerystack/tandem";
-import { StringManager } from "../../i18n/StringManager.js";
-import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
-import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
-import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
+import { StringManager } from "../i18n/StringManager.js";
+import OscillationsAndChaosColors from "../OscillationsAndChaosColors.js";
+import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
+import OscillationsAndChaosPreferences from "./OscillationsAndChaosPreferencesModel.js";
 
 export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
   public constructor(tandem: Tandem) {

@@ -10,7 +10,7 @@
 import { voicingUtteranceQueue } from "scenerystack/scenery";
 import { Utterance } from "scenerystack/utterance-queue";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
-import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
+import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndChaosPreferencesModel.js";
 import { GRAPH_CHANGE_ANNOUNCEMENT_DELAY, PARAMETER_CHANGE_ANNOUNCEMENT_DELAY } from "./AccessibilityDelayConstants.js";
 
 /**

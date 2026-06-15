@@ -13,7 +13,7 @@ import { GridIcon } from "scenerystack/scenery-phet";
 import { Checkbox, Panel, type PanelOptions } from "scenerystack/sun";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
-import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
+import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndChaosPreferencesModel.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 
 /**

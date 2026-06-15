@@ -37,7 +37,7 @@ import { VectorNodeFactory } from "../../common/view/VectorNodeFactory.js";
 import { StringManager } from "../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
-import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
+import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndChaosPreferencesModel.js";
 import type { SingleSpringModel } from "../model/SingleSpringModel.js";
 import { SingleSpringPresets } from "../model/SingleSpringPresets.js";
 

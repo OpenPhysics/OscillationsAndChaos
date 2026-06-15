@@ -16,7 +16,7 @@ import { assert } from "scenerystack";
 import { BooleanProperty, EnumerationProperty, NumberProperty } from "scenerystack/axon";
 import { TimeSpeed } from "scenerystack/scenery-phet";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
-import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
+import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndChaosPreferencesModel.js";
 import { AdaptiveRK45Solver } from "./AdaptiveRK45Solver.js";
 import { DormandPrince87Solver } from "./DormandPrince87Solver.js";
 import { ForestRuthPEFRLSolver } from "./ForestRuthPEFRLSolver.js";

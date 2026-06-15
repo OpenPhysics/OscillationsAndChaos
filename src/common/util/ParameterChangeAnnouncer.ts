@@ -4,7 +4,7 @@
 
 import type { Property, TReadOnlyProperty } from "scenerystack/axon";
 import { toFixed } from "scenerystack/dot";
-import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
+import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndChaosPreferencesModel.js";
 import SimulationAnnouncer from "./SimulationAnnouncer.js";
 
 /**

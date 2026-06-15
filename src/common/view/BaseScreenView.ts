@@ -44,7 +44,7 @@ import { ComboBox, Panel } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
 import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.ts";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
-import OscillationsAndChaosPreferences from "../../OscillationsAndChaosPreferences.js";
+import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndChaosPreferencesModel.js";
 import type { Preset } from "../model/Preset.js";
 import SimulationAnnouncer from "../util/SimulationAnnouncer.js";
 import { GRAPH_LEFT_MARGIN, GRAPH_TO_VECTOR_PANEL_SPACING } from "./DialogAndPanelConstants.js";
