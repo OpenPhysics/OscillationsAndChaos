@@ -42,11 +42,4 @@ registers it via `setScreenSummaryContent`. PDOM order uses the idiomatic `pdomP
 in each locale JSON, via `StringManager.getAccessibilityStrings()` and the per-screen
 `get*ScreenSummaryStrings()` accessors.
 
-## Sim-specific commands
-
-```bash
-npm run serve    # Serve production build locally
-npm run watch    # Watch TypeScript files
-```
-
 When adding a screen, follow the existing `*Screen.ts` + `model/` + `view/` pattern and register in `main.ts`.
