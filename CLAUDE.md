@@ -34,7 +34,7 @@ Top-level shared files should use the repo-named `OscillationsAndChaos` prefix.
 
 ## Accessibility
 
-Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/OpenPhysics/blob/main/ACCESSIBILITY.md).
+Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
 Each screen's `createScreenSummaryContent()` returns a structured `ScreenSummaryContent`
 (play-area / control-area / current-details / interaction-hint regions); `BaseScreenView.setupScreenSummary()`
 registers it via `setScreenSummaryContent`. PDOM order uses the idiomatic `pdomPlayAreaNode`
