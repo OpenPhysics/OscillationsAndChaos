@@ -647,23 +647,21 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
       variablesList.element.style.color = color.toCSS();
     });
 
+    const infoPanelStrings = StringManager.getInstance().getInfoPanelStrings();
     return new VBox({
       spacing: SPACING_LARGE,
       align: "left",
       children: [
-        new Text("Double Spring System", {
+        new Text(infoPanelStrings.doubleSpringTitleStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
-        new RichText(
-          "This simulation models two masses connected by springs in series, demonstrating coupled oscillations and normal modes. Damping can be added to observe energy dissipation.",
-          {
-            font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-            fill: OscillationsAndChaosColors.textColorProperty,
-            maxWidth: 700,
-          },
-        ),
-        new Text("Equations of Motion:", {
+        new RichText(infoPanelStrings.doubleSpringDescriptionStringProperty, {
+          font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
+          fill: OscillationsAndChaosColors.textColorProperty,
+          maxWidth: 700,
+        }),
+        new Text(infoPanelStrings.equationsOfMotionLabelStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
@@ -672,7 +670,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           align: "left",
           children: [equation1, equation2],
         }),
-        new Text("Where:", {
+        new Text(infoPanelStrings.whereLabelStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),

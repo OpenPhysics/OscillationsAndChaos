@@ -6,6 +6,19 @@
     "pendulum": "Pendule",
     "doublePendulum": "Pendule Double"
   },
+  "infoPanel": {
+    "whereLabel": "Où :",
+    "equationOfMotionLabel": "Équation du mouvement :",
+    "equationsOfMotionLabel": "Équations du mouvement :",
+    "pendulumTitle": "Pendule simple",
+    "pendulumDescription": "Cette simulation modélise un pendule simple, illustrant le mouvement périodique et la conservation de l'énergie. Aux petits angles, le mouvement se rapproche du mouvement harmonique simple.",
+    "singleSpringTitle": "Système à un ressort",
+    "singleSpringDescription": "Cette simulation modélise une masse attachée à un ressort, illustrant le mouvement harmonique simple avec amortissement optionnel.",
+    "doubleSpringTitle": "Système à deux ressorts",
+    "doubleSpringDescription": "Cette simulation modélise deux masses reliées par des ressorts en série, illustrant les oscillations couplées et les modes normaux. Un amortissement peut être ajouté pour observer la dissipation d'énergie.",
+    "doublePendulumTitle": "Pendule double",
+    "doublePendulumDescription": "Cette simulation modélise un système de pendule double, qui présente une dynamique riche comprenant un mouvement périodique et un chaos déterministe selon les conditions initiales et l'énergie."
+  },
   "controls": {
     "mass": "Masse",
     "mass1": "Masse 1",

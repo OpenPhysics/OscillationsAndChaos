@@ -6,6 +6,19 @@
     "pendulum": "Pendulum",
     "doublePendulum": "Double Pendulum"
   },
+  "infoPanel": {
+    "whereLabel": "Where:",
+    "equationOfMotionLabel": "Equation of Motion:",
+    "equationsOfMotionLabel": "Equations of Motion:",
+    "pendulumTitle": "Simple Pendulum",
+    "pendulumDescription": "This simulation models a simple pendulum, demonstrating periodic motion and energy conservation. At small angles, the motion approximates simple harmonic motion.",
+    "singleSpringTitle": "Single Spring System",
+    "singleSpringDescription": "This simulation models a mass attached to a spring, demonstrating simple harmonic motion with optional damping.",
+    "doubleSpringTitle": "Double Spring System",
+    "doubleSpringDescription": "This simulation models two masses connected by springs in series, demonstrating coupled oscillations and normal modes. Damping can be added to observe energy dissipation.",
+    "doublePendulumTitle": "Double Pendulum",
+    "doublePendulumDescription": "This simulation models a double pendulum system, which exhibits rich dynamics including periodic motion and deterministic chaos depending on initial conditions and energy."
+  },
   "controls": {
     "mass": "Mass",
     "mass1": "Mass 1",

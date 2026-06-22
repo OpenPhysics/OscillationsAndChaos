@@ -404,28 +404,26 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
       variablesList.element.style.color = color.toCSS();
     });
 
+    const infoPanelStrings = StringManager.getInstance().getInfoPanelStrings();
     return new VBox({
       spacing: SPACING_LARGE,
       align: "left",
       children: [
-        new Text("Simple Pendulum", {
+        new Text(infoPanelStrings.pendulumTitleStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
-        new RichText(
-          "This simulation models a simple pendulum, demonstrating periodic motion and energy conservation. At small angles, the motion approximates simple harmonic motion.",
-          {
-            font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-            fill: OscillationsAndChaosColors.textColorProperty,
-            maxWidth: 700,
-          },
-        ),
-        new Text("Equation of Motion:", {
+        new RichText(infoPanelStrings.pendulumDescriptionStringProperty, {
+          font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
+          fill: OscillationsAndChaosColors.textColorProperty,
+          maxWidth: 700,
+        }),
+        new Text(infoPanelStrings.equationOfMotionLabelStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
         equation,
-        new Text("Where:", {
+        new Text(infoPanelStrings.whereLabelStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),

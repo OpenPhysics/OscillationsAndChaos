@@ -6,6 +6,19 @@
     "pendulum": "Péndulo",
     "doublePendulum": "Péndulo doble"
   },
+  "infoPanel": {
+    "whereLabel": "Donde:",
+    "equationOfMotionLabel": "Ecuación de movimiento:",
+    "equationsOfMotionLabel": "Ecuaciones de movimiento:",
+    "pendulumTitle": "Péndulo simple",
+    "pendulumDescription": "Esta simulación modela un péndulo simple, demostrando el movimiento periódico y la conservación de la energía. En ángulos pequeños, el movimiento se aproxima al movimiento armónico simple.",
+    "singleSpringTitle": "Sistema de un resorte",
+    "singleSpringDescription": "Esta simulación modela una masa unida a un resorte, demostrando el movimiento armónico simple con amortiguamiento opcional.",
+    "doubleSpringTitle": "Sistema de dos resortes",
+    "doubleSpringDescription": "Esta simulación modela dos masas conectadas por resortes en serie, demostrando oscilaciones acopladas y modos normales. Se puede añadir amortiguamiento para observar la disipación de energía.",
+    "doublePendulumTitle": "Péndulo doble",
+    "doublePendulumDescription": "Esta simulación modela un sistema de péndulo doble, que exhibe una dinámica rica que incluye movimiento periódico y caos determinista según las condiciones iniciales y la energía."
+  },
   "controls": {
     "mass": "Masa",
     "mass1": "Masa 1",

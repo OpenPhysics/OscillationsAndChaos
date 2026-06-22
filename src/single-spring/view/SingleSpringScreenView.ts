@@ -491,28 +491,26 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       variablesList.element.style.color = color.toCSS();
     });
 
+    const infoPanelStrings = StringManager.getInstance().getInfoPanelStrings();
     return new VBox({
       spacing: SPACING_LARGE,
       align: "left",
       children: [
-        new Text("Single Spring System", {
+        new Text(infoPanelStrings.singleSpringTitleStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
-        new RichText(
-          "This simulation models a mass attached to a spring, demonstrating simple harmonic motion with optional damping.",
-          {
-            font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-            fill: OscillationsAndChaosColors.textColorProperty,
-            maxWidth: 700,
-          },
-        ),
-        new Text("Equation of Motion:", {
+        new RichText(infoPanelStrings.singleSpringDescriptionStringProperty, {
+          font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
+          fill: OscillationsAndChaosColors.textColorProperty,
+          maxWidth: 700,
+        }),
+        new Text(infoPanelStrings.equationOfMotionLabelStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
         equation,
-        new Text("Where:", {
+        new Text(infoPanelStrings.whereLabelStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),

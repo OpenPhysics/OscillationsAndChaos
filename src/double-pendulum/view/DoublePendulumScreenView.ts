@@ -635,23 +635,21 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
       variablesList.element.style.color = color.toCSS();
     });
 
+    const infoPanelStrings = StringManager.getInstance().getInfoPanelStrings();
     return new VBox({
       spacing: SPACING_LARGE,
       align: "left",
       children: [
-        new Text("Double Pendulum", {
+        new Text(infoPanelStrings.doublePendulumTitleStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_SCREEN_TITLE, weight: "bold" }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
-        new RichText(
-          "This simulation models a double pendulum system, which exhibits rich dynamics including periodic motion and deterministic chaos depending on initial conditions and energy.",
-          {
-            font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
-            fill: OscillationsAndChaosColors.textColorProperty,
-            maxWidth: 700,
-          },
-        ),
-        new Text("Equations of Motion:", {
+        new RichText(infoPanelStrings.doublePendulumDescriptionStringProperty, {
+          font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
+          fill: OscillationsAndChaosColors.textColorProperty,
+          maxWidth: 700,
+        }),
+        new Text(infoPanelStrings.equationsOfMotionLabelStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL, weight: "bold" }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
@@ -660,7 +658,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
           align: "left",
           children: [equation1, equation2],
         }),
-        new Text("Where:", {
+        new Text(infoPanelStrings.whereLabelStringProperty, {
           font: new PhetFont({ size: FONT_SIZE_BODY_TEXT }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),

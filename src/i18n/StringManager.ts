@@ -66,6 +66,40 @@ export class StringManager {
     };
   }
 
+  /**
+   * Per-screen info-dialog panel strings: title, descriptive paragraph, and the
+   * "Equation(s) of Motion:" / "Where:" labels. The equations themselves are
+   * FormulaNode math, not localized text.
+   */
+  public getInfoPanelStrings(): {
+    whereLabelStringProperty: ReadOnlyProperty<string>;
+    equationOfMotionLabelStringProperty: ReadOnlyProperty<string>;
+    equationsOfMotionLabelStringProperty: ReadOnlyProperty<string>;
+    pendulumTitleStringProperty: ReadOnlyProperty<string>;
+    pendulumDescriptionStringProperty: ReadOnlyProperty<string>;
+    singleSpringTitleStringProperty: ReadOnlyProperty<string>;
+    singleSpringDescriptionStringProperty: ReadOnlyProperty<string>;
+    doubleSpringTitleStringProperty: ReadOnlyProperty<string>;
+    doubleSpringDescriptionStringProperty: ReadOnlyProperty<string>;
+    doublePendulumTitleStringProperty: ReadOnlyProperty<string>;
+    doublePendulumDescriptionStringProperty: ReadOnlyProperty<string>;
+  } {
+    const p = stringProperties.infoPanel;
+    return {
+      whereLabelStringProperty: p.whereLabelStringProperty,
+      equationOfMotionLabelStringProperty: p.equationOfMotionLabelStringProperty,
+      equationsOfMotionLabelStringProperty: p.equationsOfMotionLabelStringProperty,
+      pendulumTitleStringProperty: p.pendulumTitleStringProperty,
+      pendulumDescriptionStringProperty: p.pendulumDescriptionStringProperty,
+      singleSpringTitleStringProperty: p.singleSpringTitleStringProperty,
+      singleSpringDescriptionStringProperty: p.singleSpringDescriptionStringProperty,
+      doubleSpringTitleStringProperty: p.doubleSpringTitleStringProperty,
+      doubleSpringDescriptionStringProperty: p.doubleSpringDescriptionStringProperty,
+      doublePendulumTitleStringProperty: p.doublePendulumTitleStringProperty,
+      doublePendulumDescriptionStringProperty: p.doublePendulumDescriptionStringProperty,
+    };
+  }
+
   public getControlLabels(): {
     massStringProperty: ReadOnlyProperty<string>;
     mass1StringProperty: ReadOnlyProperty<string>;
