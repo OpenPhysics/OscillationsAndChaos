@@ -2,6 +2,7 @@
  * Screen for the Double Pendulum simulation.
  */
 
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { Screen, type ScreenOptions } from "scenerystack/sim";
 import { OscillationsAndChaosKeyboardHelpContent } from "../common/view/OscillationsAndChaosKeyboardHelpContent.js";
 import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
@@ -13,10 +14,12 @@ export class DoublePendulumScreen extends Screen<DoublePendulumModel, DoublePend
     super(
       () => new DoublePendulumModel(),
       (model) => new DoublePendulumScreenView(model),
-      {
-        ...options,
-        createKeyboardHelpNode: () => new OscillationsAndChaosKeyboardHelpContent(),
-      },
+      optionize<ScreenOptions, EmptySelfOptions, ScreenOptions>()(
+        {
+          createKeyboardHelpNode: () => new OscillationsAndChaosKeyboardHelpContent(),
+        },
+        options,
+      ),
     );
   }
 }

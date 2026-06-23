@@ -2,6 +2,7 @@
  * Screen for the Pendulum simulation.
  */
 
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { Screen, type ScreenOptions } from "scenerystack/sim";
 import { OscillationsAndChaosKeyboardHelpContent } from "../common/view/OscillationsAndChaosKeyboardHelpContent.js";
 import OscillationsAndChaosNamespace from "../OscillationsAndChaosNamespace.js";
@@ -13,10 +14,12 @@ export class PendulumScreen extends Screen<PendulumModel, PendulumScreenView> {
     super(
       () => new PendulumModel(),
       (model) => new PendulumScreenView(model),
-      {
-        ...options,
-        createKeyboardHelpNode: () => new OscillationsAndChaosKeyboardHelpContent(),
-      },
+      optionize<ScreenOptions, EmptySelfOptions, ScreenOptions>()(
+        {
+          createKeyboardHelpNode: () => new OscillationsAndChaosKeyboardHelpContent(),
+        },
+        options,
+      ),
     );
   }
 }
