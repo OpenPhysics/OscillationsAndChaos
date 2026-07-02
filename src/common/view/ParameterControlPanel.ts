@@ -15,6 +15,7 @@ import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import type { Preset } from "../model/Preset.js";
 import { FONT_SIZE_SECONDARY_LABEL } from "./FontSizeConstants.js";
+import { FLAT_RECTANGULAR_BUTTON_OPTIONS } from "./OscillationsAndChaosButtonOptions.js";
 import { createPresetSelector, type PresetOption } from "./PresetSelectorFactory.js";
 import { PANEL_MARGIN_X, PANEL_MARGIN_Y, SPACING_MEDIUM, SPACING_SMALL } from "./UILayoutConstants.js";
 
@@ -97,6 +98,7 @@ export class ParameterControlPanel extends Panel {
         titleNodeOptions: {
           fill: OscillationsAndChaosColors.textColorProperty,
         },
+        arrowButtonOptions: FLAT_RECTANGULAR_BUTTON_OPTIONS,
       };
 
       // Add optional thumb fill color if provided (for color-coding masses)
