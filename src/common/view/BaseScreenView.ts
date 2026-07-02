@@ -51,6 +51,12 @@ import { GRAPH_LEFT_MARGIN, GRAPH_TO_VECTOR_PANEL_SPACING } from "./DialogAndPan
 import { FONT_SIZE_BODY_TEXT, FONT_SIZE_SECONDARY_LABEL } from "./FontSizeConstants.js";
 import ConfigurableGraph from "./graph/ConfigurableGraph.ts";
 import type { PlottableProperty } from "./graph/PlottableProperty.ts";
+import {
+  FLAT_INFO_BUTTON_OPTIONS,
+  FLAT_PLAY_PAUSE_STEP_BUTTON_OPTIONS,
+  FLAT_RECTANGULAR_BUTTON_OPTIONS,
+  FLAT_RESET_ALL_BUTTON_OPTIONS,
+} from "./OscillationsAndChaosButtonOptions.js";
 import { SceneGridNode } from "./SceneGridNode.js";
 import { ToolsControlPanel, type ToolsControlPanelOptions } from "./ToolsControlPanel.js";
 import { PANEL_MARGIN_X, PANEL_MARGIN_Y, SPACING_MEDIUM, SPACING_SMALL } from "./UILayoutConstants.js";
@@ -385,7 +391,9 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       playPauseStepButtonOptions: {
         includeStepForwardButton: true,
         includeStepBackwardButton: true,
+        playPauseButtonOptions: FLAT_PLAY_PAUSE_STEP_BUTTON_OPTIONS.playPauseButtonOptions,
         stepForwardButtonOptions: {
+          ...FLAT_PLAY_PAUSE_STEP_BUTTON_OPTIONS.stepForwardButtonOptions,
           listener: () => {
             // Step forward by one frame (forced even when paused)
             this.model.step(manualStepSize, true);
@@ -395,6 +403,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
           radius: 15, // Smaller than play/pause button
         },
         stepBackwardButtonOptions: {
+          ...FLAT_PLAY_PAUSE_STEP_BUTTON_OPTIONS.stepBackwardButtonOptions,
           listener: () => {
             // Step backward by one frame (negative time step, forced even when paused)
             this.model.step(-manualStepSize, true);
@@ -419,6 +428,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
 
     // Reset button
     const resetButton = new ResetAllButton({
+      ...FLAT_RESET_ALL_BUTTON_OPTIONS,
       listener: () => {
         this.model.reset();
         this.reset();
@@ -448,6 +458,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
     // this.addChild(this.infoDialog);
 
     const infoButton = new InfoButton({
+      ...FLAT_INFO_BUTTON_OPTIONS,
       iconFill: OscillationsAndChaosColors.infoButtonIconColorProperty,
       scale: 0.5,
       listener: () => {
@@ -673,6 +684,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       titleNodeOptions: {
         fill: OscillationsAndChaosColors.textColorProperty,
       },
+      arrowButtonOptions: FLAT_RECTANGULAR_BUTTON_OPTIONS,
       ...(parameter.thumbFill
         ? {
             sliderOptions: {
