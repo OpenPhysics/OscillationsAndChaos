@@ -32,6 +32,18 @@ Configurable in preferences — RK4, adaptive RK45, Forest-Ruth PEFRL (symplecti
 
 Top-level shared files should use the repo-named `OscillationsAndChaos` prefix.
 
+## Documented deviations (CONVENTIONS.md §2)
+
+- **Constants are nested, not at `src/` root:** constants are split into topical files next to
+  their consumers — `src/common/view/{UILayout,FontSize,SpringVisualization,VectorScale,ScreenIcon,GraphData,DialogAndPanel,ControlLayout}Constants.ts` and
+  `src/common/util/AccessibilityDelayConstants.ts`. There is deliberately no root
+  `OscillationsAndChaosConstants.ts`.
+- **Extra `src/` root entries:** `src/assets/` (bundled screenshot asset), `src/doc/` (internal
+  developer notes: `PROJECT_STRUCTURE.md`, `SCENERYSTACK_PATTERNS.md`), and `vite-env.d.ts`.
+- **Inline screen summaries:** screens build their summary via `createScreenSummaryContent()`
+  (see Accessibility below) instead of per-screen `*ScreenSummaryContent.ts` files — this is
+  variant (b) of the shared a11y convention.
+
 ## Accessibility
 
 Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
