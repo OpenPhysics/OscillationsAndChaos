@@ -53,9 +53,9 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   private readonly parametricSpring2Node: ParametricSpringNode;
   private currentSpring2Node: SpringNode | ParametricSpringNode;
   private readonly fixedPoint: Vector2;
-  protected readonly presetProperty: Property<PresetOption>;
-  protected readonly presets: Preset[];
-  protected isApplyingPreset: boolean = false;
+  protected override readonly presetProperty: Property<PresetOption>;
+  protected override readonly presets: Preset[];
+  protected override isApplyingPreset: boolean = false;
 
   // Vectors for mass 1
   private readonly velocity1VectorNode: VectorNode;

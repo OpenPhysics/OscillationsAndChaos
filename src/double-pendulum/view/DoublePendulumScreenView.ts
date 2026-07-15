@@ -55,9 +55,9 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
   private readonly trailPoints: Vector2[] = [];
   private readonly maxTrailPoints: number = 500;
   private readonly trailVisibleProperty: BooleanProperty;
-  protected readonly presetProperty: Property<PresetOption>;
-  protected readonly presets: Preset[];
-  protected isApplyingPreset: boolean = false;
+  protected override readonly presetProperty: Property<PresetOption>;
+  protected override readonly presets: Preset[];
+  protected override isApplyingPreset: boolean = false;
 
   // Dragging state for protractor
   private readonly isDraggingProperty: BooleanProperty;

@@ -48,9 +48,9 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
   private readonly parametricSpringNode: ParametricSpringNode;
   private currentSpringNode: SpringNode | ParametricSpringNode;
   private readonly fixedPoint: Vector2;
-  protected readonly presetProperty: Property<PresetOption>;
-  protected readonly presets: Preset[];
-  protected isApplyingPreset: boolean = false;
+  protected override readonly presetProperty: Property<PresetOption>;
+  protected override readonly presets: Preset[];
+  protected override isApplyingPreset: boolean = false;
 
   // Vector visualization
   private readonly velocityVectorNode: VectorNode;

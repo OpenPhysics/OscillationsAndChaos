@@ -37,9 +37,9 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
   private readonly rodNode: Line;
   private readonly pivotNode: Circle;
   private readonly pivotPoint: Vector2;
-  protected readonly presetProperty: Property<PresetOption>;
-  protected readonly presets: Preset[];
-  protected isApplyingPreset: boolean = false;
+  protected override readonly presetProperty: Property<PresetOption>;
+  protected override readonly presets: Preset[];
+  protected override isApplyingPreset: boolean = false;
 
   // Vector visualization
   private readonly velocityVectorNode: VectorNode;

@@ -572,7 +572,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
    * Step method that subclasses should override to update view-specific elements.
    * @param dt - Time step in seconds (can be negative for backward stepping)
    */
-  public step(dt: number): void {
+  public override step(dt: number): void {
     // Step the stopwatch if it exists and is running (only for forward time)
     if (this.stopwatch && dt > 0) {
       this.stopwatch.step(dt);
