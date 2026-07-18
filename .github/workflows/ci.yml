@@ -35,4 +35,3 @@ jobs:
 
   codeql:
     uses: OpenPhysics/Baton/.github/workflows/shared-codeql.yml@main
-
