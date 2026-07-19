@@ -4,73 +4,93 @@ Sim-specific context for AI assistants. General SceneryStack guidance: [OpenPhys
 
 ## Project
 
-Four classical-mechanics screens exploring oscillations and chaotic dynamics.
+Four classical-mechanics screens exploring oscillations and chaotic dynamics. Shared ODE
+infrastructure lives in `src/common/`; each screen adds its own model and view.
+
+Educator physics: [`doc/model.md`](doc/model.md). Architecture: [`doc/implementation-notes.md`](doc/implementation-notes.md).
 
 | Screen | Folder | Focus |
 |---|---|---|
 | Single Spring | `src/single-spring/` | Mass-spring, damping, gravity, energy graphs |
 | Double Spring | `src/double-spring/` | Coupled oscillators, normal modes |
-| Pendulum | `src/pendulum/` | Small/large angle, period measurement |
+| Pendulum | `src/pendulum/` | Exact sin(θ) dynamics; period vs amplitude |
 | Double Pendulum | `src/double-pendulum/` | Chaos, sensitive ICs, path tracing |
 
-Shared code: `src/common/model/` (solvers, base models), `src/common/view/BaseScreenView.ts`.
-
-## Numerical solvers
-
-Configurable in preferences — RK4, adaptive RK45, Forest-Ruth PEFRL (symplectic), Dormand-Prince 8(7). Spring rendering: Classic coil vs parametric surface.
+Shared code uses the `OscillationsAndChaos` prefix. Concept-named folders, no `-screen` suffix.
 
 ## Key files
 
-| File | Purpose |
+| Area | Location |
 |---|---|
-| `src/common/model/` | ODE integration, shared model base classes |
-| `src/common/view/BaseScreenView.ts` | Shared view layout patterns |
-| `src/OscillationsAndChaos*.ts` | Shared namespace and colors |
-| `src/preferences/` | `OscillationsAndChaosPreferencesModel.ts`, `OscillationsAndChaosAudioPreferencesNode.ts`, `oscillationsAndChaosQueryParameters.ts` |
-| `src/*/model/` | Per-screen physics state |
-| `src/*/view/*ScreenView.ts` | Per-screen visualization |
+| ODE base + solvers | `src/common/model/BaseModel.ts`, `RungeKuttaSolver.ts`, `AdaptiveRK45Solver.ts`, `ForestRuthPEFRLSolver.ts`, `DormandPrince87Solver.ts`, `SolverType.ts` |
+| Shared view base | `src/common/view/BaseScreenView.ts` — time controls, graphs, vectors, presets, a11y hook |
+| Colors / namespace | `OscillationsAndChaosColors.ts`, `OscillationsAndChaosNamespace.ts` |
+| Preferences | `src/preferences/OscillationsAndChaosPreferencesModel.ts`, `OscillationsAndChaosAudioPreferencesNode.ts`, `oscillationsAndChaosQueryParameters.ts` |
+| Per-screen physics | `src/*/model/*Model.ts` |
+| Per-screen views | `src/*/view/*ScreenView.ts` |
+| Internal dev notes | `src/doc/PROJECT_STRUCTURE.md`, `src/doc/SCENERYSTACK_PATTERNS.md` |
 
-Top-level shared files should use the repo-named `OscillationsAndChaos` prefix.
+## Model
 
-## Documented deviations (CONVENTIONS.md §2)
-
-- **Constants are nested, not at `src/` root:** constants are split into topical files next to
-  their consumers — `src/common/view/{UILayout,FontSize,SpringVisualization,VectorScale,ScreenIcon,GraphData,DialogAndPanel,ControlLayout}Constants.ts` and
-  `src/common/util/AccessibilityDelayConstants.ts`. There is deliberately no root
-  `OscillationsAndChaosConstants.ts`.
-- **Extra `src/` root entries:** `src/assets/` (bundled screenshot asset), `src/doc/` (internal
-  developer notes: `PROJECT_STRUCTURE.md`, `SCENERYSTACK_PATTERNS.md`), and `vite-env.d.ts`.
-- **Inline screen summaries:** screens build their summary via `createScreenSummaryContent()`
-  (see Accessibility below) instead of per-screen `*ScreenSummaryContent.ts` files — this is
-  variant (b) of the shared a11y convention.
+- **Integration:** Each screen model extends `BaseModel` and implements `getState()`, `setState()`,
+  `getDerivatives()`. Solver choice comes from `OscillationsAndChaosPreferencesModel` and
+  hot-swaps on preference change (RK4 default; also adaptive RK45, Forest-Ruth PEFRL symplectic,
+  Dormand-Prince 8(7)).
+- **Coordinates:** model +y is up; view +y is down — convert in the view via `ModelViewTransform2`.
+- **g = 9.8 m/s²** on spring/pendulum screens unless noted in `doc/model.md`.
+- **Spring rendering:** Classic 2D coil vs parametric 3D-style surface is a global preference, not
+  per-screen physics.
 
 ## Accessibility
 
 Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
-Each screen's `createScreenSummaryContent()` returns a structured `ScreenSummaryContent`
-(play-area / control-area / current-details / interaction-hint regions); `BaseScreenView.setupScreenSummary()`
-registers it via `setScreenSummaryContent`. PDOM order uses the idiomatic `pdomPlayAreaNode`
-(interactive masses/bobs are added to it). A11y strings live under `accessibility` / `screenSummary`
-in each locale JSON, via `StringManager.getAccessibilityStrings()` and the per-screen
-`get*ScreenSummaryStrings()` accessors.
-
-When adding a screen, follow the existing `*Screen.ts` + `model/` + `view/` pattern and register in `main.ts`.
+**Inline screen summaries (fleet variant):** each screen builds its summary via
+`createScreenSummaryContent()` in the view; `BaseScreenView.setupScreenSummary()` registers it —
+no separate `*ScreenSummaryContent.ts` files. PDOM order uses `pdomPlayAreaNode` for interactive
+masses/bobs. A11y strings live under `accessibility` / `screenSummary` in each locale JSON, via
+`StringManager.getAccessibilityStrings()` and per-screen `get*ScreenSummaryStrings()` accessors.
 
 ## Compliance carve-outs
 
-- **Nested constants:** shared numerics under `src/common/` and per-screen model folders (multi-screen layout); no single root `OscillationsAndChaosConstants.ts`.
+- **Nested constants:** numerics split across topical files under `src/common/view/` and
+  `src/common/util/` — no root `OscillationsAndChaosConstants.ts`.
+- **Inline screen summaries:** variant (b) of the shared a11y convention (see Accessibility above).
+- **Extra `src/` root entries:** `src/assets/` (bundled screenshot), `src/doc/` (internal dev
+  notes), `vite-env.d.ts`.
 
 ## Testing
 
-Fleet-standard Vitest layout:
+Fleet-standard Vitest layout (`happy-dom`, `tests/setup.ts`, `execArgv: ["--expose-gc"]`):
 
 | Path | Purpose |
 |---|---|
-| `vitest.config.ts` | Test environment + `setupFiles` when present; `execArgv: ["--expose-gc"]` with memory-leak suite |
-| `tests/setup.ts` | Canvas / AudioContext mocks + `init({ name: "…" })` before SceneryStack imports (when required) |
-| `tests/**/*.test.ts` | Model/physics unit tests — mirror `src/` under `tests/` |
-| `tests/memory-leak.test.ts` | WeakRef + `forceGC` dispose regression (fleet pattern) |
+| `tests/single-spring/model/SingleSpringModel.test.ts` | Single-spring ODE stepping, reset, forced step while paused |
+| `tests/memory-leak.test.ts` | WeakRef + `forceGC` dispose regression |
 
-- Put unit tests only under root `tests/` (never co-locate or use `__tests__/`).
-- Run `npm test`. CI runs the suite when a `test` script is present.
-- Expand `memory-leak.test.ts` for components that add/remove nodes or link Properties at runtime (see OpticsLab).
+Put unit tests only under root `tests/` (never co-locate or use `__tests__/`). Run `npm test`; CI
+runs the suite when a `test` script is present. Add mirrored tests under `tests/<screen>/model/`
+when extending physics on other screens.
+
+## Commands
+
+```bash
+npm run lint && npm run check && npm run build && npm test
+```
+
+| Command | Description |
+|---|---|
+| `npm start` / `npm run dev` | Vite dev server |
+| `npm run build` | Type-check + production build |
+| `npm run build:single` | Single-file build mode |
+| `npm run check` | TypeScript (`tsc --noEmit` + scripts project) |
+| `npm run lint` / `npm run fix` | Biome check / auto-fix |
+| `npm test` | Vitest unit tests |
+| `npm run icons` | Regenerate PWA icons |
+
+## Development notes
+
+- **KaTeX:** equation labels use the `katex` dependency — keep render paths in view code only.
+- **Audio preferences:** sonification toggles live in `OscillationsAndChaosAudioPreferencesNode.ts`.
+- **Adding a screen:** mirror existing `*Screen.ts` + `model/` + `view/` pattern; register in
+  `main.ts`; add screen-summary strings and keyboard-help sections for new interactions.
+- **PWA:** after `npm run build`, installable offline via Workbox (`dist/manifest.webmanifest`).
