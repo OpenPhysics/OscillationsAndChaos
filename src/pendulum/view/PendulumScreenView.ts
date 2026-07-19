@@ -155,7 +155,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     // Center of mass reference dot (small circle at center of bob)
     this.bobReferenceDot = new Circle(3, {
       fill: OscillationsAndChaosColors.textColorProperty,
-      stroke: "white",
+      stroke: OscillationsAndChaosColors.referenceDotStrokeColorProperty,
     });
     this.addChild(this.bobReferenceDot);
 

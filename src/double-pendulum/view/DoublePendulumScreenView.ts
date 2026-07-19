@@ -190,7 +190,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Center of mass reference dot for bob 1 (small circle at center of bob)
     this.bob1ReferenceDot = new Circle(3, {
       fill: OscillationsAndChaosColors.textColorProperty,
-      stroke: "white",
+      stroke: OscillationsAndChaosColors.referenceDotStrokeColorProperty,
     });
     this.addChild(this.bob1ReferenceDot);
 
@@ -213,7 +213,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Center of mass reference dot for bob 2 (small circle at center of bob)
     this.bob2ReferenceDot = new Circle(3, {
       fill: OscillationsAndChaosColors.textColorProperty,
-      stroke: "white",
+      stroke: OscillationsAndChaosColors.referenceDotStrokeColorProperty,
     });
     this.addChild(this.bob2ReferenceDot);
 

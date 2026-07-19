@@ -73,6 +73,10 @@ const OscillationsAndChaosColors = {
   pivotStrokeColorProperty: profileColor("pivotStrokeColor", WHITE, BLACK),
   rodStrokeColorProperty: profileColor("rodStrokeColor", new Color(200, 200, 200), new Color(80, 80, 80)),
 
+  // Center-of-mass reference dots on pendulum bobs (fill uses textColorProperty;
+  // stroke is the opposite so the ring stays visible in both profiles).
+  referenceDotStrokeColorProperty: profileColor("referenceDotStrokeColor", BLACK, WHITE),
+
   // Accessibility focus indicators
   focusIndicatorColorProperty: profileColor("focusIndicatorColor", new Color(100, 200, 255), new Color(0, 100, 200)),
   focusIndicatorHighContrastColorProperty: profileColor(
