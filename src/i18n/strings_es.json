@@ -203,7 +203,7 @@
       "showStopwatch": "Cronómetro"
     }
   },
-  "accessibility": {
+  "a11y": {
     "simulation": {
       "reset": "Simulación reiniciada",
       "playing": "Simulación en reproducción",

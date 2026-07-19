@@ -88,7 +88,7 @@ onReadyToLaunch(() => {
   };
 
   // Add accessibility announcements for preference changes
-  const a11yStrings = stringManager.getAccessibilityStrings();
+  const a11yStrings = stringManager.getA11yStrings();
 
   OscillationsAndChaosPreferences.solverTypeProperty.lazyLink((solverType) => {
     if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {

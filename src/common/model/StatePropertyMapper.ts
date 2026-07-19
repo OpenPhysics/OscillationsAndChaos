@@ -42,16 +42,17 @@ export class StatePropertyMapper {
       throw new Error(`State vector length mismatch: expected ${this.properties.length}, got ${state.length}`);
     }
 
-    // Validate that all state values are finite numbers
+    // Validate that all state values are finite numbers, then update properties.
     for (let i = 0; i < state.length; i++) {
-      if (!isFinite(state[i]!)) {
-        throw new Error(`Invalid state value at index ${i}: ${state[i]} (must be a finite number)`);
+      const value = state[i];
+      const property = this.properties[i];
+      if (value === undefined || property === undefined) {
+        throw new Error(`State vector length mismatch while writing index ${i}`);
       }
-    }
-
-    // Update all properties
-    for (let i = 0; i < state.length; i++) {
-      this.properties[i]!.value = state[i]!;
+      if (!Number.isFinite(value)) {
+        throw new Error(`Invalid state value at index ${i}: ${value} (must be a finite number)`);
+      }
+      property.value = value;
     }
   }
 

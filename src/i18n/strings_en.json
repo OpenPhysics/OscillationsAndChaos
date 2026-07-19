@@ -203,7 +203,7 @@
       "showStopwatch": "Stopwatch"
     }
   },
-  "accessibility": {
+  "a11y": {
     "simulation": {
       "reset": "Simulation reset",
       "playing": "Simulation playing",

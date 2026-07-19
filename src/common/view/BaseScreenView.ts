@@ -343,8 +343,8 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
   /**
    * Get accessibility strings from StringManager
    */
-  protected getA11yStrings(): ReturnType<typeof StringManager.prototype.getAccessibilityStrings> {
-    return StringManager.getInstance().getAccessibilityStrings();
+  protected getA11yStrings(): ReturnType<typeof StringManager.prototype.getA11yStrings> {
+    return StringManager.getInstance().getA11yStrings();
   }
 
   /**

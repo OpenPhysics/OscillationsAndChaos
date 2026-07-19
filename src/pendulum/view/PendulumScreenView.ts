@@ -7,7 +7,16 @@ import { PhetFont, StringUtils } from "scenerystack";
 import { BooleanProperty, Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { Circle, DragListener, Line, type Node, RichText, Text, VBox } from "scenerystack/scenery";
+import {
+  Circle,
+  DragListener,
+  KeyboardDragListener,
+  Line,
+  type Node,
+  RichText,
+  Text,
+  VBox,
+} from "scenerystack/scenery";
 import { FormulaNode } from "scenerystack/scenery-phet";
 import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
@@ -50,7 +59,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
   private readonly isDraggingProperty: BooleanProperty;
 
   // Accessibility strings
-  private readonly a11yStrings: ReturnType<StringManager["getAccessibilityStrings"]>;
+  private readonly a11yStrings: ReturnType<StringManager["getA11yStrings"]>;
   private readonly stringManager: StringManager;
 
   public constructor(model: PendulumModel, options?: ScreenViewOptions) {
@@ -61,7 +70,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
 
     // Get accessibility strings for announcements
     this.stringManager = StringManager.getInstance();
-    this.a11yStrings = this.stringManager.getAccessibilityStrings();
+    this.a11yStrings = this.stringManager.getA11yStrings();
 
     // Initialize with first preset as default
     this.presetProperty = new Property<PresetOption>(this.presets[0]!);
@@ -156,6 +165,13 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
     });
 
     // Drag listener for bob with accessibility announcements
+    const announceBobReleased = (): void => {
+      this.isDraggingProperty.value = false;
+      const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angleProperty.value * 180) / Math.PI, 1);
+      const template = this.a11yStrings.bobReleasedAtStringProperty.value;
+      const announcement = template.replace("{{angle}}", angleDegrees);
+      SimulationAnnouncer.announceDragInteraction(announcement);
+    };
     this.bobNode.addInputListener(
       new DragListener({
         translateNode: false,
@@ -170,13 +186,24 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
           this.model.angleProperty.value = angle;
           this.model.angularVelocityProperty.value = 0;
         },
-        end: () => {
-          this.isDraggingProperty.value = false;
-          const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angleProperty.value * 180) / Math.PI, 1);
-          const template = this.a11yStrings.bobReleasedAtStringProperty.value;
-          const announcement = template.replace("{{angle}}", angleDegrees);
-          SimulationAnnouncer.announceDragInteraction(announcement);
+        end: announceBobReleased,
+      }),
+    );
+    // Keyboard: left/right arrows change the pendulum angle (radians).
+    this.bobNode.addInputListener(
+      new KeyboardDragListener({
+        keyboardDragDirection: "leftRight",
+        dragDelta: 0.05,
+        shiftDragDelta: 0.01,
+        start: () => {
+          this.isDraggingProperty.value = true;
+          SimulationAnnouncer.announceDragInteraction("Dragging pendulum bob");
         },
+        drag: (_event, listener) => {
+          this.model.angleProperty.value += listener.modelDelta.x;
+          this.model.angularVelocityProperty.value = 0;
+        },
+        end: announceBobReleased,
       }),
     );
 

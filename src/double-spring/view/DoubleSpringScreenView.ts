@@ -7,7 +7,16 @@ import { StringUtils } from "scenerystack";
 import { Property } from "scenerystack/axon";
 import { Range, toFixed, Vector2 } from "scenerystack/dot";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { DragListener, Line, type Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
+import {
+  DragListener,
+  KeyboardDragListener,
+  Line,
+  type Node,
+  Rectangle,
+  RichText,
+  Text,
+  VBox,
+} from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
 import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
@@ -67,7 +76,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   private readonly acceleration2VectorNode: VectorNode;
 
   // Accessibility strings
-  private readonly a11yStrings: ReturnType<StringManager["getAccessibilityStrings"]>;
+  private readonly a11yStrings: ReturnType<StringManager["getA11yStrings"]>;
   private readonly stringManager: StringManager;
 
   public constructor(model: DoubleSpringModel, options?: ScreenViewOptions) {
@@ -86,7 +95,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Get accessibility strings for announcements
     this.stringManager = StringManager.getInstance();
-    this.a11yStrings = this.stringManager.getAccessibilityStrings();
+    this.a11yStrings = this.stringManager.getA11yStrings();
 
     // Fixed point for spring attachment (top of screen, centered horizontally)
     // Position the fixed point at the wall location for proper attachment
@@ -233,6 +242,12 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
 
     // Drag listeners with accessibility announcements
     let dragOffsetModel1 = 0; // Track the offset in model coordinates for mass1
+    const announceMass1Released = (): void => {
+      const position = toFixed(this.model.position1Property.value, 2);
+      const template = this.a11yStrings.mass1ReleasedAtStringProperty.value;
+      const announcement = template.replace("{{position}}", position);
+      SimulationAnnouncer.announceDragInteraction(announcement);
+    };
     this.mass1Node.addInputListener(
       new DragListener({
         translateNode: false,
@@ -251,16 +266,33 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           this.model.position1Property.value = pointerModelY + dragOffsetModel1;
           this.model.velocity1Property.value = 0;
         },
-        end: () => {
-          const position = toFixed(this.model.position1Property.value, 2);
-          const template = this.a11yStrings.mass1ReleasedAtStringProperty.value;
-          const announcement = template.replace("{{position}}", position);
-          SimulationAnnouncer.announceDragInteraction(announcement);
+        end: announceMass1Released,
+      }),
+    );
+    this.mass1Node.addInputListener(
+      new KeyboardDragListener({
+        transform: this.modelViewTransform!,
+        keyboardDragDirection: "upDown",
+        dragSpeed: 80,
+        shiftDragSpeed: 30,
+        start: () => {
+          SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingMass1StringProperty.value);
         },
+        drag: (_event, listener) => {
+          this.model.position1Property.value += listener.modelDelta.y;
+          this.model.velocity1Property.value = 0;
+        },
+        end: announceMass1Released,
       }),
     );
 
     let dragOffsetModel2 = 0; // Track the offset in model coordinates for mass2
+    const announceMass2Released = (): void => {
+      const position = toFixed(this.model.position2Property.value, 2);
+      const template = this.a11yStrings.mass2ReleasedAtStringProperty.value;
+      const announcement = template.replace("{{position}}", position);
+      SimulationAnnouncer.announceDragInteraction(announcement);
+    };
     this.mass2Node.addInputListener(
       new DragListener({
         translateNode: false,
@@ -279,12 +311,23 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           this.model.position2Property.value = pointerModelY + dragOffsetModel2;
           this.model.velocity2Property.value = 0;
         },
-        end: () => {
-          const position = toFixed(this.model.position2Property.value, 2);
-          const template = this.a11yStrings.mass2ReleasedAtStringProperty.value;
-          const announcement = template.replace("{{position}}", position);
-          SimulationAnnouncer.announceDragInteraction(announcement);
+        end: announceMass2Released,
+      }),
+    );
+    this.mass2Node.addInputListener(
+      new KeyboardDragListener({
+        transform: this.modelViewTransform!,
+        keyboardDragDirection: "upDown",
+        dragSpeed: 80,
+        shiftDragSpeed: 30,
+        start: () => {
+          SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingMass2StringProperty.value);
         },
+        drag: (_event, listener) => {
+          this.model.position2Property.value += listener.modelDelta.y;
+          this.model.velocity2Property.value = 0;
+        },
+        end: announceMass2Released,
       }),
     );
 

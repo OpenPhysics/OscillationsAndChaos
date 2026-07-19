@@ -381,7 +381,7 @@ export default class ConfigurableGraph extends Node {
     this.graphContentNode.addChild(this.controlButtonsPanel);
 
     // Update labels when axes change and announce using voicing
-    const a11yStrings = StringManager.getInstance().getAccessibilityStrings();
+    const a11yStrings = StringManager.getInstance().getA11yStrings();
     this.xPropertyProperty.link((property) => {
       this.xAxisLabelNode.string = this.formatAxisLabel(property);
       this.xAxisLabelNode.centerX = this.graphWidth / 2;

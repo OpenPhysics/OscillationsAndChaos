@@ -49,7 +49,7 @@ export class StringManager {
    * ACCESSIBILITY.md convention.
    */
   public getControlAccessibleNames() {
-    return stringProperties.accessibility.controlNames;
+    return stringProperties.a11y.controlNames;
   }
 
   public getScreenNames(): {
@@ -501,7 +501,7 @@ export class StringManager {
     };
   }
 
-  public getAccessibilityStrings(): {
+  public getA11yStrings(): {
     simulationResetStringProperty: ReadOnlyProperty<string>;
     simulationPlayingStringProperty: ReadOnlyProperty<string>;
     simulationPausedStringProperty: ReadOnlyProperty<string>;
@@ -550,69 +550,66 @@ export class StringManager {
   } {
     return {
       // Simulation state
-      simulationResetStringProperty: stringProperties.accessibility.simulation.resetStringProperty,
-      simulationPlayingStringProperty: stringProperties.accessibility.simulation.playingStringProperty,
-      simulationPausedStringProperty: stringProperties.accessibility.simulation.pausedStringProperty,
-      simulationStartedStringProperty: stringProperties.accessibility.simulation.startedStringProperty,
-      steppedForwardStringProperty: stringProperties.accessibility.simulation.steppedForwardStringProperty,
-      steppedBackwardStringProperty: stringProperties.accessibility.simulation.steppedBackwardStringProperty,
-      speedChangedStringProperty: stringProperties.accessibility.simulation.speedChangedStringProperty,
+      simulationResetStringProperty: stringProperties.a11y.simulation.resetStringProperty,
+      simulationPlayingStringProperty: stringProperties.a11y.simulation.playingStringProperty,
+      simulationPausedStringProperty: stringProperties.a11y.simulation.pausedStringProperty,
+      simulationStartedStringProperty: stringProperties.a11y.simulation.startedStringProperty,
+      steppedForwardStringProperty: stringProperties.a11y.simulation.steppedForwardStringProperty,
+      steppedBackwardStringProperty: stringProperties.a11y.simulation.steppedBackwardStringProperty,
+      speedChangedStringProperty: stringProperties.a11y.simulation.speedChangedStringProperty,
 
       // Drag interactions
-      draggingMassStringProperty: stringProperties.accessibility.drag.draggingMassStringProperty,
-      draggingMass1StringProperty: stringProperties.accessibility.drag.draggingMass1StringProperty,
-      draggingMass2StringProperty: stringProperties.accessibility.drag.draggingMass2StringProperty,
-      draggingBobStringProperty: stringProperties.accessibility.drag.draggingBobStringProperty,
-      draggingUpperBobStringProperty: stringProperties.accessibility.drag.draggingUpperBobStringProperty,
-      draggingLowerBobStringProperty: stringProperties.accessibility.drag.draggingLowerBobStringProperty,
-      massReleasedAtStringProperty: stringProperties.accessibility.drag.massReleasedAtStringProperty,
-      mass1ReleasedAtStringProperty: stringProperties.accessibility.drag.mass1ReleasedAtStringProperty,
-      mass2ReleasedAtStringProperty: stringProperties.accessibility.drag.mass2ReleasedAtStringProperty,
-      bobReleasedAtStringProperty: stringProperties.accessibility.drag.bobReleasedAtStringProperty,
-      upperBobReleasedAtStringProperty: stringProperties.accessibility.drag.upperBobReleasedAtStringProperty,
-      lowerBobReleasedAtStringProperty: stringProperties.accessibility.drag.lowerBobReleasedAtStringProperty,
+      draggingMassStringProperty: stringProperties.a11y.drag.draggingMassStringProperty,
+      draggingMass1StringProperty: stringProperties.a11y.drag.draggingMass1StringProperty,
+      draggingMass2StringProperty: stringProperties.a11y.drag.draggingMass2StringProperty,
+      draggingBobStringProperty: stringProperties.a11y.drag.draggingBobStringProperty,
+      draggingUpperBobStringProperty: stringProperties.a11y.drag.draggingUpperBobStringProperty,
+      draggingLowerBobStringProperty: stringProperties.a11y.drag.draggingLowerBobStringProperty,
+      massReleasedAtStringProperty: stringProperties.a11y.drag.massReleasedAtStringProperty,
+      mass1ReleasedAtStringProperty: stringProperties.a11y.drag.mass1ReleasedAtStringProperty,
+      mass2ReleasedAtStringProperty: stringProperties.a11y.drag.mass2ReleasedAtStringProperty,
+      bobReleasedAtStringProperty: stringProperties.a11y.drag.bobReleasedAtStringProperty,
+      upperBobReleasedAtStringProperty: stringProperties.a11y.drag.upperBobReleasedAtStringProperty,
+      lowerBobReleasedAtStringProperty: stringProperties.a11y.drag.lowerBobReleasedAtStringProperty,
 
       // Parameter changes
-      massChangedStringProperty: stringProperties.accessibility.parameters.massChangedStringProperty,
-      springConstantChangedStringProperty:
-        stringProperties.accessibility.parameters.springConstantChangedStringProperty,
-      dampingChangedStringProperty: stringProperties.accessibility.parameters.dampingChangedStringProperty,
-      lengthChangedStringProperty: stringProperties.accessibility.parameters.lengthChangedStringProperty,
-      gravityChangedStringProperty: stringProperties.accessibility.parameters.gravityChangedStringProperty,
-      presetAppliedStringProperty: stringProperties.accessibility.parameters.presetAppliedStringProperty,
+      massChangedStringProperty: stringProperties.a11y.parameters.massChangedStringProperty,
+      springConstantChangedStringProperty: stringProperties.a11y.parameters.springConstantChangedStringProperty,
+      dampingChangedStringProperty: stringProperties.a11y.parameters.dampingChangedStringProperty,
+      lengthChangedStringProperty: stringProperties.a11y.parameters.lengthChangedStringProperty,
+      gravityChangedStringProperty: stringProperties.a11y.parameters.gravityChangedStringProperty,
+      presetAppliedStringProperty: stringProperties.a11y.parameters.presetAppliedStringProperty,
 
       // Graph changes
-      graphShownStringProperty: stringProperties.accessibility.graph.shownStringProperty,
-      graphHiddenStringProperty: stringProperties.accessibility.graph.hiddenStringProperty,
-      xAxisChangedStringProperty: stringProperties.accessibility.graph.xAxisChangedStringProperty,
-      yAxisChangedStringProperty: stringProperties.accessibility.graph.yAxisChangedStringProperty,
+      graphShownStringProperty: stringProperties.a11y.graph.shownStringProperty,
+      graphHiddenStringProperty: stringProperties.a11y.graph.hiddenStringProperty,
+      xAxisChangedStringProperty: stringProperties.a11y.graph.xAxisChangedStringProperty,
+      yAxisChangedStringProperty: stringProperties.a11y.graph.yAxisChangedStringProperty,
 
       // Visualization changes
-      velocityVectorsShownStringProperty:
-        stringProperties.accessibility.visualization.velocityVectorsShownStringProperty,
-      velocityVectorsHiddenStringProperty:
-        stringProperties.accessibility.visualization.velocityVectorsHiddenStringProperty,
-      forceVectorsShownStringProperty: stringProperties.accessibility.visualization.forceVectorsShownStringProperty,
-      forceVectorsHiddenStringProperty: stringProperties.accessibility.visualization.forceVectorsHiddenStringProperty,
+      velocityVectorsShownStringProperty: stringProperties.a11y.visualization.velocityVectorsShownStringProperty,
+      velocityVectorsHiddenStringProperty: stringProperties.a11y.visualization.velocityVectorsHiddenStringProperty,
+      forceVectorsShownStringProperty: stringProperties.a11y.visualization.forceVectorsShownStringProperty,
+      forceVectorsHiddenStringProperty: stringProperties.a11y.visualization.forceVectorsHiddenStringProperty,
       accelerationVectorsShownStringProperty:
-        stringProperties.accessibility.visualization.accelerationVectorsShownStringProperty,
+        stringProperties.a11y.visualization.accelerationVectorsShownStringProperty,
       accelerationVectorsHiddenStringProperty:
-        stringProperties.accessibility.visualization.accelerationVectorsHiddenStringProperty,
+        stringProperties.a11y.visualization.accelerationVectorsHiddenStringProperty,
 
       // Tool visibility changes
-      gridShownStringProperty: stringProperties.accessibility.tools.gridShownStringProperty,
-      gridHiddenStringProperty: stringProperties.accessibility.tools.gridHiddenStringProperty,
-      distanceToolShownStringProperty: stringProperties.accessibility.tools.distanceToolShownStringProperty,
-      distanceToolHiddenStringProperty: stringProperties.accessibility.tools.distanceToolHiddenStringProperty,
-      protractorShownStringProperty: stringProperties.accessibility.tools.protractorShownStringProperty,
-      protractorHiddenStringProperty: stringProperties.accessibility.tools.protractorHiddenStringProperty,
-      stopwatchShownStringProperty: stringProperties.accessibility.tools.stopwatchShownStringProperty,
-      stopwatchHiddenStringProperty: stringProperties.accessibility.tools.stopwatchHiddenStringProperty,
+      gridShownStringProperty: stringProperties.a11y.tools.gridShownStringProperty,
+      gridHiddenStringProperty: stringProperties.a11y.tools.gridHiddenStringProperty,
+      distanceToolShownStringProperty: stringProperties.a11y.tools.distanceToolShownStringProperty,
+      distanceToolHiddenStringProperty: stringProperties.a11y.tools.distanceToolHiddenStringProperty,
+      protractorShownStringProperty: stringProperties.a11y.tools.protractorShownStringProperty,
+      protractorHiddenStringProperty: stringProperties.a11y.tools.protractorHiddenStringProperty,
+      stopwatchShownStringProperty: stringProperties.a11y.tools.stopwatchShownStringProperty,
+      stopwatchHiddenStringProperty: stringProperties.a11y.tools.stopwatchHiddenStringProperty,
 
       // Preference changes
-      solverChangedStringProperty: stringProperties.accessibility.preferences.solverChangedStringProperty,
+      solverChangedStringProperty: stringProperties.a11y.preferences.solverChangedStringProperty,
       springVisualizationChangedStringProperty:
-        stringProperties.accessibility.preferences.springVisualizationChangedStringProperty,
+        stringProperties.a11y.preferences.springVisualizationChangedStringProperty,
     };
   }
 

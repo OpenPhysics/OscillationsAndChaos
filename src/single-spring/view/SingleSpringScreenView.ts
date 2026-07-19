@@ -7,7 +7,16 @@ import { StringUtils } from "scenerystack";
 import { DerivedProperty, Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { DragListener, Line, type Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
+import {
+  DragListener,
+  KeyboardDragListener,
+  Line,
+  type Node,
+  Rectangle,
+  RichText,
+  Text,
+  VBox,
+} from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
 import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
@@ -192,6 +201,12 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
     // Add drag listener to mass with accessibility announcements
     const a11yStrings = this.getA11yStrings();
     let dragOffsetModel = 0; // Track the offset in model coordinates
+    const announceMassReleased = (): void => {
+      const position = StringUtils.toFixedNumberLTR(this.model.positionProperty.value, 2);
+      const template = a11yStrings.massReleasedAtStringProperty.value;
+      const announcement = template.replace("{{position}}", position);
+      SimulationAnnouncer.announceDragInteraction(announcement);
+    };
     this.massNode.addInputListener(
       new DragListener({
         translateNode: false,
@@ -211,12 +226,23 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
           // Reset velocity when dragging
           this.model.velocityProperty.value = 0;
         },
-        end: () => {
-          const position = StringUtils.toFixedNumberLTR(this.model.positionProperty.value, 2);
-          const template = a11yStrings.massReleasedAtStringProperty.value;
-          const announcement = template.replace("{{position}}", position);
-          SimulationAnnouncer.announceDragInteraction(announcement);
+        end: announceMassReleased,
+      }),
+    );
+    this.massNode.addInputListener(
+      new KeyboardDragListener({
+        transform: this.modelViewTransform!,
+        keyboardDragDirection: "upDown",
+        dragSpeed: 80,
+        shiftDragSpeed: 30,
+        start: () => {
+          SimulationAnnouncer.announceDragInteraction(a11yStrings.draggingMassStringProperty.value);
         },
+        drag: (_event, listener) => {
+          this.model.positionProperty.value += listener.modelDelta.y;
+          this.model.velocityProperty.value = 0;
+        },
+        end: announceMassReleased,
       }),
     );
 

@@ -72,7 +72,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
   private readonly acceleration2VectorNode: VectorNode;
 
   // Accessibility strings
-  private readonly a11yStrings: ReturnType<StringManager["getAccessibilityStrings"]>;
+  private readonly a11yStrings: ReturnType<StringManager["getA11yStrings"]>;
   private readonly stringManager: StringManager;
 
   public constructor(model: DoublePendulumModel, options?: ScreenViewOptions) {
@@ -80,7 +80,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
 
     // Get accessibility strings for announcements
     this.stringManager = StringManager.getInstance();
-    this.a11yStrings = this.stringManager.getAccessibilityStrings();
+    this.a11yStrings = this.stringManager.getA11yStrings();
 
     // Get available presets
     this.presets = DoublePendulumPresets.getPresets();
