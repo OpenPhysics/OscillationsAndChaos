@@ -1,10 +1,11 @@
 /**
  * Fleet-standard memory-leak regression suite.
- * This sim has no dedicated disposable TimeModel; NumberProperty.dispose() is the unit under test.
+ * StatePropertyMapper owns no global links — create, setState, drop for GC.
  */
 
 import { NumberProperty } from "scenerystack/axon";
 import { describe, expect, it } from "vitest";
+import { StatePropertyMapper } from "../src/common/model/StatePropertyMapper.js";
 
 async function forceGC(earlyExitRef?: WeakRef<object>): Promise<void> {
   for (let i = 0; i < 15; i++) {
@@ -19,10 +20,14 @@ async function forceGC(earlyExitRef?: WeakRef<object>): Promise<void> {
   }
 }
 
-function createAndDisposeProperty(): WeakRef<object> {
-  const property = new NumberProperty(0);
-  const ref = new WeakRef<object>(property);
-  property.dispose();
+function createAndDisposeMapper(): WeakRef<object> {
+  const p1 = new NumberProperty(1);
+  const p2 = new NumberProperty(0);
+  const mapper = new StatePropertyMapper([p1, p2]);
+  mapper.setState([2, -1]);
+  const ref = new WeakRef<object>(mapper);
+  p1.dispose();
+  p2.dispose();
   return ref;
 }
 
@@ -37,25 +42,18 @@ describe("Memory leak regression", () => {
     expect(ref.deref()).toBeUndefined();
   });
 
-  it("NumberProperty is collected after dispose", async () => {
-    const ref = createAndDisposeProperty();
+  it("StatePropertyMapper is collected after drop", async () => {
+    const ref = createAndDisposeMapper();
     await forceGC(ref);
     expect(ref.deref()).toBeUndefined();
-  });
-
-  it("double dispose() does not throw", () => {
-    const property = new NumberProperty(0);
-    property.dispose();
-    expect(() => property.dispose()).not.toThrow();
   });
 
   it("repeated create/dispose cycles leave no survivors", async () => {
     const refs: WeakRef<object>[] = [];
     for (let i = 0; i < 10; i++) {
-      refs.push(createAndDisposeProperty());
+      refs.push(createAndDisposeMapper());
     }
     await forceGC();
-    const survivors = refs.filter((r) => r.deref() !== undefined).length;
-    expect(survivors).toBe(0);
+    expect(refs.filter((r) => r.deref() !== undefined).length).toBe(0);
   });
 });

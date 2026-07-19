@@ -56,6 +56,10 @@ in each locale JSON, via `StringManager.getAccessibilityStrings()` and the per-s
 
 When adding a screen, follow the existing `*Screen.ts` + `model/` + `view/` pattern and register in `main.ts`.
 
+## Compliance carve-outs
+
+- **Nested constants:** shared numerics under `src/common/` and per-screen model folders (multi-screen layout); no single root `OscillationsAndChaosConstants.ts`.
+
 ## Testing
 
 Fleet-standard Vitest layout:
