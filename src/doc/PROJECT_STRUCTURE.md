@@ -103,10 +103,11 @@ view/
 ├── DialogAndPanelConstants.ts    # Dialog styling constants
 ├── FontSizeConstants.ts          # Font size definitions
 ├── UILayoutConstants.ts          # General UI layout constants
-├── ScreenIconConstants.ts        # Screen icon dimensions
 └── graph/                        # Graphing components
     └── [Graph components]
 ```
+
+Screen icons for all four screens live in `src/common/OscillationsAndChaosScreenIcons.ts`.
 
 #### Utilities (`src/common/util/`)
 
@@ -124,7 +125,6 @@ Each simulation follows the same organizational pattern:
 ```
 [simulation-name]/
 ├── [SimulationName]Screen.ts         # Screen configuration
-├── [SimulationName]ScreenIcon.ts     # Screen icon
 ├── model/
 │   ├── [SimulationName]Model.ts      # Physics model
 │   └── [SimulationName]Presets.ts    # Preset scenarios
@@ -139,7 +139,6 @@ Single mass-spring system with damping and gravity.
 ```
 single-spring/
 ├── SingleSpringScreen.ts
-├── SingleSpringScreenIcon.ts
 ├── model/
 │   ├── SingleSpringModel.ts
 │   └── SingleSpringPresets.ts
@@ -154,7 +153,6 @@ Two masses connected by springs (coupled oscillators).
 ```
 double-spring/
 ├── DoubleSpringScreen.ts
-├── DoubleSpringScreenIcon.ts
 ├── model/
 │   ├── DoubleSpringModel.ts
 │   └── DoubleSpringPresets.ts
@@ -169,7 +167,6 @@ Single pendulum with adjustable parameters.
 ```
 pendulum/
 ├── PendulumScreen.ts
-├── PendulumScreenIcon.ts
 ├── model/
 │   ├── PendulumModel.ts
 │   └── PendulumPresets.ts
@@ -184,7 +181,6 @@ Chaotic double pendulum system.
 ```
 double-pendulum/
 ├── DoublePendulumScreen.ts
-├── DoublePendulumScreenIcon.ts
 ├── model/
 │   ├── DoublePendulumModel.ts
 │   └── DoublePendulumPresets.ts
@@ -237,12 +233,13 @@ Multiple ODE solvers are implemented for different accuracy/performance tradeoff
 To add a new simulation:
 
 1. Create a new directory under `src/` (e.g., `src/my-simulation/`)
-2. Follow the structure: `model/`, `view/`, Screen, and ScreenIcon files
+2. Follow the structure: `model/`, `view/`, and Screen files
 3. Extend `BaseModel` for the physics model
 4. Extend `BaseScreenView` for the view
 5. Create preset scenarios in `*Presets.ts`
-6. Add screen to `src/main.ts` screens array
-7. Add translations to `src/i18n/strings_*.json`
+6. Add a `create*Icon()` factory in `src/common/OscillationsAndChaosScreenIcons.ts`
+7. Add screen to `src/main.ts` screens array
+8. Add translations to `src/i18n/strings_*.json`
 
 ## Build Output
 

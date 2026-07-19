@@ -32,21 +32,23 @@ window.katex = katex;
 import { onReadyToLaunch, PreferencesModel, Sim } from "scenerystack/sim";
 import { Tandem } from "scenerystack/tandem";
 import SolverType from "./common/model/SolverType.js";
+import {
+  createDoublePendulumIcon,
+  createDoubleSpringIcon,
+  createPendulumIcon,
+  createSingleSpringIcon,
+} from "./common/OscillationsAndChaosScreenIcons.js";
 import SimulationAnnouncer from "./common/util/SimulationAnnouncer.js";
 import SpringVisualizationType from "./common/view/SpringVisualizationType.js";
 import { DoublePendulumScreen } from "./double-pendulum/DoublePendulumScreen.js";
-import { DoublePendulumScreenIcon } from "./double-pendulum/DoublePendulumScreenIcon.js";
 import { DoubleSpringScreen } from "./double-spring/DoubleSpringScreen.js";
-import { DoubleSpringScreenIcon } from "./double-spring/DoubleSpringScreenIcon.js";
 import { StringManager } from "./i18n/StringManager.js";
 import OscillationsAndChaosColors from "./OscillationsAndChaosColors.js";
 import { PendulumScreen } from "./pendulum/PendulumScreen.js";
-import { PendulumScreenIcon } from "./pendulum/PendulumScreenIcon.js";
 import OscillationsAndChaosAudioPreferencesNode from "./preferences/OscillationsAndChaosAudioPreferencesNode.js";
 import OscillationsAndChaosPreferences from "./preferences/OscillationsAndChaosPreferencesModel.js";
 import OscillationsAndChaosSimulationPreferencesNode from "./preferences/OscillationsAndChaosSimulationPreferencesNode.js";
 import { SingleSpringScreen } from "./single-spring/SingleSpringScreen.js";
-import { SingleSpringScreenIcon } from "./single-spring/SingleSpringScreenIcon.js";
 
 onReadyToLaunch(() => {
   // Get the string manager instance
@@ -130,25 +132,29 @@ onReadyToLaunch(() => {
       name: screenNames.singleSpringStringProperty,
       tandem: Tandem.ROOT.createTandem("singleSpringScreen"),
       backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
-      homeScreenIcon: new SingleSpringScreenIcon(),
+      homeScreenIcon: createSingleSpringIcon(),
+      navigationBarIcon: createSingleSpringIcon(),
     }),
     new DoubleSpringScreen({
       name: screenNames.doubleSpringStringProperty,
       tandem: Tandem.ROOT.createTandem("doubleSpringScreen"),
       backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
-      homeScreenIcon: new DoubleSpringScreenIcon(),
+      homeScreenIcon: createDoubleSpringIcon(),
+      navigationBarIcon: createDoubleSpringIcon(),
     }),
     new PendulumScreen({
       name: screenNames.pendulumStringProperty,
       tandem: Tandem.ROOT.createTandem("pendulumScreen"),
       backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
-      homeScreenIcon: new PendulumScreenIcon(),
+      homeScreenIcon: createPendulumIcon(),
+      navigationBarIcon: createPendulumIcon(),
     }),
     new DoublePendulumScreen({
       name: screenNames.doublePendulumStringProperty,
       tandem: Tandem.ROOT.createTandem("doublePendulumScreen"),
       backgroundColorProperty: OscillationsAndChaosColors.backgroundColorProperty,
-      homeScreenIcon: new DoublePendulumScreenIcon(),
+      homeScreenIcon: createDoublePendulumIcon(),
+      navigationBarIcon: createDoublePendulumIcon(),
     }),
   ];
 
