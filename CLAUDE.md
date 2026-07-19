@@ -57,6 +57,7 @@ masses/bobs. A11y strings live under `accessibility` / `screenSummary` in each l
 - **Inline screen summaries:** variant (b) of the shared a11y convention (see Accessibility above).
 - **Extra `src/` root entries:** `src/assets/` (bundled screenshot), `src/doc/` (internal dev
   notes), `vite-env.d.ts`.
+- **Domain clock:** `BaseModel` owns play/pause and forced stepping instead of composing fleet-standard `TimeModel` (`src/common/TimeModel.ts` is present for shared reference only).
 
 ## Testing
 
