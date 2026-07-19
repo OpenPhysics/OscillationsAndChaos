@@ -67,6 +67,10 @@ onReadyToLaunch(() => {
         supportsProjectorMode: true,
         supportsInteractiveHighlights: true,
       },
+      localizationOptions: {
+        // Adds a language picker in Preferences → Language
+        supportsDynamicLocale: true,
+      },
       audioOptions: {
         supportsVoicing: true,
         supportsSound: false,
