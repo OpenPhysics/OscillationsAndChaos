@@ -13,7 +13,7 @@
  *
  * Subclasses must implement:
  * - createInfoDialogContent() - simulation-specific information dialog
- * - createScreenSummaryContent() - accessibility description
+ * - createScreenSummaryContent() - return the screen's *ScreenSummaryContent instance
  */
 
 import {
@@ -356,9 +356,8 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
 
   /**
    * Create the screen summary content for the PDOM.
-   * Subclasses must implement this to provide screen-specific descriptions.
+   * Subclasses must return their screen's `*ScreenSummaryContent` instance.
    * This content appears in the Screen Summary section for screen readers.
-   * @returns A Node containing the summary description (typically a VBox with Text nodes)
    */
   protected abstract createScreenSummaryContent(): ScreenSummaryContent;
 
@@ -366,7 +365,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
    * Sets up the screen summary content for accessibility.
    * Call this early in the subclass constructor after the screen-specific setup.
    *
-   * Each screen returns a structured ScreenSummaryContent (play-area / control-area
+   * Each screen returns a dedicated `*ScreenSummaryContent` (play-area / control-area
    * / current-details / interaction-hint regions) following the shared OpenPhysics
    * accessibility convention; see TemplateSingleSim/SimScreenSummaryContent.ts.
    */

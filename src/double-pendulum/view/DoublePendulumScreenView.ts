@@ -20,7 +20,7 @@ import {
   VBox,
 } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
-import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenSummaryContent, ScreenViewOptions } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -41,6 +41,7 @@ import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import type { DoublePendulumModel } from "../model/DoublePendulumModel.js";
 import { DoublePendulumPresets } from "../model/DoublePendulumPresets.js";
+import { DoublePendulumScreenSummaryContent } from "./DoublePendulumScreenSummaryContent.js";
 
 export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel> {
   private readonly bob1Node: Circle;
@@ -586,13 +587,7 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
    * pdom - Create the screen summary content for accessibility
    */
   protected createScreenSummaryContent(): ScreenSummaryContent {
-    const summaryStrings = StringManager.getInstance().getDoublePendulumScreenSummaryStrings();
-    return new ScreenSummaryContent({
-      playAreaContent: summaryStrings.playAreaDescriptionStringProperty,
-      controlAreaContent: summaryStrings.controlAreaDescriptionStringProperty,
-      currentDetailsContent: summaryStrings.overviewStringProperty,
-      interactionHintContent: summaryStrings.interactionHintStringProperty,
-    });
+    return new DoublePendulumScreenSummaryContent(this.model);
   }
 
   /**

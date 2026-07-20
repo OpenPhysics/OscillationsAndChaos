@@ -18,7 +18,7 @@ import {
   VBox,
 } from "scenerystack/scenery";
 import { FormulaNode } from "scenerystack/scenery-phet";
-import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenSummaryContent, ScreenViewOptions } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -39,6 +39,7 @@ import OscillationsAndChaosColors from "../../OscillationsAndChaosColors.js";
 import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.js";
 import type { PendulumModel } from "../model/PendulumModel.js";
 import { PendulumPresets } from "../model/PendulumPresets.js";
+import { PendulumScreenSummaryContent } from "./PendulumScreenSummaryContent.js";
 
 export class PendulumScreenView extends BaseScreenView<PendulumModel> {
   private readonly bobNode: Circle;
@@ -463,13 +464,7 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
    * pdom - Create the screen summary content for accessibility
    */
   protected createScreenSummaryContent(): ScreenSummaryContent {
-    const summaryStrings = StringManager.getInstance().getPendulumScreenSummaryStrings();
-    return new ScreenSummaryContent({
-      playAreaContent: summaryStrings.playAreaDescriptionStringProperty,
-      controlAreaContent: summaryStrings.controlAreaDescriptionStringProperty,
-      currentDetailsContent: summaryStrings.overviewStringProperty,
-      interactionHintContent: summaryStrings.interactionHintStringProperty,
-    });
+    return new PendulumScreenSummaryContent(this.model);
   }
 
   private updateVisualization(): void {

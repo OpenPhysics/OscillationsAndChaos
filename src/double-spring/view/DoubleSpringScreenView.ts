@@ -18,7 +18,7 @@ import {
   VBox,
 } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
-import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenSummaryContent, ScreenViewOptions } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -49,6 +49,7 @@ import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.j
 import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndChaosPreferencesModel.js";
 import type { DoubleSpringModel } from "../model/DoubleSpringModel.js";
 import { DoubleSpringPresets } from "../model/DoubleSpringPresets.js";
+import { DoubleSpringScreenSummaryContent } from "./DoubleSpringScreenSummaryContent.js";
 
 export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   private readonly mass1Node: Rectangle;
@@ -646,13 +647,7 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
    * pdom - Create the screen summary content for accessibility
    */
   protected createScreenSummaryContent(): ScreenSummaryContent {
-    const summaryStrings = StringManager.getInstance().getDoubleSpringScreenSummaryStrings();
-    return new ScreenSummaryContent({
-      playAreaContent: summaryStrings.playAreaDescriptionStringProperty,
-      controlAreaContent: summaryStrings.controlAreaDescriptionStringProperty,
-      currentDetailsContent: summaryStrings.overviewStringProperty,
-      interactionHintContent: summaryStrings.interactionHintStringProperty,
-    });
+    return new DoubleSpringScreenSummaryContent(this.model);
   }
 
   /**

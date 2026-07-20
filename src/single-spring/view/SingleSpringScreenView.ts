@@ -4,7 +4,7 @@
  */
 
 import { StringUtils } from "scenerystack";
-import { DerivedProperty, Property } from "scenerystack/axon";
+import { Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import {
@@ -18,7 +18,7 @@ import {
   VBox,
 } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
-import { ScreenSummaryContent, type ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenSummaryContent, ScreenViewOptions } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView } from "../../common/view/BaseScreenView.js";
@@ -49,6 +49,7 @@ import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.j
 import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndChaosPreferencesModel.js";
 import type { SingleSpringModel } from "../model/SingleSpringModel.js";
 import { SingleSpringPresets } from "../model/SingleSpringPresets.js";
+import { SingleSpringScreenSummaryContent } from "./SingleSpringScreenSummaryContent.js";
 
 export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
   private readonly massNode: Rectangle;
@@ -73,37 +74,6 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       showForce: false,
       showAcceleration: false,
     });
-
-    // Setup screen summary content for voicing
-    const voicingStrings = StringManager.getInstance().getSingleSpringVoicingStrings();
-
-    // Create dynamic details content that updates with model state
-    const detailsStringProperty = new DerivedProperty(
-      [
-        voicingStrings.detailsStringProperty,
-        model.positionProperty,
-        model.velocityProperty,
-        model.springConstantProperty,
-        model.totalEnergyProperty,
-      ],
-      (template, position, velocity, springConstant, energy) => {
-        const force = -springConstant * position; // Spring force F = -kx
-        return template
-          .replace("{{position}}", StringUtils.toFixedNumberLTR(position, 2))
-          .replace("{{velocity}}", StringUtils.toFixedNumberLTR(velocity, 2))
-          .replace("{{force}}", StringUtils.toFixedNumberLTR(force, 2))
-          .replace("{{energy}}", StringUtils.toFixedNumberLTR(energy, 2));
-      },
-    );
-
-    this.setScreenSummaryContent(
-      new ScreenSummaryContent({
-        playAreaContent: voicingStrings.playAreaStringProperty,
-        controlAreaContent: voicingStrings.controlAreaStringProperty,
-        currentDetailsContent: detailsStringProperty,
-        interactionHintContent: voicingStrings.hintStringProperty,
-      }),
-    );
 
     // Get available presets
     this.presets = SingleSpringPresets.getPresets();
@@ -480,13 +450,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
    * pdom - Create the screen summary content for accessibility
    */
   protected createScreenSummaryContent(): ScreenSummaryContent {
-    const summaryStrings = StringManager.getInstance().getSingleSpringScreenSummaryStrings();
-    return new ScreenSummaryContent({
-      playAreaContent: summaryStrings.playAreaDescriptionStringProperty,
-      controlAreaContent: summaryStrings.controlAreaDescriptionStringProperty,
-      currentDetailsContent: summaryStrings.overviewStringProperty,
-      interactionHintContent: summaryStrings.interactionHintStringProperty,
-    });
+    return new SingleSpringScreenSummaryContent(this.model);
   }
 
   /**

@@ -44,17 +44,16 @@ Shared code uses the `OscillationsAndChaos` prefix. Concept-named folders, no `-
 ## Accessibility
 
 Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
-**Inline screen summaries (fleet variant):** each screen builds its summary via
-`createScreenSummaryContent()` in the view; `BaseScreenView.setupScreenSummary()` registers it —
-no separate `*ScreenSummaryContent.ts` files. PDOM order uses `pdomPlayAreaNode` for interactive
-masses/bobs. A11y strings live under `accessibility` / `screenSummary` in each locale JSON, via
-`StringManager.getAccessibilityStrings()` and per-screen `get*ScreenSummaryStrings()` accessors.
+Each screen has a dedicated `*ScreenSummaryContent.ts` under its `view/` folder; `BaseScreenView.setupScreenSummary()`
+registers it via `createScreenSummaryContent()`. Current-details paragraphs are live `DerivedProperty`s over model
+state (from `voicing.*.details` templates). PDOM order uses `pdomPlayAreaNode` for interactive masses/bobs. A11y
+strings live under `a11y` / `voicing` / `screenSummary` in each locale JSON, via `StringManager.getA11yStrings()` and
+per-screen `get*ScreenSummaryStrings()` / `get*VoicingStrings()` accessors.
 
 ## Compliance carve-outs
 
 - **Nested constants:** numerics split across topical files under `src/common/view/` and
   `src/common/util/` — no root `OscillationsAndChaosConstants.ts`.
-- **Inline screen summaries:** variant (b) of the shared a11y convention (see Accessibility above).
 - **Extra `src/` root entries:** `src/assets/` (bundled screenshot), `src/doc/` (internal dev
   notes), `vite-env.d.ts`.
 - **Domain clock:** `BaseModel` owns play/pause and forced stepping instead of composing fleet-standard `TimeModel` (`src/common/TimeModel.ts` is present for shared reference only).
