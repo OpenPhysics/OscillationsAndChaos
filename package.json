@@ -42,7 +42,7 @@
     "test:fuzz:quick": "FUZZ_DURATION=10 playwright test --project=chromium"
   },
   "dependencies": {
-    "katex": "^0.17.0",
+    "katex": "^0.18.1",
     "scenerystack": "^3.0.0"
   },
   "devDependencies": {
