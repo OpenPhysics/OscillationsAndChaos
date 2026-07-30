@@ -367,7 +367,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
    *
    * Each screen returns a dedicated `*ScreenSummaryContent` (play-area / control-area
    * / current-details / interaction-hint regions) following the shared OpenPhysics
-   * accessibility convention; see TemplateSingleSim/SimScreenSummaryContent.ts.
+   * accessibility convention; see SceneryStackTemplate/SimScreenSummaryContent.ts.
    */
   protected setupScreenSummary(): void {
     this.setScreenSummaryContent(this.createScreenSummaryContent());
