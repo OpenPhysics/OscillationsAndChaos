@@ -57,14 +57,13 @@ export class RungeKuttaSolver implements ODESolver {
    */
   private stepOnce(state: number[], derivativeFn: DerivativeFunction, time: number, dt: number): void {
     // Validate inputs
-    assert && assert(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
-    assert &&
-      assert(
-        state.every((v) => isFinite(v)),
-        "all state values must be finite",
-      );
-    assert && assert(isFinite(time), "time must be finite");
-    assert && assert(isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
+    assert?.(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
+    assert?.(
+      state.every((v) => Number.isFinite(v)),
+      "all state values must be finite",
+    );
+    assert?.(Number.isFinite(time), "time must be finite");
+    assert?.(Number.isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
 
     const n = state.length;
 

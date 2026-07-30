@@ -50,7 +50,7 @@ export class AdaptiveRK45Solver implements ODESolver {
    * @param dt - Time step in seconds (must be positive and finite)
    */
   public setFixedTimeStep(dt: number): void {
-    assert && assert(isFinite(dt) && dt > 0, "dt must be finite and positive");
+    assert?.(Number.isFinite(dt) && dt > 0, "dt must be finite and positive");
     this.fixedTimeStep = dt;
     this.maxStepSize = dt;
   }
@@ -79,14 +79,13 @@ export class AdaptiveRK45Solver implements ODESolver {
     dt: number,
   ): { error: number; newState: number[] } {
     // Validate inputs
-    assert && assert(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
-    assert &&
-      assert(
-        state.every((v) => isFinite(v)),
-        "all state values must be finite",
-      );
-    assert && assert(isFinite(time), "time must be finite");
-    assert && assert(isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
+    assert?.(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
+    assert?.(
+      state.every((v) => Number.isFinite(v)),
+      "all state values must be finite",
+    );
+    assert?.(Number.isFinite(time), "time must be finite");
+    assert?.(Number.isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
 
     const n = state.length;
 
@@ -177,12 +176,11 @@ export class AdaptiveRK45Solver implements ODESolver {
     }
 
     // Validate computed results
-    assert && assert(isFinite(maxError), "computed error must be finite");
-    assert &&
-      assert(
-        state5.every((v) => isFinite(v)),
-        "all computed state values must be finite",
-      );
+    assert?.(Number.isFinite(maxError), "computed error must be finite");
+    assert?.(
+      state5.every((v) => Number.isFinite(v)),
+      "all computed state values must be finite",
+    );
 
     return { error: maxError, newState: state5 };
   }
@@ -206,14 +204,13 @@ export class AdaptiveRK45Solver implements ODESolver {
    */
   public step(state: number[], derivativeFn: DerivativeFunction, time: number, dt: number): number {
     // Validate inputs
-    assert && assert(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
-    assert &&
-      assert(
-        state.every((v) => isFinite(v)),
-        "all state values must be finite",
-      );
-    assert && assert(isFinite(time), "time must be finite");
-    assert && assert(isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
+    assert?.(Array.isArray(state) && state.length > 0, "state must be a non-empty array");
+    assert?.(
+      state.every((v) => Number.isFinite(v)),
+      "all state values must be finite",
+    );
+    assert?.(Number.isFinite(time), "time must be finite");
+    assert?.(Number.isFinite(dt) && dt !== 0, "dt must be finite and non-zero");
 
     let currentTime = time;
     let remainingTime = dt;

@@ -473,34 +473,32 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     // Add accessibility announcements for parameter changes
     this.model.mass1Property.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = "Mass 1: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = `Mass 1: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.mass2Property.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = "Mass 2: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = `Mass 2: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.springConstant1Property.lazyLink((springConstant) => {
       const template = this.a11yStrings.springConstantChangedStringProperty.value;
-      const announcement =
-        "Spring 1: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(springConstant, 0));
+      const announcement = `Spring 1: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(springConstant, 0))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.springConstant2Property.lazyLink((springConstant) => {
       const template = this.a11yStrings.springConstantChangedStringProperty.value;
-      const announcement =
-        "Spring 2: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(springConstant, 0));
+      const announcement = `Spring 2: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(springConstant, 0))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.damping1Property.lazyLink((damping) => {
       const template = this.a11yStrings.dampingChangedStringProperty.value;
-      const announcement = "Damping 1: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 2));
+      const announcement = `Damping 1: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 2))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.damping2Property.lazyLink((damping) => {
       const template = this.a11yStrings.dampingChangedStringProperty.value;
-      const announcement = "Damping 2: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 2));
+      const announcement = `Damping 2: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(damping, 2))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.gravityProperty.lazyLink((gravity) => {

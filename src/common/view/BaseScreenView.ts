@@ -522,13 +522,10 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
           // Pause the simulation
           this.model.isPlayingProperty.value = false;
         }
-      } else {
-        // Tab became visible
-        if (OscillationsAndChaosPreferences.autoPauseWhenTabHiddenProperty.value && this.wasPlayingBeforeHidden) {
-          // Restore playing state
-          this.model.isPlayingProperty.value = true;
-          this.wasPlayingBeforeHidden = false;
-        }
+      } else if (OscillationsAndChaosPreferences.autoPauseWhenTabHiddenProperty.value && this.wasPlayingBeforeHidden) {
+        // Tab became visible — restore playing state
+        this.model.isPlayingProperty.value = true;
+        this.wasPlayingBeforeHidden = false;
       }
     };
 
@@ -745,9 +742,9 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       }
     };
 
-    detectCustomChangeProperties.forEach((property) => {
+    for (const property of detectCustomChangeProperties) {
       property.lazyLink(detectCustomChange);
-    });
+    }
   }
 
   /**
@@ -859,14 +856,14 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
     }
 
     // Move simulation elements to front (above panels)
-    simulationElements.forEach((element) => {
+    for (const element of simulationElements) {
       element.moveToFront();
-    });
+    }
 
     // Move vector nodes to front (above simulation elements)
-    vectorElements.forEach((element) => {
+    for (const element of vectorElements) {
       element.moveToFront();
-    });
+    }
 
     // Move configurable graph to front (below measurement tools)
     if (this.configurableGraph) {

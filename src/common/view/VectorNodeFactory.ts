@@ -37,19 +37,19 @@ export const VectorNodeFactory = {
       velocity: new VectorNode({
         color: PhetColorScheme.VELOCITY,
         scale: VELOCITY_VECTOR_SCALE,
-        label: "v" + labelSuffix,
+        label: `v${labelSuffix}`,
         minMagnitude: VELOCITY_MIN_MAGNITUDE,
       }),
       force: new VectorNode({
         color: PhetColorScheme.APPLIED_FORCE,
         scale: FORCE_VECTOR_SCALE,
-        label: "F" + labelSuffix,
+        label: `F${labelSuffix}`,
         minMagnitude: FORCE_MIN_MAGNITUDE,
       }),
       acceleration: new VectorNode({
         color: PhetColorScheme.ACCELERATION,
         scale: ACCELERATION_VECTOR_SCALE,
-        label: "a" + labelSuffix,
+        label: `a${labelSuffix}`,
         minMagnitude: ACCELERATION_MIN_MAGNITUDE,
       }),
     };

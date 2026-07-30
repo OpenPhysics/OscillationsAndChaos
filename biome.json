@@ -46,6 +46,7 @@
         "useThrowOnlyError": "error",
         "noCommonJs": "error",
         "noExportedImports": "warn",
+        "noNonNullAssertion": "off",
         "useNamingConvention": {
           "level": "warn",
           "options": {

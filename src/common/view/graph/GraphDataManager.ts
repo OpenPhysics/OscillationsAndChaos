@@ -62,7 +62,7 @@ export default class GraphDataManager {
    */
   public addDataPoint(xValue: number, yValue: number): void {
     // Skip invalid values
-    if (!(isFinite(xValue) && isFinite(yValue))) {
+    if (!(Number.isFinite(xValue) && Number.isFinite(yValue))) {
       return;
     }
 
@@ -168,7 +168,7 @@ export default class GraphDataManager {
    */
   public static calculateTickSpacing(rangeLength: number): number {
     // Handle edge cases
-    if (!isFinite(rangeLength) || rangeLength <= 0) {
+    if (!Number.isFinite(rangeLength) || rangeLength <= 0) {
       return 1;
     }
 

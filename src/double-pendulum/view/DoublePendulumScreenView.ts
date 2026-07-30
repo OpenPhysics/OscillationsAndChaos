@@ -366,22 +366,22 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
     // Add accessibility announcements for parameter changes
     this.model.length1Property.lazyLink((length) => {
       const template = this.a11yStrings.lengthChangedStringProperty.value;
-      const announcement = "Upper pendulum: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(length, 1));
+      const announcement = `Upper pendulum: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(length, 1))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.length2Property.lazyLink((length) => {
       const template = this.a11yStrings.lengthChangedStringProperty.value;
-      const announcement = "Lower pendulum: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(length, 1));
+      const announcement = `Lower pendulum: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(length, 1))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.mass1Property.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = "Upper bob: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = `Upper bob: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.mass2Property.lazyLink((mass) => {
       const template = this.a11yStrings.massChangedStringProperty.value;
-      const announcement = "Lower bob: " + template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1));
+      const announcement = `Lower bob: ${template.replace("{{value}}", StringUtils.toFixedNumberLTR(mass, 1))}`;
       SimulationAnnouncer.announceParameterChange(announcement);
     });
     this.model.gravityProperty.lazyLink((gravity) => {

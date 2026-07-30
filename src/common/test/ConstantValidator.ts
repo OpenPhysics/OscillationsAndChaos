@@ -171,17 +171,17 @@ export class ConstantValidator {
 
     if (critical.length > 0) {
       summary += `Critical Issues:\n`;
-      critical.forEach((r) => {
+      for (const r of critical) {
         summary += `  ✗ ${r.name}: ${r.message}\n`;
-      });
+      }
       summary += `\n`;
     }
 
     if (warnings.length > 0) {
       summary += `Warnings:\n`;
-      warnings.forEach((r) => {
+      for (const r of warnings) {
         summary += `  ⚠ ${r.name}: ${r.message}\n`;
-      });
+      }
     }
 
     return summary;

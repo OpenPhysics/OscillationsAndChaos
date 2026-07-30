@@ -58,7 +58,7 @@ export default class GraphControlsPanel {
           font: new PhetFont({ size: 12 }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
-      tandemName: this.sanitizeTandemName(prop.name) + "Item",
+      tandemName: `${this.sanitizeTandemName(prop.name)}Item`,
     }));
 
     const controlNames = StringManager.getInstance().getControlAccessibleNames();
@@ -81,7 +81,7 @@ export default class GraphControlsPanel {
           font: new PhetFont({ size: 12 }),
           fill: OscillationsAndChaosColors.textColorProperty,
         }),
-      tandemName: this.sanitizeTandemName(prop.name) + "Item",
+      tandemName: `${this.sanitizeTandemName(prop.name)}Item`,
     }));
 
     const yComboBox = new ComboBox(this.yPropertyProperty, yItems, listParent, {
