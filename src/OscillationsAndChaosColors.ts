@@ -112,6 +112,21 @@ const OscillationsAndChaosColors = {
     new Color(255, 255, 255, 0.8),
     new Color(255, 255, 255, 0.8),
   ),
+
+  // Fleet-standard aliases for shared Panel + ButtonOptions modules.
+  panelBackgroundColorProperty: profileColor(
+    "panelBackground",
+    new Color(30, 30, 30, 0.9),
+    new Color(255, 255, 255, 0.9),
+  ),
+  panelBorderColorProperty: profileColor("panelBorder", new Color(100, 100, 100), new Color(180, 180, 180)),
+
+  // ── Light control surfaces ───────────────────────────────────────────────────
+  // White chrome (combo boxes, flat push buttons, editable input fields, Preferences)
+  // stays light in both profiles; its text stays dark.
+  controlSurfaceColorProperty: profileColor("controlSurface", "#ffffff", "#ffffff"),
+  controlSurfaceDisabledColorProperty: profileColor("controlSurfaceDisabled", "#cccccc", "#cccccc"),
+  controlSurfaceTextColorProperty: profileColor("controlSurfaceText", "#1a1a1a", "#1a1a1a"),
 };
 
 export default OscillationsAndChaosColors;

@@ -28,73 +28,76 @@ export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
     const stringManager = StringManager.getInstance();
     const audioStrings = stringManager.getAudioPreferencesLabels();
 
-    // Header for sim-specific voicing options
+    // Preferences dialog is always white — use control-surface colors.
     const header = new Text(audioStrings.simVoicingOptionsStringProperty, {
       font: new PhetFont({ size: 16, weight: "bold" }),
+      fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
       maxWidth: 350,
     });
 
-    // Parameter change announcements checkbox
+    const checkboxOptions = {
+      boxWidth: 16,
+      checkboxColor: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
+      checkboxColorBackground: OscillationsAndChaosColors.controlSurfaceColorProperty,
+    };
+
     const parameterAnnouncementsCheckbox = new Checkbox(
       OscillationsAndChaosPreferences.announceParameterChangesProperty,
       new Text(audioStrings.announceParameterChangesStringProperty, {
         font: new PhetFont(16),
+        fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
         maxWidth: 350,
       }),
       {
-        boxWidth: 16,
+        ...checkboxOptions,
         tandem: tandem.createTandem("parameterAnnouncementsCheckbox"),
       },
     );
 
-    // Description for parameter announcements
     const parameterDescription = new Text(audioStrings.parameterAnnouncementsDescriptionStringProperty, {
       font: new PhetFont(12),
       fill: OscillationsAndChaosColors.descriptionTextColorProperty,
       maxWidth: 350,
     });
 
-    // State change announcements checkbox
     const stateAnnouncementsCheckbox = new Checkbox(
       OscillationsAndChaosPreferences.announceStateChangesProperty,
       new Text(audioStrings.announceStateChangesStringProperty, {
         font: new PhetFont(16),
+        fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
         maxWidth: 350,
       }),
       {
-        boxWidth: 16,
+        ...checkboxOptions,
         tandem: tandem.createTandem("stateAnnouncementsCheckbox"),
       },
     );
 
-    // Description for state announcements
     const stateDescription = new Text(audioStrings.stateAnnouncementsDescriptionStringProperty, {
       font: new PhetFont(12),
       fill: OscillationsAndChaosColors.descriptionTextColorProperty,
       maxWidth: 350,
     });
 
-    // Drag interaction announcements checkbox
     const dragAnnouncementsCheckbox = new Checkbox(
       OscillationsAndChaosPreferences.announceDragInteractionsProperty,
       new Text(audioStrings.announceDragInteractionsStringProperty, {
         font: new PhetFont(16),
+        fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
         maxWidth: 350,
       }),
       {
-        boxWidth: 16,
+        ...checkboxOptions,
         tandem: tandem.createTandem("dragAnnouncementsCheckbox"),
       },
     );
 
-    // Description for drag announcements
     const dragDescription = new Text(audioStrings.dragAnnouncementsDescriptionStringProperty, {
       font: new PhetFont(12),
       fill: OscillationsAndChaosColors.descriptionTextColorProperty,
       maxWidth: 350,
     });
 
-    // Add all children to the VBox
     this.children = [
       header,
       parameterAnnouncementsCheckbox,
@@ -107,7 +110,6 @@ export default class OscillationsAndChaosAudioPreferencesNode extends VBox {
   }
 }
 
-// Register with namespace for debugging accessibility
 OscillationsAndChaosNamespace.register(
   "OscillationsAndChaosAudioPreferencesNode",
   OscillationsAndChaosAudioPreferencesNode,

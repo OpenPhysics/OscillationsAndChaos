@@ -69,6 +69,8 @@ export class VectorControlPanel extends Panel {
       }),
       {
         boxWidth: 14,
+        checkboxColor: OscillationsAndChaosColors.textColorProperty,
+        checkboxColorBackground: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       },
     );
 
@@ -92,6 +94,8 @@ export class VectorControlPanel extends Panel {
       }),
       {
         boxWidth: 14,
+        checkboxColor: OscillationsAndChaosColors.textColorProperty,
+        checkboxColorBackground: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       },
     );
 
@@ -115,6 +119,8 @@ export class VectorControlPanel extends Panel {
       }),
       {
         boxWidth: 14,
+        checkboxColor: OscillationsAndChaosColors.textColorProperty,
+        checkboxColorBackground: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       },
     );
 

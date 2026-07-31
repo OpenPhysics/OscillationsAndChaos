@@ -94,6 +94,8 @@ export class ParameterControlPanel extends Panel {
         numberDisplayOptions: {
           decimalPlaces: paramConfig.decimalPlaces,
           valuePattern: `{{value}} ${paramConfig.unit}`,
+          textOptions: { fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty },
+          backgroundFill: OscillationsAndChaosColors.controlSurfaceColorProperty,
         },
         titleNodeOptions: {
           fill: OscillationsAndChaosColors.textColorProperty,

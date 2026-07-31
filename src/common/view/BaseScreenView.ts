@@ -676,6 +676,8 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
       numberDisplayOptions: {
         decimalPlaces: parameter.decimalPlaces,
         valuePattern: `{{value}} ${parameter.units}`,
+        textOptions: { fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty },
+        backgroundFill: OscillationsAndChaosColors.controlSurfaceColorProperty,
       },
       titleNodeOptions: {
         fill: OscillationsAndChaosColors.textColorProperty,

@@ -38,13 +38,17 @@ export default class OscillationsAndChaosSimulationPreferencesNode extends VBox 
           OscillationsAndChaosPreferences.autoPauseWhenTabHiddenProperty,
           new Text(preferencesLabels.autoPauseWhenTabHiddenStringProperty, {
             font: new PhetFont(16),
+            fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
           }),
           {
             boxWidth: 16,
+            checkboxColor: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
+            checkboxColorBackground: OscillationsAndChaosColors.controlSurfaceColorProperty,
           },
         ),
         new Text(preferencesLabels.autoPauseDescriptionStringProperty, {
           font: new PhetFont(12),
+          fill: OscillationsAndChaosColors.descriptionTextColorProperty,
           maxWidth: 600,
         }),
       ],
@@ -60,6 +64,7 @@ export default class OscillationsAndChaosSimulationPreferencesNode extends VBox 
         createNode: () =>
           new Text(timeStepNames.finestStringProperty, {
             font: new PhetFont(14),
+            fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
           }),
         tandemName: "finestTimeStepItem",
       },
@@ -68,6 +73,7 @@ export default class OscillationsAndChaosSimulationPreferencesNode extends VBox 
         createNode: () =>
           new Text(timeStepNames.verySmallStringProperty, {
             font: new PhetFont(14),
+            fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
           }),
         tandemName: "verySmallTimeStepItem",
       },
@@ -76,6 +82,7 @@ export default class OscillationsAndChaosSimulationPreferencesNode extends VBox 
         createNode: () =>
           new Text(timeStepNames.smallStringProperty, {
             font: new PhetFont(14),
+            fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
           }),
         tandemName: "smallTimeStepItem",
       },
@@ -84,6 +91,7 @@ export default class OscillationsAndChaosSimulationPreferencesNode extends VBox 
         createNode: () =>
           new Text(timeStepNames.defaultStringProperty, {
             font: new PhetFont(14),
+            fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
           }),
         tandemName: "defaultTimeStepItem",
       },
@@ -92,6 +100,7 @@ export default class OscillationsAndChaosSimulationPreferencesNode extends VBox 
         createNode: () =>
           new Text(timeStepNames.mediumStringProperty, {
             font: new PhetFont(14),
+            fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
           }),
         tandemName: "mediumTimeStepItem",
       },
@@ -115,6 +124,7 @@ export default class OscillationsAndChaosSimulationPreferencesNode extends VBox 
       children: [
         new Text(preferencesLabels.nominalTimeStepStringProperty, {
           font: new PhetFont({ size: 14, weight: "bold" }),
+          fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
         }),
         new Text(preferencesLabels.nominalTimeStepDescriptionStringProperty, {
           font: new PhetFont(11),
@@ -132,6 +142,7 @@ export default class OscillationsAndChaosSimulationPreferencesNode extends VBox 
       children: [
         new Text(preferencesLabels.solverMethodStringProperty, {
           font: new PhetFont({ size: 14, weight: "bold" }),
+          fill: OscillationsAndChaosColors.controlSurfaceTextColorProperty,
         }),
         new VerticalAquaRadioButtonGroup(
           OscillationsAndChaosPreferences.solverTypeProperty,

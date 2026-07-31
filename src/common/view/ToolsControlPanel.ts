@@ -70,6 +70,8 @@ export class ToolsControlPanel extends Panel {
       }),
       {
         boxWidth: 16,
+        checkboxColor: OscillationsAndChaosColors.textColorProperty,
+        checkboxColorBackground: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       },
     );
 
@@ -81,6 +83,8 @@ export class ToolsControlPanel extends Panel {
       }),
       {
         boxWidth: 16,
+        checkboxColor: OscillationsAndChaosColors.textColorProperty,
+        checkboxColorBackground: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       },
     );
 
@@ -92,6 +96,8 @@ export class ToolsControlPanel extends Panel {
       }),
       {
         boxWidth: 16,
+        checkboxColor: OscillationsAndChaosColors.textColorProperty,
+        checkboxColorBackground: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
       },
     );
 
@@ -107,6 +113,8 @@ export class ToolsControlPanel extends Panel {
         }),
         {
           boxWidth: 16,
+          checkboxColor: OscillationsAndChaosColors.textColorProperty,
+          checkboxColorBackground: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
         },
       );
       // Insert protractor before stopwatch
@@ -123,6 +131,8 @@ export class ToolsControlPanel extends Panel {
         }),
         {
           boxWidth: 16,
+          checkboxColor: OscillationsAndChaosColors.textColorProperty,
+          checkboxColorBackground: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
         },
       );
       // Add graph checkbox at the end
