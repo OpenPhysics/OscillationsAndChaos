@@ -11,11 +11,11 @@ import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import {
   Circle,
-  DragListener,
   KeyboardListener,
   Line,
   type Node,
   Path,
+  RichDragListener,
   RichText,
   Text,
   VBox,
@@ -233,63 +233,98 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
       this.updateBob2Size(mass);
     });
 
-    // Drag listener for bob 1 with accessibility announcements
     this.bob1Node.addInputListener(
-      new DragListener({
-        translateNode: false,
-        start: () => {
-          this.isDraggingProperty.value = true;
-          SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingUpperBobStringProperty.value);
+      new RichDragListener({
+        dragListenerOptions: {
+          translateNode: false,
+          start: () => {
+            this.isDraggingProperty.value = true;
+            SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingUpperBobStringProperty.value);
+          },
+          drag: (event) => {
+            const parentPoint = this.globalToLocalPoint(event.pointer.point);
+            const delta = parentPoint.minus(this.pivotPoint);
+            const angle = Math.atan2(delta.x, delta.y);
+            this.model.angle1Property.value = angle;
+            this.model.angularVelocity1Property.value = 0;
+            this.clearTrail();
+          },
+          end: () => {
+            this.isDraggingProperty.value = false;
+            const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angle1Property.value * 180) / Math.PI, 1);
+            const template = this.a11yStrings.upperBobReleasedAtStringProperty.value;
+            SimulationAnnouncer.announceDragInteraction(template.replace("{{angle}}", angleDegrees));
+          },
         },
-        drag: (event) => {
-          const parentPoint = this.globalToLocalPoint(event.pointer.point);
-          const delta = parentPoint.minus(this.pivotPoint);
-          const angle = Math.atan2(delta.x, delta.y);
-          this.model.angle1Property.value = angle;
-          this.model.angularVelocity1Property.value = 0;
-          this.clearTrail();
-        },
-        end: () => {
-          this.isDraggingProperty.value = false;
-          const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angle1Property.value * 180) / Math.PI, 1);
-          const template = this.a11yStrings.upperBobReleasedAtStringProperty.value;
-          const announcement = template.replace("{{angle}}", angleDegrees);
-          SimulationAnnouncer.announceDragInteraction(announcement);
+        keyboardDragListenerOptions: {
+          keyboardDragDirection: "leftRight",
+          dragDelta: 0.05,
+          shiftDragDelta: 0.01,
+          start: () => {
+            this.isDraggingProperty.value = true;
+            SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingUpperBobStringProperty.value);
+          },
+          drag: (_event, listener) => {
+            this.model.angle1Property.value += listener.modelDelta.x;
+            this.model.angularVelocity1Property.value = 0;
+            this.clearTrail();
+          },
+          end: () => {
+            this.isDraggingProperty.value = false;
+            const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angle1Property.value * 180) / Math.PI, 1);
+            const template = this.a11yStrings.upperBobReleasedAtStringProperty.value;
+            SimulationAnnouncer.announceDragInteraction(template.replace("{{angle}}", angleDegrees));
+          },
         },
       }),
     );
 
-    // Drag listener for bob 2 with accessibility announcements
     this.bob2Node.addInputListener(
-      new DragListener({
-        translateNode: false,
-        start: () => {
-          this.isDraggingProperty.value = true;
-          SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingLowerBobStringProperty.value);
+      new RichDragListener({
+        dragListenerOptions: {
+          translateNode: false,
+          start: () => {
+            this.isDraggingProperty.value = true;
+            SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingLowerBobStringProperty.value);
+          },
+          drag: (event) => {
+            const parentPoint = this.globalToLocalPoint(event.pointer.point);
+            const angle1 = this.model.angle1Property.value;
+            const length1 = this.model.length1Property.value;
+            const bob1ModelPos = new Vector2(length1 * Math.sin(angle1), length1 * Math.cos(angle1));
+            const bob1ViewPos = this.modelViewTransform!.modelToViewPosition(bob1ModelPos);
+            const delta = parentPoint.minus(bob1ViewPos);
+            const angle = Math.atan2(delta.x, delta.y);
+            this.model.angle2Property.value = angle;
+            this.model.angularVelocity2Property.value = 0;
+            this.clearTrail();
+          },
+          end: () => {
+            this.isDraggingProperty.value = false;
+            const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angle2Property.value * 180) / Math.PI, 1);
+            const template = this.a11yStrings.lowerBobReleasedAtStringProperty.value;
+            SimulationAnnouncer.announceDragInteraction(template.replace("{{angle}}", angleDegrees));
+          },
         },
-        drag: (event) => {
-          const parentPoint = this.globalToLocalPoint(event.pointer.point);
-          // Calculate position of bob 1 first
-          const angle1 = this.model.angle1Property.value;
-          const length1 = this.model.length1Property.value;
-          const bob1ModelX = length1 * Math.sin(angle1);
-          const bob1ModelY = length1 * Math.cos(angle1);
-          const bob1ModelPos = new Vector2(bob1ModelX, bob1ModelY);
-          const bob1ViewPos = this.modelViewTransform!.modelToViewPosition(bob1ModelPos);
-
-          // Calculate angle for bob 2 relative to bob 1
-          const delta = parentPoint.minus(bob1ViewPos);
-          const angle = Math.atan2(delta.x, delta.y);
-          this.model.angle2Property.value = angle;
-          this.model.angularVelocity2Property.value = 0;
-          this.clearTrail();
-        },
-        end: () => {
-          this.isDraggingProperty.value = false;
-          const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angle2Property.value * 180) / Math.PI, 1);
-          const template = this.a11yStrings.lowerBobReleasedAtStringProperty.value;
-          const announcement = template.replace("{{angle}}", angleDegrees);
-          SimulationAnnouncer.announceDragInteraction(announcement);
+        keyboardDragListenerOptions: {
+          keyboardDragDirection: "leftRight",
+          dragDelta: 0.05,
+          shiftDragDelta: 0.01,
+          start: () => {
+            this.isDraggingProperty.value = true;
+            SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingLowerBobStringProperty.value);
+          },
+          drag: (_event, listener) => {
+            this.model.angle2Property.value += listener.modelDelta.x;
+            this.model.angularVelocity2Property.value = 0;
+            this.clearTrail();
+          },
+          end: () => {
+            this.isDraggingProperty.value = false;
+            const angleDegrees = StringUtils.toFixedNumberLTR((this.model.angle2Property.value * 180) / Math.PI, 1);
+            const template = this.a11yStrings.lowerBobReleasedAtStringProperty.value;
+            SimulationAnnouncer.announceDragInteraction(template.replace("{{angle}}", angleDegrees));
+          },
         },
       }),
     );

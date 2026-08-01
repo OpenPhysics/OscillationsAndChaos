@@ -8,16 +8,7 @@ import { Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
 import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import {
-  DragListener,
-  KeyboardDragListener,
-  Line,
-  type Node,
-  Rectangle,
-  RichText,
-  Text,
-  VBox,
-} from "scenerystack/scenery";
+import { Line, type Node, Rectangle, RichDragListener, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
 import type { ScreenSummaryContent } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
@@ -184,41 +175,38 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       SimulationAnnouncer.announceDragInteraction(announcement);
     };
     this.massNode.addInputListener(
-      new DragListener({
-        translateNode: false,
-        start: (event) => {
-          // Calculate initial offset in model coordinates
-          const parentPoint = this.globalToLocalPoint(event.pointer.point);
-          const pointerModelY = this.modelViewTransform!.viewToModelY(parentPoint.y);
-          const currentModelPosition = this.model.positionProperty.value;
-          dragOffsetModel = currentModelPosition - pointerModelY;
-          SimulationAnnouncer.announceDragInteraction(a11yStrings.draggingMassStringProperty.value);
-        },
-        drag: (event) => {
-          // Apply offset in model coordinates
-          const parentPoint = this.globalToLocalPoint(event.pointer.point);
-          const pointerModelY = this.modelViewTransform!.viewToModelY(parentPoint.y);
-          this.model.positionProperty.value = pointerModelY + dragOffsetModel;
-          // Reset velocity when dragging
-          this.model.velocityProperty.value = 0;
-        },
-        end: announceMassReleased,
-      }),
-    );
-    this.massNode.addInputListener(
-      new KeyboardDragListener({
+      new RichDragListener({
         transform: this.modelViewTransform!,
-        keyboardDragDirection: "upDown",
-        dragSpeed: 80,
-        shiftDragSpeed: 30,
-        start: () => {
-          SimulationAnnouncer.announceDragInteraction(a11yStrings.draggingMassStringProperty.value);
+        dragListenerOptions: {
+          translateNode: false,
+          start: (event) => {
+            const parentPoint = this.globalToLocalPoint(event.pointer.point);
+            const pointerModelY = this.modelViewTransform!.viewToModelY(parentPoint.y);
+            const currentModelPosition = this.model.positionProperty.value;
+            dragOffsetModel = currentModelPosition - pointerModelY;
+            SimulationAnnouncer.announceDragInteraction(a11yStrings.draggingMassStringProperty.value);
+          },
+          drag: (event) => {
+            const parentPoint = this.globalToLocalPoint(event.pointer.point);
+            const pointerModelY = this.modelViewTransform!.viewToModelY(parentPoint.y);
+            this.model.positionProperty.value = pointerModelY + dragOffsetModel;
+            this.model.velocityProperty.value = 0;
+          },
+          end: announceMassReleased,
         },
-        drag: (_event, listener) => {
-          this.model.positionProperty.value += listener.modelDelta.y;
-          this.model.velocityProperty.value = 0;
+        keyboardDragListenerOptions: {
+          keyboardDragDirection: "upDown",
+          dragSpeed: 80,
+          shiftDragSpeed: 30,
+          start: () => {
+            SimulationAnnouncer.announceDragInteraction(a11yStrings.draggingMassStringProperty.value);
+          },
+          drag: (_event, listener) => {
+            this.model.positionProperty.value += listener.modelDelta.y;
+            this.model.velocityProperty.value = 0;
+          },
+          end: announceMassReleased,
         },
-        end: announceMassReleased,
       }),
     );
 

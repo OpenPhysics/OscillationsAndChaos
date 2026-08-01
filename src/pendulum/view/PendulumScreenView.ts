@@ -8,16 +8,7 @@ import { BooleanProperty, Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
 import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import {
-  Circle,
-  DragListener,
-  KeyboardDragListener,
-  Line,
-  type Node,
-  RichText,
-  Text,
-  VBox,
-} from "scenerystack/scenery";
+import { Circle, Line, type Node, RichDragListener, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode } from "scenerystack/scenery-phet";
 import type { ScreenSummaryContent } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
@@ -181,37 +172,36 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
       SimulationAnnouncer.announceDragInteraction(announcement);
     };
     this.bobNode.addInputListener(
-      new DragListener({
-        translateNode: false,
-        start: () => {
-          this.isDraggingProperty.value = true;
-          SimulationAnnouncer.announceDragInteraction("Dragging pendulum bob");
+      new RichDragListener({
+        dragListenerOptions: {
+          translateNode: false,
+          start: () => {
+            this.isDraggingProperty.value = true;
+            SimulationAnnouncer.announceDragInteraction("Dragging pendulum bob");
+          },
+          drag: (event) => {
+            const parentPoint = this.globalToLocalPoint(event.pointer.point);
+            const delta = parentPoint.minus(this.pivotPoint);
+            const angle = Math.atan2(delta.x, delta.y); // angle from vertical
+            this.model.angleProperty.value = angle;
+            this.model.angularVelocityProperty.value = 0;
+          },
+          end: announceBobReleased,
         },
-        drag: (event) => {
-          const parentPoint = this.globalToLocalPoint(event.pointer.point);
-          const delta = parentPoint.minus(this.pivotPoint);
-          const angle = Math.atan2(delta.x, delta.y); // angle from vertical
-          this.model.angleProperty.value = angle;
-          this.model.angularVelocityProperty.value = 0;
+        keyboardDragListenerOptions: {
+          keyboardDragDirection: "leftRight",
+          dragDelta: 0.05,
+          shiftDragDelta: 0.01,
+          start: () => {
+            this.isDraggingProperty.value = true;
+            SimulationAnnouncer.announceDragInteraction("Dragging pendulum bob");
+          },
+          drag: (_event, listener) => {
+            this.model.angleProperty.value += listener.modelDelta.x;
+            this.model.angularVelocityProperty.value = 0;
+          },
+          end: announceBobReleased,
         },
-        end: announceBobReleased,
-      }),
-    );
-    // Keyboard: left/right arrows change the pendulum angle (radians).
-    this.bobNode.addInputListener(
-      new KeyboardDragListener({
-        keyboardDragDirection: "leftRight",
-        dragDelta: 0.05,
-        shiftDragDelta: 0.01,
-        start: () => {
-          this.isDraggingProperty.value = true;
-          SimulationAnnouncer.announceDragInteraction("Dragging pendulum bob");
-        },
-        drag: (_event, listener) => {
-          this.model.angleProperty.value += listener.modelDelta.x;
-          this.model.angularVelocityProperty.value = 0;
-        },
-        end: announceBobReleased,
       }),
     );
 
