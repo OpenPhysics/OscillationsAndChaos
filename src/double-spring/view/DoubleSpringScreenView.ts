@@ -6,6 +6,7 @@
 import { StringUtils } from "scenerystack";
 import { Property } from "scenerystack/axon";
 import { Range, toFixed, Vector2 } from "scenerystack/dot";
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import {
   DragListener,
@@ -18,10 +19,10 @@ import {
   VBox,
 } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
-import type { ScreenSummaryContent, ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenSummaryContent } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
-import { BaseScreenView } from "../../common/view/BaseScreenView.js";
+import { BaseScreenView, type BaseScreenViewOptions } from "../../common/view/BaseScreenView.js";
 import {
   FONT_SIZE_BODY_TEXT,
   FONT_SIZE_SCREEN_TITLE,
@@ -50,6 +51,8 @@ import OscillationsAndChaosPreferences from "../../preferences/OscillationsAndCh
 import type { DoubleSpringModel } from "../model/DoubleSpringModel.js";
 import { DoubleSpringPresets } from "../model/DoubleSpringPresets.js";
 import { DoubleSpringScreenSummaryContent } from "./DoubleSpringScreenSummaryContent.js";
+
+export type DoubleSpringScreenViewOptions = BaseScreenViewOptions;
 
 export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   private readonly mass1Node: Rectangle;
@@ -80,13 +83,16 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   private readonly a11yStrings: ReturnType<StringManager["getA11yStrings"]>;
   private readonly stringManager: StringManager;
 
-  public constructor(model: DoubleSpringModel, options?: ScreenViewOptions) {
-    super(model, {
-      ...options,
-      showVelocity: false,
-      showForce: false,
-      showAcceleration: false,
-    });
+  public constructor(model: DoubleSpringModel, providedOptions?: DoubleSpringScreenViewOptions) {
+    const options = optionize<DoubleSpringScreenViewOptions, EmptySelfOptions, BaseScreenViewOptions>()(
+      {
+        showVelocity: false,
+        showForce: false,
+        showAcceleration: false,
+      },
+      providedOptions,
+    );
+    super(model, options);
 
     // Get available presets
     this.presets = DoubleSpringPresets.getPresets();

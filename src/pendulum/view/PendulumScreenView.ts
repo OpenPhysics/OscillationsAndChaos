@@ -6,6 +6,7 @@
 import { PhetFont, StringUtils } from "scenerystack";
 import { BooleanProperty, Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import {
   Circle,
@@ -18,10 +19,10 @@ import {
   VBox,
 } from "scenerystack/scenery";
 import { FormulaNode } from "scenerystack/scenery-phet";
-import type { ScreenSummaryContent, ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenSummaryContent } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
-import { BaseScreenView } from "../../common/view/BaseScreenView.js";
+import { BaseScreenView, type BaseScreenViewOptions } from "../../common/view/BaseScreenView.js";
 import {
   FONT_SIZE_BODY_TEXT,
   FONT_SIZE_SCREEN_TITLE,
@@ -40,6 +41,8 @@ import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.j
 import type { PendulumModel } from "../model/PendulumModel.js";
 import { PendulumPresets } from "../model/PendulumPresets.js";
 import { PendulumScreenSummaryContent } from "./PendulumScreenSummaryContent.js";
+
+export type PendulumScreenViewOptions = BaseScreenViewOptions;
 
 export class PendulumScreenView extends BaseScreenView<PendulumModel> {
   private readonly bobNode: Circle;
@@ -63,7 +66,11 @@ export class PendulumScreenView extends BaseScreenView<PendulumModel> {
   private readonly a11yStrings: ReturnType<StringManager["getA11yStrings"]>;
   private readonly stringManager: StringManager;
 
-  public constructor(model: PendulumModel, options?: ScreenViewOptions) {
+  public constructor(model: PendulumModel, providedOptions?: PendulumScreenViewOptions) {
+    const options = optionize<PendulumScreenViewOptions, EmptySelfOptions, BaseScreenViewOptions>()(
+      {},
+      providedOptions,
+    );
     super(model, options);
 
     // Get available presets

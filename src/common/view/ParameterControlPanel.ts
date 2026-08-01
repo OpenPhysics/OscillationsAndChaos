@@ -8,6 +8,7 @@
 
 import type { NumberProperty, Property, TReadOnlyProperty } from "scenerystack/axon";
 import type { Range } from "scenerystack/dot";
+import { optionize } from "scenerystack/phet-core";
 import { HBox, type Node, type TColor, Text, VBox } from "scenerystack/scenery";
 import { NumberControl, type NumberControlOptions, PhetFont } from "scenerystack/scenery-phet";
 import { Panel, type PanelOptions } from "scenerystack/sun";
@@ -68,16 +69,32 @@ export type ParameterControlPanelOptions = SelfOptions & PanelOptions;
  * This class reduces boilerplate by providing a common pattern for all screen views.
  */
 export class ParameterControlPanel extends Panel {
-  public constructor(options: ParameterControlPanelOptions) {
-    // Create preset selector using factory
-    const presetSelector = createPresetSelector(
-      options.presetProperty,
-      options.presets,
-      options.customLabelProperty,
-      options.listParent,
+  public constructor(providedOptions: ParameterControlPanelOptions) {
+    const options = optionize<ParameterControlPanelOptions, SelfOptions, PanelOptions>()(
+      {
+        xMargin: PANEL_MARGIN_X,
+        yMargin: PANEL_MARGIN_Y,
+        fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+        stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+        cornerRadius: 5,
+      },
+      providedOptions,
     );
 
-    const presetLabel = new Text(options.presetLabelProperty, {
+    const {
+      presetProperty,
+      presets,
+      customLabelProperty,
+      presetLabelProperty,
+      listParent,
+      parameters,
+      ...panelOptions
+    } = options;
+
+    // Create preset selector using factory
+    const presetSelector = createPresetSelector(presetProperty, presets, customLabelProperty, listParent);
+
+    const presetLabel = new Text(presetLabelProperty, {
       font: new PhetFont({ size: FONT_SIZE_SECONDARY_LABEL }),
       fill: OscillationsAndChaosColors.textColorProperty,
     });
@@ -88,7 +105,7 @@ export class ParameterControlPanel extends Panel {
     });
 
     // Create parameter controls
-    const parameterControls = options.parameters.map((paramConfig) => {
+    const parameterControls = parameters.map((paramConfig) => {
       const controlOptions: NumberControlOptions = {
         delta: paramConfig.delta,
         numberDisplayOptions: {
@@ -121,13 +138,7 @@ export class ParameterControlPanel extends Panel {
     });
 
     // Create panel with standard styling
-    super(content, {
-      xMargin: PANEL_MARGIN_X,
-      yMargin: PANEL_MARGIN_Y,
-      fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
-      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
-      cornerRadius: 5,
-    });
+    super(content, panelOptions);
   }
 }
 

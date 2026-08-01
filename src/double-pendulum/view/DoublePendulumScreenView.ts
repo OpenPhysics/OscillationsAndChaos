@@ -7,6 +7,7 @@ import { StringUtils } from "scenerystack";
 import { BooleanProperty, Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import {
   Circle,
@@ -20,10 +21,10 @@ import {
   VBox,
 } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
-import type { ScreenSummaryContent, ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenSummaryContent } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
-import { BaseScreenView } from "../../common/view/BaseScreenView.js";
+import { BaseScreenView, type BaseScreenViewOptions } from "../../common/view/BaseScreenView.js";
 import {
   FONT_SIZE_BODY_TEXT,
   FONT_SIZE_SCREEN_TITLE,
@@ -42,6 +43,8 @@ import OscillationsAndChaosNamespace from "../../OscillationsAndChaosNamespace.j
 import type { DoublePendulumModel } from "../model/DoublePendulumModel.js";
 import { DoublePendulumPresets } from "../model/DoublePendulumPresets.js";
 import { DoublePendulumScreenSummaryContent } from "./DoublePendulumScreenSummaryContent.js";
+
+export type DoublePendulumScreenViewOptions = BaseScreenViewOptions;
 
 export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel> {
   private readonly bob1Node: Circle;
@@ -76,7 +79,11 @@ export class DoublePendulumScreenView extends BaseScreenView<DoublePendulumModel
   private readonly a11yStrings: ReturnType<StringManager["getA11yStrings"]>;
   private readonly stringManager: StringManager;
 
-  public constructor(model: DoublePendulumModel, options?: ScreenViewOptions) {
+  public constructor(model: DoublePendulumModel, providedOptions?: DoublePendulumScreenViewOptions) {
+    const options = optionize<DoublePendulumScreenViewOptions, EmptySelfOptions, BaseScreenViewOptions>()(
+      {},
+      providedOptions,
+    );
     super(model, options);
 
     // Get accessibility strings for announcements

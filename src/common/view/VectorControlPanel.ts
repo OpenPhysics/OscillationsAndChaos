@@ -9,6 +9,7 @@
 
 import { PhetFont } from "scenerystack";
 import type { BooleanProperty, ReadOnlyProperty } from "scenerystack/axon";
+import { optionize } from "scenerystack/phet-core";
 import { HBox, Text, VBox } from "scenerystack/scenery";
 import { ArrowNode, PhetColorScheme } from "scenerystack/scenery-phet";
 import { Checkbox, Panel, type PanelOptions } from "scenerystack/sun";
@@ -48,13 +49,26 @@ type SelfOptions = {
 export type VectorControlPanelOptions = SelfOptions & PanelOptions;
 
 export class VectorControlPanel extends Panel {
-  public constructor(options: VectorControlPanelOptions) {
+  public constructor(providedOptions: VectorControlPanelOptions) {
+    const options = optionize<VectorControlPanelOptions, SelfOptions, PanelOptions>()(
+      {
+        xMargin: 10,
+        yMargin: 8,
+        fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
+        stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
+        cornerRadius: 5,
+      },
+      providedOptions,
+    );
+
+    const { velocity, force, acceleration, ...panelOptions } = options;
+
     const velocityCheckbox = new Checkbox(
-      options.velocity.showProperty,
+      velocity.showProperty,
       new HBox({
         spacing: 5,
         children: [
-          new Text(options.velocity.labelProperty, {
+          new Text(velocity.labelProperty, {
             font: new PhetFont({ size: 12 }),
             fill: OscillationsAndChaosColors.textColorProperty,
           }),
@@ -75,11 +89,11 @@ export class VectorControlPanel extends Panel {
     );
 
     const forceCheckbox = new Checkbox(
-      options.force.showProperty,
+      force.showProperty,
       new HBox({
         spacing: 5,
         children: [
-          new Text(options.force.labelProperty, {
+          new Text(force.labelProperty, {
             font: new PhetFont({ size: 12 }),
             fill: OscillationsAndChaosColors.textColorProperty,
           }),
@@ -100,11 +114,11 @@ export class VectorControlPanel extends Panel {
     );
 
     const accelerationCheckbox = new Checkbox(
-      options.acceleration.showProperty,
+      acceleration.showProperty,
       new HBox({
         spacing: 5,
         children: [
-          new Text(options.acceleration.labelProperty, {
+          new Text(acceleration.labelProperty, {
             font: new PhetFont({ size: 12 }),
             fill: OscillationsAndChaosColors.textColorProperty,
           }),
@@ -130,36 +144,28 @@ export class VectorControlPanel extends Panel {
       children: [velocityCheckbox, forceCheckbox, accelerationCheckbox],
     });
 
-    super(content, {
-      xMargin: 10,
-      yMargin: 8,
-      fill: OscillationsAndChaosColors.controlPanelBackgroundColorProperty,
-      stroke: OscillationsAndChaosColors.controlPanelStrokeColorProperty,
-      cornerRadius: 5,
-    });
+    super(content, panelOptions);
 
     // Add accessibility announcements for vector visibility changes
-    options.velocity.showProperty.lazyLink((showVelocity) => {
+    velocity.showProperty.lazyLink((showVelocity) => {
       if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
-        const announcement = showVelocity
-          ? options.velocity.a11yStrings.shown.value
-          : options.velocity.a11yStrings.hidden.value;
+        const announcement = showVelocity ? velocity.a11yStrings.shown.value : velocity.a11yStrings.hidden.value;
         SimulationAnnouncer.announceSimulationState(announcement);
       }
     });
 
-    options.force.showProperty.lazyLink((showForce) => {
+    force.showProperty.lazyLink((showForce) => {
       if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
-        const announcement = showForce ? options.force.a11yStrings.shown.value : options.force.a11yStrings.hidden.value;
+        const announcement = showForce ? force.a11yStrings.shown.value : force.a11yStrings.hidden.value;
         SimulationAnnouncer.announceSimulationState(announcement);
       }
     });
 
-    options.acceleration.showProperty.lazyLink((showAcceleration) => {
+    acceleration.showProperty.lazyLink((showAcceleration) => {
       if (OscillationsAndChaosPreferences.announceStateChangesProperty.value) {
         const announcement = showAcceleration
-          ? options.acceleration.a11yStrings.shown.value
-          : options.acceleration.a11yStrings.hidden.value;
+          ? acceleration.a11yStrings.shown.value
+          : acceleration.a11yStrings.hidden.value;
         SimulationAnnouncer.announceSimulationState(announcement);
       }
     });

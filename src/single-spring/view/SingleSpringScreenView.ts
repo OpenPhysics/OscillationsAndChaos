@@ -6,6 +6,7 @@
 import { StringUtils } from "scenerystack";
 import { Property } from "scenerystack/axon";
 import { Range, Vector2 } from "scenerystack/dot";
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import {
   DragListener,
@@ -18,10 +19,10 @@ import {
   VBox,
 } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
-import type { ScreenSummaryContent, ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenSummaryContent } from "scenerystack/sim";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
-import { BaseScreenView } from "../../common/view/BaseScreenView.js";
+import { BaseScreenView, type BaseScreenViewOptions } from "../../common/view/BaseScreenView.js";
 import {
   FONT_SIZE_BODY_TEXT,
   FONT_SIZE_SCREEN_TITLE,
@@ -51,6 +52,8 @@ import type { SingleSpringModel } from "../model/SingleSpringModel.js";
 import { SingleSpringPresets } from "../model/SingleSpringPresets.js";
 import { SingleSpringScreenSummaryContent } from "./SingleSpringScreenSummaryContent.js";
 
+export type SingleSpringScreenViewOptions = BaseScreenViewOptions;
+
 export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
   private readonly massNode: Rectangle;
   private readonly massReferenceLine: Line; // Horizontal line showing center of mass position
@@ -67,13 +70,16 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
   private readonly forceVectorNode: VectorNode;
   private readonly accelerationVectorNode: VectorNode;
 
-  public constructor(model: SingleSpringModel, options?: ScreenViewOptions) {
-    super(model, {
-      ...options,
-      showVelocity: false,
-      showForce: false,
-      showAcceleration: false,
-    });
+  public constructor(model: SingleSpringModel, providedOptions?: SingleSpringScreenViewOptions) {
+    const options = optionize<SingleSpringScreenViewOptions, EmptySelfOptions, BaseScreenViewOptions>()(
+      {
+        showVelocity: false,
+        showForce: false,
+        showAcceleration: false,
+      },
+      providedOptions,
+    );
+    super(model, options);
 
     // Get available presets
     this.presets = SingleSpringPresets.getPresets();

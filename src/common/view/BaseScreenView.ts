@@ -24,6 +24,7 @@ import {
   type TReadOnlyProperty,
 } from "scenerystack/axon";
 import { Bounds2, type Range, Vector2 } from "scenerystack/dot";
+import { optionize } from "scenerystack/phet-core";
 import type { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { HBox, KeyboardListener, type Node, Text, VBox } from "scenerystack/scenery";
 import {
@@ -76,7 +77,7 @@ export type TimeControllableModel = {
  * Self options for BaseScreenView - options specific to this class.
  * These control the initial visibility state of vector visualizations.
  */
-type SelfOptions = {
+type BaseScreenViewSelfOptions = {
   /** Initial visibility of velocity vectors */
   showVelocity?: boolean;
   /** Initial visibility of force vectors */
@@ -89,7 +90,7 @@ type SelfOptions = {
  * Options for BaseScreenView constructor.
  * Combines self options with parent ScreenViewOptions.
  */
-export type BaseScreenViewOptions = SelfOptions & ScreenViewOptions;
+export type BaseScreenViewOptions = BaseScreenViewSelfOptions & ScreenViewOptions;
 
 /**
  * Type definition for control panel parameters.
@@ -148,14 +149,22 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
   protected vectorPanel: Node | null = null;
   protected toolsPanel: Node | null = null;
 
-  protected constructor(model: T, options?: BaseScreenViewOptions) {
+  protected constructor(model: T, providedOptions?: BaseScreenViewOptions) {
+    const options = optionize<BaseScreenViewOptions, BaseScreenViewSelfOptions, ScreenViewOptions>()(
+      {
+        showVelocity: false,
+        showForce: false,
+        showAcceleration: false,
+      },
+      providedOptions,
+    );
     super(options);
     this.model = model;
 
     // Initialize vector visualization properties with provided initial values
-    this.showVelocityProperty = new BooleanProperty(options?.showVelocity ?? false);
-    this.showForceProperty = new BooleanProperty(options?.showForce ?? false);
-    this.showAccelerationProperty = new BooleanProperty(options?.showAcceleration ?? false);
+    this.showVelocityProperty = new BooleanProperty(options.showVelocity);
+    this.showForceProperty = new BooleanProperty(options.showForce);
+    this.showAccelerationProperty = new BooleanProperty(options.showAcceleration);
 
     // Set up Page Visibility API to handle tab switching
     this.setupPageVisibilityListener();
