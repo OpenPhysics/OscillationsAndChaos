@@ -1,5 +1,7 @@
 # Oscillations And Chaos
 
+[![CI](https://github.com/OpenPhysics/OscillationsAndChaos/actions/workflows/ci.yml/badge.svg)](https://github.com/OpenPhysics/OscillationsAndChaos/actions/workflows/ci.yml)
+
 A collection of four classical mechanics simulations built with [SceneryStack](https://scenerystack.org/).
 Explore oscillations, coupled systems, and chaotic dynamics through real-time, physics-based models.
 
