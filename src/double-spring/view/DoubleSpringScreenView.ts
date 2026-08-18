@@ -163,8 +163,16 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     this.currentSpring1Node = useParametric ? this.parametricSpring1Node : this.classicSpring1Node;
     this.currentSpring2Node = useParametric ? this.parametricSpring2Node : this.classicSpring2Node;
 
-    this.addChild(this.currentSpring1Node);
-    this.addChild(this.currentSpring2Node);
+    // Keep both styles in the graph and toggle visibility — do not add/remove children
+    // on preference change (mass nodes are on pdomPlayAreaNode, so insert-before-mass is -1).
+    this.addChild(this.classicSpring1Node);
+    this.addChild(this.parametricSpring1Node);
+    this.addChild(this.classicSpring2Node);
+    this.addChild(this.parametricSpring2Node);
+    this.classicSpring1Node.visible = !useParametric;
+    this.parametricSpring1Node.visible = useParametric;
+    this.classicSpring2Node.visible = !useParametric;
+    this.parametricSpring2Node.visible = useParametric;
 
     // Link spring constants to visual appearance
     this.model.springConstant1Property.link((k) => {
@@ -260,7 +268,9 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           drag: (event) => {
             const parentPoint = this.globalToLocalPoint(event.pointer.point);
             const pointerModelY = this.modelViewTransform!.viewToModelY(parentPoint.y);
-            this.model.position1Property.value = pointerModelY + dragOffsetModel1;
+            this.model.position1Property.value = this.model.position1Property.rangeProperty.value.constrainValue(
+              pointerModelY + dragOffsetModel1,
+            );
             this.model.velocity1Property.value = 0;
           },
           end: announceMass1Released,
@@ -273,7 +283,9 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
             SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingMass1StringProperty.value);
           },
           drag: (_event, listener) => {
-            this.model.position1Property.value += listener.modelDelta.y;
+            this.model.position1Property.value = this.model.position1Property.rangeProperty.value.constrainValue(
+              this.model.position1Property.value + listener.modelDelta.y,
+            );
             this.model.velocity1Property.value = 0;
           },
           end: announceMass1Released,
@@ -302,7 +314,9 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
           drag: (event) => {
             const parentPoint = this.globalToLocalPoint(event.pointer.point);
             const pointerModelY = this.modelViewTransform!.viewToModelY(parentPoint.y);
-            this.model.position2Property.value = pointerModelY + dragOffsetModel2;
+            this.model.position2Property.value = this.model.position2Property.rangeProperty.value.constrainValue(
+              pointerModelY + dragOffsetModel2,
+            );
             this.model.velocity2Property.value = 0;
           },
           end: announceMass2Released,
@@ -315,7 +329,9 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
             SimulationAnnouncer.announceDragInteraction(this.a11yStrings.draggingMass2StringProperty.value);
           },
           drag: (_event, listener) => {
-            this.model.position2Property.value += listener.modelDelta.y;
+            this.model.position2Property.value = this.model.position2Property.rangeProperty.value.constrainValue(
+              this.model.position2Property.value + listener.modelDelta.y,
+            );
             this.model.velocity2Property.value = 0;
           },
           end: announceMass2Released,
@@ -328,12 +344,6 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     this.model.position2Property.link(() => this.updateVisualization());
     this.model.naturalLength1Property.link(() => this.updateVisualization());
     this.model.naturalLength2Property.link(() => this.updateVisualization());
-
-    // Listen to spring visualization preference changes
-    // Using lazyLink to avoid triggering during initialization
-    OscillationsAndChaosPreferences.springVisualizationTypeProperty.lazyLink((springType) => {
-      this.switchSpringVisualization(springType);
-    });
 
     // Create vector nodes using factory
     const vectors1 = VectorNodeFactory.createVectorNodes("₁");
@@ -510,8 +520,10 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
     // Manage z-order using base class method
     this.manageZOrder(
       [
-        this.currentSpring1Node,
-        this.currentSpring2Node,
+        this.classicSpring1Node,
+        this.parametricSpring1Node,
+        this.classicSpring2Node,
+        this.parametricSpring2Node,
         this.mass1Node,
         this.mass1ReferenceLine,
         this.mass2Node,
@@ -609,24 +621,17 @@ export class DoubleSpringScreenView extends BaseScreenView<DoubleSpringModel> {
   }
 
   /**
-   * Switch between classic and parametric spring visualization.
+   * Switch between classic and parametric spring visualization without mutating children.
    */
   private switchSpringVisualization(springType: SpringVisualizationType): void {
-    // Remove current spring nodes
-    this.removeChild(this.currentSpring1Node);
-    this.removeChild(this.currentSpring2Node);
-
-    // Switch to new spring nodes
     const useParametric = springType === SpringVisualizationType.PARAMETRIC;
     this.currentSpring1Node = useParametric ? this.parametricSpring1Node : this.classicSpring1Node;
     this.currentSpring2Node = useParametric ? this.parametricSpring2Node : this.classicSpring2Node;
+    this.classicSpring1Node.visible = !useParametric;
+    this.parametricSpring1Node.visible = useParametric;
+    this.classicSpring2Node.visible = !useParametric;
+    this.parametricSpring2Node.visible = useParametric;
 
-    // Add new spring nodes (insert before mass nodes to maintain z-order)
-    const mass1Index = this.indexOfChild(this.mass1Node);
-    this.insertChild(mass1Index, this.currentSpring1Node);
-    this.insertChild(mass1Index, this.currentSpring2Node);
-
-    // Update the new spring nodes to match current state
     this.updateSpring1Appearance(this.model.springConstant1Property.value);
     this.updateSpring2Appearance(this.model.springConstant2Property.value);
     this.updateVisualization();

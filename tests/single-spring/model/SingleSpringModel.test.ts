@@ -48,4 +48,16 @@ describe("SingleSpringModel", () => {
 
     expect(model.velocityProperty.value).not.toBeCloseTo(0, 6);
   });
+
+  it("clamps integrated position to the NumberProperty range", () => {
+    model = new SingleSpringModel();
+    model.isPlayingProperty.value = false;
+    model.positionProperty.value = 5;
+    model.velocityProperty.value = 20;
+
+    model.step(0.05, true);
+
+    expect(model.positionProperty.value).toBeLessThanOrEqual(5);
+    expect(model.positionProperty.value).toBeGreaterThanOrEqual(-5);
+  });
 });

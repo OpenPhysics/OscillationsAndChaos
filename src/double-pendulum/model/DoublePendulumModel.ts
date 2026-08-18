@@ -48,16 +48,13 @@ export class DoublePendulumModel extends BaseModel {
   public constructor() {
     super();
 
-    // Initialize state (both start at 90 degrees)
-    this.angle1Property = new NumberProperty(Math.PI / 2, {
-      range: new Range(-Math.PI, Math.PI),
-    });
+    // Initialize state (both start at 90 degrees). No Range: chaotic looping must
+    // be allowed to pass ±π; a finite range would clamp and freeze the motion.
+    this.angle1Property = new NumberProperty(Math.PI / 2);
 
     this.angularVelocity1Property = new NumberProperty(0.0);
 
-    this.angle2Property = new NumberProperty(Math.PI / 2, {
-      range: new Range(-Math.PI, Math.PI),
-    });
+    this.angle2Property = new NumberProperty(Math.PI / 2);
 
     this.angularVelocity2Property = new NumberProperty(0.0);
 

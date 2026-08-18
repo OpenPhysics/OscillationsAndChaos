@@ -52,7 +52,9 @@ export class StatePropertyMapper {
       if (!Number.isFinite(value)) {
         throw new Error(`Invalid state value at index ${i}: ${value} (must be a finite number)`);
       }
-      property.value = value;
+      // Physics can step past a NumberProperty range (e.g. drag + integration). Clamp so
+      // assignment never fails range validation; unbounded properties use Range.EVERYTHING.
+      property.value = property.rangeProperty.value.constrainValue(value);
     }
   }
 

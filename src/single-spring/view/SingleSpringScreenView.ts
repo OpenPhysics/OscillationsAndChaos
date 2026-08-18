@@ -122,13 +122,18 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
       rightEndLength: SPRING_RIGHT_END_LENGTH,
     });
 
-    // Set initial spring node based on preference
+    // Keep both spring nodes in the graph and toggle visibility. Adding/removing children
+    // on preference change mutates the scene graph during input/paint (insertChild at -1
+    // because massNode lives on pdomPlayAreaNode, plus syncTree / EnumerationProperty reentry).
+    this.addChild(this.classicSpringNode);
+    this.addChild(this.parametricSpringNode);
+
     this.currentSpringNode =
       OscillationsAndChaosPreferences.springVisualizationTypeProperty.value === SpringVisualizationType.PARAMETRIC
         ? this.parametricSpringNode
         : this.classicSpringNode;
-
-    this.addChild(this.currentSpringNode);
+    this.classicSpringNode.visible = this.currentSpringNode === this.classicSpringNode;
+    this.parametricSpringNode.visible = this.currentSpringNode === this.parametricSpringNode;
 
     // Link spring constant to visual appearance
     this.model.springConstantProperty.link((k) => {
@@ -189,7 +194,9 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
           drag: (event) => {
             const parentPoint = this.globalToLocalPoint(event.pointer.point);
             const pointerModelY = this.modelViewTransform!.viewToModelY(parentPoint.y);
-            this.model.positionProperty.value = pointerModelY + dragOffsetModel;
+            this.model.positionProperty.value = this.model.positionProperty.rangeProperty.value.constrainValue(
+              pointerModelY + dragOffsetModel,
+            );
             this.model.velocityProperty.value = 0;
           },
           end: announceMassReleased,
@@ -202,7 +209,9 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
             SimulationAnnouncer.announceDragInteraction(a11yStrings.draggingMassStringProperty.value);
           },
           drag: (_event, listener) => {
-            this.model.positionProperty.value += listener.modelDelta.y;
+            this.model.positionProperty.value = this.model.positionProperty.rangeProperty.value.constrainValue(
+              this.model.positionProperty.value + listener.modelDelta.y,
+            );
             this.model.velocityProperty.value = 0;
           },
           end: announceMassReleased,
@@ -361,7 +370,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
 
     // Manage z-order using base class method
     this.manageZOrder(
-      [this.currentSpringNode, this.massNode, this.massReferenceLine],
+      [this.classicSpringNode, this.parametricSpringNode, this.massNode, this.massReferenceLine],
       [this.velocityVectorNode, this.forceVectorNode, this.accelerationVectorNode],
     );
 
@@ -421,21 +430,14 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
   }
 
   /**
-   * Switch between classic and parametric spring visualization.
+   * Switch between classic and parametric spring visualization without mutating children.
    */
   private switchSpringVisualization(springType: SpringVisualizationType): void {
-    // Remove current spring node
-    this.removeChild(this.currentSpringNode);
-
-    // Switch to new spring node
     this.currentSpringNode =
       springType === SpringVisualizationType.PARAMETRIC ? this.parametricSpringNode : this.classicSpringNode;
+    this.classicSpringNode.visible = this.currentSpringNode === this.classicSpringNode;
+    this.parametricSpringNode.visible = this.currentSpringNode === this.parametricSpringNode;
 
-    // Add new spring node (insert before mass node to maintain z-order)
-    const massIndex = this.indexOfChild(this.massNode);
-    this.insertChild(massIndex, this.currentSpringNode);
-
-    // Update the new spring node to match current state
     this.updateSpringAppearance(this.model.springConstantProperty.value);
     this.updateVisualization(this.model.positionProperty.value);
   }
