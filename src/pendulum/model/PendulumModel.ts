@@ -47,10 +47,9 @@ export class PendulumModel extends BaseModel {
   public constructor() {
     super();
 
-    // Initialize state (start at 45 degrees)
-    this.angleProperty = new NumberProperty(Math.PI / 4, {
-      range: new Range(-Math.PI, Math.PI),
-    });
+    // Initialize state (start at 45 degrees). No Range: angles are cyclic and the
+    // integrator / keyboard drag can pass ±π; a finite range would halt looping motion.
+    this.angleProperty = new NumberProperty(Math.PI / 4);
 
     this.angularVelocityProperty = new NumberProperty(0.0);
 
