@@ -11,6 +11,7 @@ import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Line, type Node, Rectangle, RichDragListener, RichText, Text, VBox } from "scenerystack/scenery";
 import { FormulaNode, PhetFont } from "scenerystack/scenery-phet";
 import type { ScreenSummaryContent } from "scenerystack/sim";
+import { addConstrainedPropertyDelta, setConstrainedPropertyValue } from "../../common/constrainPropertyValue.js";
 import type { Preset } from "../../common/model/Preset.js";
 import SimulationAnnouncer from "../../common/util/SimulationAnnouncer.js";
 import { BaseScreenView, type BaseScreenViewOptions } from "../../common/view/BaseScreenView.js";
@@ -189,7 +190,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
           drag: (event) => {
             const parentPoint = this.globalToLocalPoint(event.pointer.point);
             const pointerModelY = this.modelViewTransform!.viewToModelY(parentPoint.y);
-            this.model.positionProperty.value = pointerModelY + dragOffsetModel;
+            setConstrainedPropertyValue(this.model.positionProperty, pointerModelY + dragOffsetModel);
             this.model.velocityProperty.value = 0;
           },
           end: announceMassReleased,
@@ -202,7 +203,7 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
             SimulationAnnouncer.announceDragInteraction(a11yStrings.draggingMassStringProperty.value);
           },
           drag: (_event, listener) => {
-            this.model.positionProperty.value += listener.modelDelta.y;
+            addConstrainedPropertyDelta(this.model.positionProperty, listener.modelDelta.y);
             this.model.velocityProperty.value = 0;
           },
           end: announceMassReleased,
@@ -424,16 +425,25 @@ export class SingleSpringScreenView extends BaseScreenView<SingleSpringModel> {
    * Switch between classic and parametric spring visualization.
    */
   private switchSpringVisualization(springType: SpringVisualizationType): void {
-    // Remove current spring node
-    this.removeChild(this.currentSpringNode);
-
-    // Switch to new spring node
-    this.currentSpringNode =
+    const nextSpringNode =
       springType === SpringVisualizationType.PARAMETRIC ? this.parametricSpringNode : this.classicSpringNode;
 
-    // Add new spring node (insert before mass node to maintain z-order)
+    if (nextSpringNode === this.currentSpringNode && this.hasChild(nextSpringNode)) {
+      return;
+    }
+
+    if (this.hasChild(this.currentSpringNode)) {
+      this.removeChild(this.currentSpringNode);
+    }
+
+    this.currentSpringNode = nextSpringNode;
+
     const massIndex = this.indexOfChild(this.massNode);
-    this.insertChild(massIndex, this.currentSpringNode);
+    if (massIndex >= 0) {
+      this.insertChild(massIndex, this.currentSpringNode);
+    } else {
+      this.addChild(this.currentSpringNode);
+    }
 
     // Update the new spring node to match current state
     this.updateSpringAppearance(this.model.springConstantProperty.value);

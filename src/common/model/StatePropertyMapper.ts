@@ -52,7 +52,8 @@ export class StatePropertyMapper {
       if (!Number.isFinite(value)) {
         throw new Error(`Invalid state value at index ${i}: ${value} (must be a finite number)`);
       }
-      property.value = value;
+      // Integration can overshoot a NumberProperty range; constrain before assignment.
+      property.value = property.rangeProperty.value.constrainValue(value);
     }
   }
 
