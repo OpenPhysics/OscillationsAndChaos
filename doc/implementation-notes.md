@@ -70,7 +70,7 @@ parameters. Presets implement the shared `Preset` interface for the combo box in
 
 ## Accessibility
 
-Follows [Baton/ACCESSIBILITY.md](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
+Follows [Baton/ACCESSIBILITY.md](https://github.com/OpenLyceum/Baton/blob/main/ACCESSIBILITY.md).
 A11y strings under `accessibility` / `screenSummary` in locale JSON via
 `StringManager.getAccessibilityStrings()` and per-screen `get*ScreenSummaryStrings()`. Interactive
 masses/bobs go on `pdomPlayAreaNode`.

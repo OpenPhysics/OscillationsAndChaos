@@ -1,6 +1,6 @@
 # CLAUDE.md — Oscillations And Chaos
 
-Sim-specific context for AI assistants. General SceneryStack guidance: [OpenPhysics/.github/CLAUDE.md](https://github.com/OpenPhysics/.github/blob/main/CLAUDE.md).
+Sim-specific context for AI assistants. General SceneryStack guidance: [OpenLyceum/.github/CLAUDE.md](https://github.com/OpenLyceum/.github/blob/main/CLAUDE.md).
 
 ## Project
 
@@ -43,7 +43,7 @@ Shared code uses the `OscillationsAndChaos` prefix. Concept-named folders, no `-
 
 ## Accessibility
 
-Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
+Follows the shared [OpenLyceum accessibility convention](https://github.com/OpenLyceum/Baton/blob/main/ACCESSIBILITY.md).
 Each screen has a dedicated `*ScreenSummaryContent.ts` under its `view/` folder; `BaseScreenView.setupScreenSummary()`
 registers it via `createScreenSummaryContent()`. Current-details paragraphs are live `DerivedProperty`s over model
 state (from `voicing.*.details` templates). PDOM order uses `pdomPlayAreaNode` for interactive masses/bobs. A11y

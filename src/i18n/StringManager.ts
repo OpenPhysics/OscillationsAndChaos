@@ -45,7 +45,7 @@ export class StringManager {
 
   /**
    * Accessible names for interactive controls (draggable bodies, graph
-   * pan/zoom buttons, axis/preset selectors). See the shared OpenPhysics
+   * pan/zoom buttons, axis/preset selectors). See the shared OpenLyceum
    * ACCESSIBILITY.md convention.
    */
   public getControlAccessibleNames() {

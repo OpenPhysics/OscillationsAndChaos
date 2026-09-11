@@ -375,7 +375,7 @@ export abstract class BaseScreenView<T extends TimeControllableModel> extends Sc
    * Call this early in the subclass constructor after the screen-specific setup.
    *
    * Each screen returns a dedicated `*ScreenSummaryContent` (play-area / control-area
-   * / current-details / interaction-hint regions) following the shared OpenPhysics
+   * / current-details / interaction-hint regions) following the shared OpenLyceum
    * accessibility convention; see SceneryStackTemplate/SimScreenSummaryContent.ts.
    */
   protected setupScreenSummary(): void {
